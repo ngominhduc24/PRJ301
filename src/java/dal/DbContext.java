@@ -15,12 +15,11 @@ import java.sql.SQLException;
 public class DbContext {
     protected Connection connection;
 
-    public DbContext()
-    {
+    public DbContext() {
         try {
             String user = "sa";
             String pass = "123456";
-            String url = "jdbc:sqlserver://localhost:1433;databaseName= ass";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=prj192";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException | SQLException ex) {
