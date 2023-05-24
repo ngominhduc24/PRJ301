@@ -9,10 +9,6 @@ package model;
  * @author ASUS PC
  */
 public class Category {
-    // create table Category (
-    // CategoryID int not null primary key,
-    // Name varchar(50) not null
-    // );
     private int categoryID;
     private String name;
 
