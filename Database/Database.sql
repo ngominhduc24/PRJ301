@@ -15,7 +15,7 @@ create table Account (
     Name varchar(50) not null,
     Phone varchar(50) not null,
     Address varchar(50),
-    Role int not null -- 1: admin, 2: user
+    Role int not null -- 1: admin, 2: user, 3:staff
 );
 GO
 
