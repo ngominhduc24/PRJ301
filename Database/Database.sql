@@ -1,11 +1,11 @@
-if exists (select * from sys.databases where name = 'prj192')
-    drop database prj192
+if exists (select * from sys.databases where name = 'prj301')
+    drop database prj301
 GO
 
-create database prj192
+create database prj301
 GO
 
-use prj192
+use prj301
 GO
 
 create table Account (
@@ -40,7 +40,7 @@ create table Product (
     Name varchar(50) not null,
     Price int not null,
     Description varchar(50) not null,
-    Image varchar(50) not null,
+    Image varchar(500) not null,
     CategoryID int not null,
     foreign key (CategoryID) references Category(CategoryID)
 );
@@ -73,26 +73,26 @@ insert into Category values (4, 'Drink');
 insert into Category values (5, 'Combo');
 
 -- type 1: Chicken
-insert into Product values (1, 'Mala Chicken', 40, 'Chicken made by Mala', 'chicken_burger.jpg', 1);
-insert into Product values (2, 'Mala Family (3Pcs)', 100, 'Combo 3 Pcs Mala Chicken', 'chicken_burger.jpg', 1);
-insert into Product values (3, 'Chicken Cheese', 40, '', 'Chicken_burger.jpg', 1);
-insert into Product values (4, 'Cheese Family (6Pcs)', 40, 'Combo 6Pcs Chicken Cheese', 'chicken_burger.jpg', 1);
-insert into Product values (5, 'Grilled Chicken', 40, '', 'Chicken_burger.jpg', 1);
+insert into Product values (1, 'Mala Chicken', 40, 'Chicken made by Mala', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/p/a/pack_loking_set_2.png', 1);
+insert into Product values (2, 'Mala Family (3Pcs)', 100, 'Combo 3 Pcs Mala Chicken', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/c/h/chicken_ga_tuyet_vang.png', 1);
+insert into Product values (3, 'Chicken Cheese', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/e/menu_spaghetti_1.png', 1);
+insert into Product values (4, 'Cheese Family (6Pcs)', 40, 'Combo 6Pcs Chicken Cheese', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/e/menu_spaghetti_1.png', 1);
+insert into Product values (5, 'Grilled Chicken', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/d/e/dessert-534x374px_squid-ring_2.png', 1);
 
 -- type 2: Burger
-insert into Product values (6, 'Beef Burger', 33, '', 'burger.jpg', 2);
-insert into Product values (7, 'Fish Burger', 40, '', 'burger.jpg', 2);
-insert into Product values (8, 'Shrimp Burger', 48, '', 'burger.jpg', 2);
+insert into Product values (6, 'Beef Burger', 33, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/d/e/dessert-534x374px_chicken-skewer_2.png', 2);
+insert into Product values (7, 'Fish Burger', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/v/a/value_mozzarella_1.png', 2);
+insert into Product values (8, 'Shrimp Burger', 48, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/v/a/value_fish_5.png', 2);
 
 -- type 3: Pizza
-insert into Product values (9, 'Pepperoni Pizza', 40, '', 'pizza.jpg', 3);
-insert into Product values (10, 'Cheese Pizza', 40, '', 'pizza.jpg', 3);
-insert into Product values (11, 'Seafood Pizza', 40, '', 'pizza.jpg', 3);
+insert into Product values (9, 'Pepperoni Pizza', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/b/u/burger_beef-01_1.png', 3);
+insert into Product values (10, 'Cheese Pizza', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/b/u/burger_fish-burger_2.png', 3);
+insert into Product values (11, 'Seafood Pizza', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/r/_/r_s_com-gasotdau.png', 3);
 
 -- type 4: Drink
-insert into Product values (12, 'Coca Cola', 10, '', 'drink.jpg', 4);
-insert into Product values (13, 'Pepsi', 10, '', 'drink.jpg', 4);
-insert into Product values (14, '7Up', 10, '', 'drink.jpg', 4);
+insert into Product values (12, 'Coca Cola', 10, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/r/i/rice-spaghetti-534x374px._miy-thitbo_2.png', 4);
+insert into Product values (13, 'Pepsi', 10, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/z/e/zero_1.jpg', 4);
+insert into Product values (14, '7Up', 10, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/z/e/zero.jpg', 4);
 
 -- type 5: Combo
 insert into Product values (15, 'LChicken Combo', 80, '01 LChicken Burger\n01 Fried Fries', 'combo.jpg', 5);

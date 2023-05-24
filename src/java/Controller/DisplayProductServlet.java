@@ -5,23 +5,23 @@
 
 package Controller;
 
-import jakarta.servlet.ServletContext;
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import dal.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Account;
+import java.util.List;
+import model.Product;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "Login", urlPatterns = { "/login" })
-public class Login extends HttpServlet {
+@WebServlet(name = "DisplayProductServlet", urlPatterns = { "/home" })
+public class DisplayProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet DisplayProductServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DisplayProductServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +62,15 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        ProductDAO productDAO = new ProductDAO();
+        List<Product> listProduct = productDAO.getAllProduct();
+        if (listProduct != null) {
+            request.setAttribute("data", listProduct);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+        } else {
+            request.setAttribute("error", "Error");
+            request.getRequestDispatcher("index.html").forward(request, response);
+        }
     }
 
     /**
@@ -76,16 +84,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("Password");
-        AccountDAO accountDAO = new AccountDAO();
-        Account account = accountDAO.checkAccount(email, password);
-        if (account != null) {
-            response.sendRedirect("index.html");
-        } else {
-            request.setAttribute("error", "Username or password is incorrect");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
