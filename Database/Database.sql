@@ -10,7 +10,7 @@ GO
 
 create table Account (
     AccountID int IDENTITY(1,1) primary key,
-    Email varchar(50) not null,
+    Email varchar(50) not null unique,
     Password varchar(50) not null,
     Name varchar(50) not null,
     Phone varchar(50) not null,
