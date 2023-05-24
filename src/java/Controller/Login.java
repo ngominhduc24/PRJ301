@@ -8,11 +8,13 @@ package Controller;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import dal.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 
 /**
  *
@@ -75,23 +77,16 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        // try (PrintWriter out = response.getWriter()) {
-        // String username = request.getParameter("Username");
-        // String password = request.getParameter("Password");
-        // // get init context
-        // String init_username = getServletContext().getInitParameter("username");
-        // String init_password = getServletContext().getInitParameter("password");
-        // if (username.equals(init_username) && password.equals(init_password)) {
-        // request.setAttribute("name", username);
-        // request.getRequestDispatcher("/view/welcome.jsp").forward(request, response);
-        // // out.println("login success");
-
-        // } else {
-        // request.setAttribute("error", "moi ban nhap lai");
-        // request.getRequestDispatcher("/view/login.jsp").forward(request, response);
-        // }
-        // }
+        String email = request.getParameter("email");
+        String password = request.getParameter("Password");
+        AccountDAO accountDAO = new AccountDAO();
+        Account account = accountDAO.checkAccount(email, password);
+        if (account != null) {
+            response.sendRedirect("index.html");
+        } else {
+            request.setAttribute("error", "Username or password is incorrect");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
     }
 
     /**

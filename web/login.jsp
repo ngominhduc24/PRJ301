@@ -14,8 +14,8 @@
   <body>
     <form action="login" method="post">
       <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" name="Username" required />
+        <label for="uname"><b>email</b></label>
+        <input type="text" name="email" required />
 
         <label for="psw"
           ><b><br />Password</b></label

@@ -16,11 +16,11 @@ import model.Account;
  * @author ASUS PC
  */
 public class AccountDAO {
-    public Account checkAccount(String username, String password) {
-        String query = "SELECT * FROM Account WHERE username = ? AND password = ?";
+    public Account checkAccount(String email, String password) {
+        String sql = "SELECT * FROM Account WHERE email = ? AND password = ?";
         try {
-            PreparedStatement ps = DbContext.getConnection().prepareStatement(query);
-            ps.setString(1, username);
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -36,12 +36,6 @@ public class AccountDAO {
             }
         } catch (SQLException ex) {
             System.out.println(ex);
-        } finally {
-            try {
-                DbContext.getConnection().close();
-            } catch (SQLException ex) {
-                System.out.println(ex);
-            }
         }
         return null;
     }
