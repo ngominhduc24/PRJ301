@@ -5,7 +5,6 @@
 
 package Controller;
 
-import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import dal.AccountDAO;
@@ -14,7 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Account;
+import utils.HandleMagicNumber.UserRole;
 
 /**
  *
@@ -76,12 +77,18 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("Password");
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.checkAccount(email, password);
         if (account != null) {
-            response.sendRedirect("index.html");
+            if(account.getRole() == UserRole.ADMIN.getValue()) {
+                session.setAttribute("role", "admin");
+            } else { 
+                session.setAttribute("role", "user");
+            }
+            response.sendRedirect("index.jsp");
         } else {
             request.setAttribute("error", "Username or password is incorrect");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
