@@ -83,12 +83,12 @@ public class Login extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.checkAccount(email, password);
         if (account != null) {
-            if(account.getRole() == UserRole.ADMIN.getValue()) {
+            if (account.getRole() == UserRole.ADMIN.getValue()) {
                 session.setAttribute("role", "admin");
-            } else { 
+            } else {
                 session.setAttribute("role", "user");
             }
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("home");
         } else {
             request.setAttribute("error", "Username or password is incorrect");
             request.getRequestDispatcher("/login.jsp").forward(request, response);

@@ -37,8 +37,16 @@
         <div class="w3-top">
             <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
                 <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
-                <div class="w3-right w3-padding-16">Mail</div>
-                <div class="w3-center w3-padding-16">My Food</div>
+                <c:if test="${param.logout != null }">
+                    <c:remove var="role" scope="session"/>
+                </c:if>
+                <c:if test="${sessionScope.role != null}">
+                    <a  href="home?logout=1" class="w3-button w3-padding-16 w3-right" id="logout">Logout <i class="fa fa-caret-down"></i></a>
+                </c:if>
+                <c:if test="${sessionScope.role == null}">
+                    <a href="login" class="w3-button w3-padding-16 w3-right">Login <i class="fa fa-caret-down"></i></a>
+                </c:if>
+                <a href="cart.jsp" class="w3-button w3-padding-16 w3-right">Cart <i class="fa fa-caret-down"></i></a>
             </div>
         </div>
 
@@ -59,7 +67,7 @@
                                 <p style="margin-top: 0px;"> ${item.description}</p>
                             </div>
                             <p style="color: #ef4242; font-weight: 700; font-size: 25px; line-height: 100%; margin-bottom: 5px;">${item.price}.000 ₫</p>
-                            <a href="cart.jsp" class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</a>
+                            <a class="w3-button w3-black w3-margin-bottom" onclick="">Buy Tickets</a>
                         </div>
                     </c:if>
                 </c:forEach>
@@ -151,6 +159,13 @@
 
             function w3_close() {
                 document.getElementById("mySidebar").style.display = "none";
+            }
+
+            var element = document.getElementById("logout");
+            if(element != null){
+                element.addEventListener("click", function(){
+                    sessionStorage.removeItem("role");
+                });
             }
         </script>
 
