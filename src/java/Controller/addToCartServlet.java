@@ -7,23 +7,19 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import dal.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
-import utils.HandleMagicNumber.UserRole;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "Login", urlPatterns = { "/login" })
-public class Login extends HttpServlet {
+@WebServlet(name = "addToCartServlet", urlPatterns = { "/addtocart" })
+public class addToCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +38,10 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet addToCartServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addToCartServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +60,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -78,43 +74,26 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        // get parameter
-        String email = request.getParameter("email");
-        String password = request.getParameter("Password");
-        String remember = request.getParameter("remember");
-
-        // set cookie
-        Cookie cookie1 = new Cookie("u_email", email);
-        Cookie cookie2 = new Cookie("u_password", password);
-        if (remember != null) {
-            cookie1.setMaxAge(60 * 60 * 24 * 30);
-            cookie2.setMaxAge(60 * 60 * 24 * 30);
-        } else {
-            cookie1.setMaxAge(0);
-            cookie2.setMaxAge(0);
-        }
-        response.addCookie(cookie1);
-        response.addCookie(cookie2);
-
-        // check account
-        AccountDAO accountDAO = new AccountDAO();
-        Account account = accountDAO.checkAccount(email, password);
-
-        // set session
-        if (account != null) {
-            if (account.getRole() == UserRole.ADMIN.getValue()) {
-                session.setAttribute("role", "admin");
+        String productID = request.getParameter("productID");
+        Cookie[] cookies = request.getCookies();
+        String cart = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("cart")) {
+                cart = cookie.getValue();
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+                break;
             }
-            if (account.getRole() == UserRole.USER.getValue()) {
-                session.setAttribute("role", "user");
-            }
-            response.sendRedirect("home");
-        } else {
-            request.setAttribute("error", "Username or password is incorrect");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
+        if (cart.equals("")) {
+            cart = productID;
+        } else {
+            cart += "/" + productID;
+        }
+        Cookie cookie = new Cookie("cart", cart);
+        cookie.setMaxAge(60 * 60 * 24 * 30);
+        response.addCookie(cookie);
+        response.sendRedirect("home");
     }
 
     /**

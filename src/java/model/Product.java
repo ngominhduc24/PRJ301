@@ -9,15 +9,6 @@ package model;
  * @author ASUS PC
  */
 public class Product {
-    // create table Product (
-    // ProductID int not null primary key,
-    // Name varchar(50) not null,
-    // Price int not null,
-    // Description varchar(50) not null,
-    // Image varchar(50) not null,
-    // CategoryID int not null,
-    // foreign key (CategoryID) references Category(CategoryID)
-    // );
     private int productID;
     private String name;
     private int price;
@@ -87,6 +78,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "productID=" + productID + ", name=" + name + ", price=" + price + ", description=" + description + ", image=" + image + ", categoryID=" + categoryID + '}';
+        return "Product{" + "productID=" + productID + ", name=" + name + ", price=" + price + ", description="
+                + description + ", image=" + image + ", categoryID=" + categoryID + '}';
     }
 }

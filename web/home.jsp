@@ -52,7 +52,7 @@
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
-
+        <form action="addtocart" method="post">
             <!-- First Photo Grid-->
             <div class="w3-row-padding w3-padding-16 w3-center" id="food">
                 <c:forEach items="${data}" var="item" varStatus="loop">
@@ -67,7 +67,8 @@
                                 <p style="margin-top: 0px;"> ${item.description}</p>
                             </div>
                             <p style="color: #ef4242; font-weight: 700; font-size: 25px; line-height: 100%; margin-bottom: 5px;">${item.price}.000 ₫</p>
-                            <a class="w3-button w3-black w3-margin-bottom" onclick="">Buy Tickets</a>
+                            <input name="product_id" hidden value="${item.productID}"></input>
+                            <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
                         </div>
                     </c:if>
                 </c:forEach>
@@ -81,6 +82,8 @@
                             <img src="${item.image}" alt="Sandwich" style="width:100%">
                             <h3>${item.name}</h3>
                             <p>${item.description}</p>
+                            <input name="product_id" hidden value="${item.productID}"></input>
+                            <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
                         </div>
                     </c:if>
                 </c:forEach>

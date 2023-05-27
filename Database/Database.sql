@@ -75,8 +75,8 @@ insert into Category values (5, 'Combo');
 -- type 1: Chicken
 insert into Product values (1, 'Mala Chicken', 40, 'Chicken made by Mala', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/p/a/pack_loking_set_2.png', 1);
 insert into Product values (2, 'Mala Family (3Pcs)', 100, 'Combo 3 Pcs Mala Chicken', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/c/h/chicken_ga_tuyet_vang.png', 1);
-insert into Product values (3, 'Chicken Cheese', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/e/menu_spaghetti_1.png', 1);
-insert into Product values (4, 'Cheese Family (6Pcs)', 40, 'Combo 6Pcs Chicken Cheese', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/e/menu_spaghetti_1.png', 1);
+insert into Product values (3, 'Chicken Cheese', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/c/k/ck_set_milkis.png', 1);
+insert into Product values (4, 'Cheese Family (6Pcs)', 40, 'Combo 6Pcs Chicken Cheese', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/i/milkis_-_c.thu_n_99.png', 1);
 insert into Product values (5, 'Grilled Chicken', 40, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/d/e/dessert-534x374px_squid-ring_2.png', 1);
 
 -- type 2: Burger
