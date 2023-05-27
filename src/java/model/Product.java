@@ -15,6 +15,7 @@ public class Product {
     private String description;
     private String image;
     private int categoryID;
+    private int quantity;
 
     public Product() {
     }
@@ -74,6 +75,14 @@ public class Product {
 
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
     }
 
     @Override

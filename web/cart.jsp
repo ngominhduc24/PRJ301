@@ -70,10 +70,10 @@
                                                     max="20"
                                                     name="quantity"
                                                     data-id="makeshop-common-cart-quantity:000000000642-0-0-0-0"
-                                                    value="1"
+                                                    value="${p.quantity}"
                                                     name="item-quantity"
                                                     /></label></td>
-                                        <td><fmt:formatNumber type="number" pattern="#,###" value="${p.price}"/></td>
+                                        <td><fmt:formatNumber type="number" pattern="#,###" value=""/> ${p.price * p.quantity}.000 ₫</td>
                                         <td>
                                             <a href="DeleteCartServlet?pid=${p.productID}">
                                                 <div type="button" class="badge bg-danger text-wrap" style="width: 5rem;">
@@ -95,7 +95,7 @@
                                 <td></td>
                                 <td></td>
                                 <th>Grand total</th>
-                                <th><fmt:formatNumber type="number" pattern="#,###" value="${total}"/></th>
+                                <th><fmt:formatNumber type="number" pattern="#,###" value=""/>${total}.000 ₫</th>
                                 <td></td>
                             </tr>
                             </tbody>

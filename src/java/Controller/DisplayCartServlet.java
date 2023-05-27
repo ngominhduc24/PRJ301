@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
+import utils.HandleCookie;
 
 /**
  *
@@ -74,12 +75,11 @@ public class DisplayCartServlet extends HttpServlet {
                 break;
             }
         }
-        for (String productID : cart.split("/")) {
-            Product product = productDAO.getProductByID(productID);
-            if (product != null)
-                listProduct.add(product);
+        if (!cart.equals("")) {
+            listProduct = HandleCookie.CookieToProduct(cart);
+            request.setAttribute("data", listProduct);
         }
-        request.setAttribute("data", listProduct);
+
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
