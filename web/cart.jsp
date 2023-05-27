@@ -59,7 +59,7 @@
                                     </td>
                                 </tr>
                                 <c:forEach var="p" items="${data}">
-                                    <c:set var="total" value="${total + (p.price * p.quantity)}" />
+                                    <c:set var="total" value="${total + p.price}" />
                                 <form action="UpdateCartServlet">
 
                                     <tr>
@@ -70,12 +70,12 @@
                                                     max="20"
                                                     name="quantity"
                                                     data-id="makeshop-common-cart-quantity:000000000642-0-0-0-0"
-                                                    value="${p.quantity}"
+                                                    value="1"
                                                     name="item-quantity"
                                                     /></label></td>
                                         <td><fmt:formatNumber type="number" pattern="#,###" value="${p.price}"/></td>
                                         <td>
-                                            <a href="DeleteCartServlet?pid=${p.id}">
+                                            <a href="DeleteCartServlet?pid=${p.productID}">
                                                 <div type="button" class="badge bg-danger text-wrap" style="width: 5rem;">
                                                     <i class="fa fa-times"></i> Remove
                                                 </div>
@@ -83,7 +83,7 @@
 
                                         </td>
                                         <td>
-                                            <input type="hidden" name="pid" value="${p.id}" />
+                                            <input type="hidden" name="pid" value="${p.productID}" />
                                             <button type="submit" class="badge bg-danger text-wrap" style="width: 5rem;background-color: #30bb30!important">
                                                     <i class="fa fa-times"></i> Update
                                                 </button>
