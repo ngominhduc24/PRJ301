@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import dal.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -78,14 +79,35 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        // get parameter
         String email = request.getParameter("email");
         String password = request.getParameter("Password");
+        String remember = request.getParameter("remember");
+
+        // set cookie
+        Cookie cookie1 = new Cookie("u_email", email);
+        Cookie cookie2 = new Cookie("u_password", password);
+        if (remember != null) {
+            cookie1.setMaxAge(60 * 60 * 24 * 30);
+            cookie2.setMaxAge(60 * 60 * 24 * 30);
+        } else {
+            cookie1.setMaxAge(0);
+            cookie2.setMaxAge(0);
+        }
+        response.addCookie(cookie1);
+        response.addCookie(cookie2);
+
+        // check account
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.checkAccount(email, password);
+
+        // set session
         if (account != null) {
             if (account.getRole() == UserRole.ADMIN.getValue()) {
                 session.setAttribute("role", "admin");
-            } else {
+            }
+            if (account.getRole() == UserRole.USER.getValue()) {
                 session.setAttribute("role", "user");
             }
             response.sendRedirect("home");

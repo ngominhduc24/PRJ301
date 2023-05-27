@@ -1,5 +1,6 @@
 <%-- Document : login Created on : May 18, 2023, 11:04:29 AM Author : ASUS PC
 --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,24 +14,22 @@
   </head>
   <body>
     <form action="login" method="post">
+      <c:set var="cookie" value="${pageContext.request.cookies}" />
       <div class="container">
         <label for="uname"><b>email</b></label>
-        <input type="text" name="email" required />
+        <input type="text" name="email" value="${cookie.u_email.value}" required />
 
         <label for="psw"
           ><b><br />Password</b></label
         >
-        <input type="password" name="Password" required />
+        <input type="password" name="Password" value="${cookie.u_password.value}" required />
+        <input type="checkbox" name="remember" ${(cookie.u_email != null ? "checked" : "")}>Remember me</input>
+        <c:if test="${requestScope.error != null}">
+          <p style="color: red">${requestScope.error}</p>
+        </c:if>
 
         <button type="submit" id="loginbtn">Login</button>
       </div>
     </form>
   </body>
-  <script>
-    var element = document.getElementById("loginbtn");
-    var msg = '<%= request.getAttribute("error") %>';
-    if (msg != "null") {
-      alert(msg);
-    }
-  </script>
 </html>
