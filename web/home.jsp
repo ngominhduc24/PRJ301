@@ -41,7 +41,7 @@
                     <c:remove var="role" scope="session"/>
                 </c:if>
                 <c:if test="${sessionScope.role != null}">
-                    <a  href="home?logout=1" class="w3-button w3-padding-16 w3-right" id="logout">Logout <i class="fa fa-caret-down"></i></a>
+                    <a  href="logout" class="w3-button w3-padding-16 w3-right" id="logout">Logout <i class="fa fa-caret-down"></i></a>
                     </c:if>
                     <c:if test="${sessionScope.role == null}">
                     <a href="login" class="w3-button w3-padding-16 w3-right">Login <i class="fa fa-caret-down"></i></a>
@@ -166,13 +166,6 @@
 
             function w3_close() {
                 document.getElementById("mySidebar").style.display = "none";
-            }
-
-            var element = document.getElementById("logout");
-            if (element != null) {
-                element.addEventListener("click", function () {
-                    sessionStorage.removeItem("role");
-                });
             }
         </script>
 

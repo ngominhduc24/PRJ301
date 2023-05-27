@@ -80,17 +80,19 @@ public class SignupServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
         String checkbox = request.getParameter("checkbox");
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty() || repassword.isEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty() || repassword.isEmpty()
+                || address.isEmpty()) {
             request.setAttribute("error", "Please fill all the fields");
             request.getRequestDispatcher("/signup.jsp").forward(request, response);
         } else if (!password.equals(repassword)) {
             request.setAttribute("error", "Password and Re-Password must be same");
             request.getRequestDispatcher("/signup.jsp").forward(request, response);
         } else {
-            Account account = new Account(email, password, name, phone, "", UserRole.USER.getValue());
+            Account account = new Account(email, password, name, phone, address, UserRole.USER.getValue());
             AccountDAO accountDAO = new AccountDAO();
             if (accountDAO.createAccount(account) == null) {
                 request.setAttribute("error", "Email already exists");

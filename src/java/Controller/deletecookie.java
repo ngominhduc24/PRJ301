@@ -37,7 +37,7 @@ public class deletecookie extends HttpServlet {
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the

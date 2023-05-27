@@ -17,17 +17,17 @@
       <c:set var="cookie" value="${pageContext.request.cookies}" />
       <div class="container">
         <label for="uname"><b>email</b></label>
-        <input type="text" name="email" value="${cookie.u_email.value}" required />
+        <input type="text" name="email" value="${cookie.email.value}" required />
 
         <label for="psw"
           ><b><br />Password</b></label
         >
-        <input type="password" name="Password" value="${cookie.u_password.value}" required />
-        <input type="checkbox" name="remember" ${(cookie.u_email != null ? "checked" : "")}>Remember me</input>
+        <input type="password" name="Password" value="${cookie.password.value}" required />
+        <input type="checkbox" name="remember" ${(cookie.email != null ? "checked" : "")}>Remember me</input>
         <c:if test="${requestScope.error != null}">
           <p style="color: red">${requestScope.error}</p>
         </c:if>
-
+        <p>No account yet? <a href="signup">Sign up</a></p> 
         <button type="submit" id="loginbtn">Login</button>
       </div>
     </form>
