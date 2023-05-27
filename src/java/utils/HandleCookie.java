@@ -16,28 +16,16 @@ import model.Product;
 public class HandleCookie {
 
     public static List<Product> CookieToProduct(String cookie) {
-        String[] listProductID = cookie.split("/");
+        String[] listProductString = cookie.split("/");
         List<Product> listProduct = new ArrayList<>();
         ProductDAO productDAO = new ProductDAO();
-        for (String productID : listProductID) {
-            // check if productID is valid or not
-            if (productID.equals("-1"))
-                continue;
+        for (String productString : listProductString) {
+            String[] item = productString.split(":");
+            String productID = item[0];
+            int quantity = Integer.parseInt(item[1]);
             Product product = productDAO.getProductByID(productID);
-
-            // count quantity of each product
-            int quantity = 0;
-            for (int i = 0; i < listProductID.length; i++) {
-                if (listProductID[i].equals(productID)) {
-                    quantity++;
-                    listProductID[i] = "-1";
-                }
-            }
             product.setQuantity(quantity);
-
-            // add product to list
-            if (product != null)
-                listProduct.add(product);
+            listProduct.add(product);
         }
         return listProduct;
     }

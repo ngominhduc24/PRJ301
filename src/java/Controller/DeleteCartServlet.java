@@ -43,8 +43,13 @@ public class DeleteCartServlet extends HttpServlet {
                 break;
             }
         }
-        cart = cart.replace(productID + "/", "");
-        cart = cart.replace(productID, "");
+        String[] products = cart.split("/");
+        cart = "";
+        for (String product : products) {
+            if (!product.split(":")[0].equals(productID)) {
+                cart += product + "/";
+            }
+        }
         Cookie cookie = new Cookie("cart", cart);
         cookie.setMaxAge(60 * 60 * 24);
         response.addCookie(cookie);

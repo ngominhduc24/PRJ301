@@ -44,12 +44,29 @@ public class AddToCartServlet extends HttpServlet {
             }
         }
         if (cart.isEmpty()) {
-            cart = productID;
+            cart = productID + ":" + 1;
         } else {
-            cart += "/" + productID;
+            String[] products = cart.split("/");
+            boolean isExist = false;
+            for (int i = 0; i < products.length; i++) {
+                String[] product = products[i].split(":");
+                if (product[0].equals(productID)) {
+                    int quantity = Integer.parseInt(product[1]) + 1;
+                    products[i] = productID + ":" + quantity;
+                    isExist = true;
+                    break;
+                }
+            }
+            cart = products[0];
+            for (int i = 1; i < products.length; i++) {
+                cart += "/" + products[i];
+            }
+            if (!isExist) {
+                cart += "/" + productID + ":" + 1;
+            }
         }
         Cookie cookie = new Cookie("cart", cart);
-        cookie.setMaxAge(60 * 60 * 24 * 30);
+        cookie.setMaxAge(60 * 60 * 24);
         response.addCookie(cookie);
         response.sendRedirect("home");
     }
@@ -81,7 +98,7 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
