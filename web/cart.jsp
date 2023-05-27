@@ -75,7 +75,7 @@
                                                     /></label></td>
                                         <td><fmt:formatNumber type="number" pattern="#,###" value=""/> ${p.price * p.quantity}.000 ₫</td>
                                         <td>
-                                            <a href="DeleteCartServlet?pid=${p.productID}">
+                                            <a href="deletecart?pid=${p.productID}">
                                                 <div type="button" class="badge bg-danger text-wrap" style="width: 5rem;">
                                                     <i class="fa fa-times"></i> Remove
                                                 </div>
