@@ -60,7 +60,7 @@
                                 </tr>
                                 <c:forEach var="p" items="${data}">
                                     <c:set var="total" value="${total + p.price}" />
-                                <form action="UpdateCartServlet">
+                                <form action="updatecart">
 
                                     <tr>
                                         <td>${p.name}</td>
