@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>W3.CSS Template</title>
+        <title>Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -42,17 +42,17 @@
                 </c:if>
                 <c:if test="${sessionScope.role != null}">
                     <a  href="home?logout=1" class="w3-button w3-padding-16 w3-right" id="logout">Logout <i class="fa fa-caret-down"></i></a>
-                </c:if>
-                <c:if test="${sessionScope.role == null}">
+                    </c:if>
+                    <c:if test="${sessionScope.role == null}">
                     <a href="login" class="w3-button w3-padding-16 w3-right">Login <i class="fa fa-caret-down"></i></a>
-                </c:if>
-                <a href="cart.jsp" class="w3-button w3-padding-16 w3-right">Cart <i class="fa fa-caret-down"></i></a>
+                    </c:if>
+                <a href="cart" class="w3-button w3-padding-16 w3-right">Cart <i class="fa fa-caret-down"></i></a>
             </div>
         </div>
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
-        <form action="addtocart" method="post">
+
             <!-- First Photo Grid-->
             <div class="w3-row-padding w3-padding-16 w3-center" id="food">
                 <c:forEach items="${data}" var="item" varStatus="loop">
@@ -67,8 +67,10 @@
                                 <p style="margin-top: 0px;"> ${item.description}</p>
                             </div>
                             <p style="color: #ef4242; font-weight: 700; font-size: 25px; line-height: 100%; margin-bottom: 5px;">${item.price}.000 ₫</p>
-                            <input name="product_id" hidden value="${item.productID}"></input>
-                            <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
+                            <form action="addtocart" method="post">
+                                <input name="productID" hidden value="${item.productID}"></input>
+                                <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
+                            </form>
                         </div>
                     </c:if>
                 </c:forEach>
@@ -76,14 +78,16 @@
 
             <!-- Second Photo Grid-->
             <div class="w3-row-padding w3-padding-16 w3-center">
-               <c:forEach items="${data}" var="item" varStatus="loop">
+                <c:forEach items="${data}" var="item" varStatus="loop">
                     <c:if test="${loop.index > 4 && loop.index < 9}">
                         <div class="w3-quarter">
                             <img src="${item.image}" alt="Sandwich" style="width:100%">
                             <h3>${item.name}</h3>
                             <p>${item.description}</p>
-                            <input name="product_id" hidden value="${item.productID}"></input>
-                            <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
+                            <form action="addtocart" method="post">
+                                <input name="productID" hidden value="${item.productID}"></input>
+                                <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
+                            </form>
                         </div>
                     </c:if>
                 </c:forEach>
@@ -165,8 +169,8 @@
             }
 
             var element = document.getElementById("logout");
-            if(element != null){
-                element.addEventListener("click", function(){
+            if (element != null) {
+                element.addEventListener("click", function () {
                     sessionStorage.removeItem("role");
                 });
             }

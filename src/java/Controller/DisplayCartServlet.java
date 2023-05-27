@@ -5,6 +5,7 @@
 
 package Controller;
 
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,13 +14,16 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import model.Product;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "addToCartServlet", urlPatterns = { "/addtocart" })
-public class AddToCartServlet extends HttpServlet {
+@WebServlet(name = "DisplayCartServlet", urlPatterns = { "/cart" })
+public class DisplayCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,26 +36,19 @@ public class AddToCartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String productID = request.getParameter("productID");
-        Cookie[] cookies = request.getCookies();
-        String cart = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("cart")) {
-                cart = cookie.getValue();
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-                break;
-            }
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DisplayCartServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DisplayCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        if (cart.isEmpty()) {
-            cart = productID;
-        } else {
-            cart += "/" + productID;
-        }
-        Cookie cookie = new Cookie("cart", cart);
-        cookie.setMaxAge(60 * 60 * 24 * 30);
-        response.addCookie(cookie);
-        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
@@ -67,7 +64,23 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        List<Product> listProduct = new ArrayList<>();
+        ProductDAO productDAO = new ProductDAO();
+        Cookie[] cookies = request.getCookies();
+        String cart = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("cart")) {
+                cart = cookie.getValue();
+                break;
+            }
+        }
+        for (String productID : cart.split("/")) {
+            Product product = productDAO.getProductByID(productID);
+            if (product != null)
+                listProduct.add(product);
+        }
+        request.setAttribute("data", listProduct);
+        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     /**
@@ -81,7 +94,7 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

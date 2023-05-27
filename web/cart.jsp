@@ -58,7 +58,7 @@
                                         <h6>Action</h6>
                                     </td>
                                 </tr>
-                                <c:forEach var="p" items="${sessionScope.cart.getCart().values()}">
+                                <c:forEach var="p" items="${data}">
                                     <c:set var="total" value="${total + (p.price * p.quantity)}" />
                                 <form action="UpdateCartServlet">
 

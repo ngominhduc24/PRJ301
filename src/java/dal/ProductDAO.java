@@ -39,4 +39,29 @@ public class ProductDAO {
         }
         return null;
     }
+
+    public Product getProductByID(String id) {
+        String sql = "SELECT * FROM Product WHERE ProductID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, Integer.parseInt(id));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("ProductID"));
+                product.setName(rs.getString("Name"));
+                product.setPrice(rs.getInt("Price"));
+                product.setCategoryID(rs.getInt("CategoryID"));
+                product.setImage(rs.getString("Image"));
+                product.setDescription(rs.getString("Description"));
+                return product;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } catch (NumberFormatException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
 }
