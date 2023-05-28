@@ -5,26 +5,20 @@
 
 package Controller;
 
-import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.util.ArrayList;
-import java.util.List;
-import model.Product;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "DisplayProductServlet", urlPatterns = { "/home" })
-public class DisplayProductServlet extends HttpServlet {
+@WebServlet(name = "PurchaseOrderServlet", urlPatterns = { "/checkout" })
+public class PurchaseOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,26 +31,18 @@ public class DisplayProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = request.getParameter("page");
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> listProduct = new ArrayList<>();
-        int page_size = 8;
-        try {
-            int start_product = Integer.parseInt(page) * page_size - page_size;
-            int end_product = start_product + page_size;
-            // int total = productDAO.count();
-            // int total_page = (total % page_size == 0) ? total / page_size : total /
-            // page_size + 1;
-            listProduct = productDAO.getProductByPage(start_product, page_size);
-        } catch (Exception e) {
-            listProduct = productDAO.getProductByPage(0, page_size);
-        }
-        if (listProduct != null) {
-            request.setAttribute("data", listProduct);
-            request.getRequestDispatcher("home.jsp").forward(request, response);
-        } else {
-            request.setAttribute("error", "Error");
-            request.getRequestDispatcher("index.html").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet PurchaseOrderServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet PurchaseOrderServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -73,7 +59,7 @@ public class DisplayProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
     /**

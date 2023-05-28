@@ -110,7 +110,7 @@ public class LoginServlet extends HttpServlet {
             if (account.getRole() == UserRole.USER.getValue()) {
                 session.setAttribute("role", "user");
             }
-            response.sendRedirect("home");
+            response.sendRedirect("home?page=1");
         } else {
             request.setAttribute("error", "Username or password is incorrect");
             request.getRequestDispatcher("/login.jsp").forward(request, response);

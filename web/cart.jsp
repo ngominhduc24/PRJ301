@@ -41,7 +41,7 @@
                                     <th></th>
                                     <th></th>
                                         <th style="text-align:right">
-                                            <a href="SaveShoppingCartServlet" class="btn checkout-btn"><button type="button" class="btn btn_back "><i  class="fa fa-shopping-cart"></i> Check out</button></a>
+                                            <a href="checkout" class="btn checkout-btn"><button type="button" class="btn btn_back "><i  class="fa fa-shopping-cart"></i>Purchase Order</button></a>
                                         </th>
                                 </tr>
                                 <tr>

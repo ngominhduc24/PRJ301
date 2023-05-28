@@ -79,7 +79,7 @@
             <!-- Second Photo Grid-->
             <div class="w3-row-padding w3-padding-16 w3-center">
                 <c:forEach items="${data}" var="item" varStatus="loop">
-                    <c:if test="${loop.index > 4 && loop.index < 9}">
+                    <c:if test="${loop.index >= 4 && loop.index < 9}">
                         <div class="w3-quarter">
                             <img src="${item.image}" alt="Sandwich" style="width:100%">
                             <h3>${item.name}</h3>
@@ -97,10 +97,10 @@
             <div class="w3-center w3-padding-32">
                 <div class="w3-bar">
                     <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-                    <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+                    <a href="home?page=1" class="w3-bar-item w3-black w3-button">1</a>
+                    <a href="home?page=2" class="w3-bar-item w3-button w3-hover-black">2</a>
+                    <a href="home?page=3" class="w3-bar-item w3-button w3-hover-black">3</a>
+                    <a href="home?page=4" class="w3-bar-item w3-button w3-hover-black">4</a>
                     <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
                 </div>
             </div>

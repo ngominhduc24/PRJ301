@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author ASUS PC
  */
 @WebServlet(name = "deletecookie", urlPatterns = { "/deletecookie" })
-public class deletecookie extends HttpServlet {
+public class DeleteCookie extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
