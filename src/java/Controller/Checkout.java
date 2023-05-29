@@ -14,9 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.sql.Date;
 
 import dal.AccountDAO;
+import dal.OrderDAO;
+import dal.OrderDetailDAO;
 import model.Account;
+import model.OrderDetail;
+import model.Orders;
 import model.Product;
 import utils.HandleCookie;
 
@@ -105,19 +110,44 @@ public class Checkout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
+        AccountDAO accountDAO = new AccountDAO();
+        Orders order = new Orders();
+        String email = request.getParameter("email");
+        int accountID = accountDAO.getIdByEmail(email);
+        Date date = new Date(System.currentTimeMillis());
+
         // get cart and email from cookie
         String cart = "";
-        String email = "";
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {
                 cart = cookie.getValue();
             }
-            if (cookie.getName().equals("email")) {
-                email = cookie.getValue();
-            }
         }
-        List<Product> products = HandleCookie.CookieToProduct(cart);
-        request.getRequestDispatcher("checkout.jsp").forward(request, response);
+
+        // get data order from request
+
+        order.setOrderID(1);
+        order.setAccountID(accountID);
+        order.setOrderDate(date);
+        order.setAddress(request.getParameter("address"));
+        order.setTotalPrice(Integer.parseInt(request.getParameter("totalPrice")));
+        order.setStatus(0);
+        OrderDAO orderDAO = new OrderDAO();
+        orderDAO.insertOrder(order);
+
+        // save list order detail to database
+        List<OrderDetail> listOrderDetails = HandleCookie.CookieToOrderDetail(cart, order.getOrderID());
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        for (OrderDetail orderDetail : listOrderDetails) {
+            orderDetailDAO.insertOrderDetail(orderDetail);
+        }
+
+        // delete cookie
+        Cookie cookie = new Cookie("cart", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        request.getRequestDispatcher("success.jsp").forward(request, response);
     }
 
     /**

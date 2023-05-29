@@ -59,6 +59,21 @@ public class AccountDAO {
         return null;
     }
 
+    public int getIdByEmail(String email) {
+        String sql = "SELECT accountID FROM Account WHERE email = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("accountID");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
     public Account createAccount(Account account) {
         String sql = "INSERT INTO Account(email, password, name, phone, address, role) VALUES(?,?,?,?,?,?)";
         try {

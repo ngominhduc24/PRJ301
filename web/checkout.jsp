@@ -101,6 +101,7 @@
                                 
                                 <li class="list-group-item d-flex justify-content-between">
                                     <span>Tổng thành tiền</span>
+                                    <input value="${total}" name="totalPrice" hidden></input>
                                     <strong>${total}.000 ₫</strong>
                                 </li>
                             </ul>
@@ -120,22 +121,22 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="kh_ten">Họ tên</label>
-                                    <input type="text" class="form-control" name="kh_ten" id="kh_ten"
+                                    <input type="text" class="form-control" name="name" id="kh_ten"
                                            value="${user.name}" readonly="">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_diachi">Địa chỉ</label>
-                                    <input type="text" class="form-control" name="kh_diachi" id="kh_diachi"
-                                           value="${user.address}" readonly="">
+                                    <input type="text" class="form-control" name="address" id="kh_diachi"
+                                           value="${user.address}" >
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_dienthoai">Điện thoại</label>
-                                    <input type="text" class="form-control" name="kh_dienthoai" id="kh_dienthoai"
-                                           value="${user.phone}" readonly="">
+                                    <input type="text" class="form-control" name="phone" id="kh_dienthoai"
+                                           value="${user.phone}" >
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_email">Email</label>
-                                    <input type="text" class="form-control" name="kh_email" id="kh_email"
+                                    <input type="text" class="form-control" name="email" id="kh_email"
                                            value="${user.email}" readonly="">
                                 </div>
                             </div>
