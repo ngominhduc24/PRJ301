@@ -14,6 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+
+import dal.AccountDAO;
+import model.Account;
 import model.Product;
 import utils.HandleCookie;
 
@@ -64,14 +67,28 @@ public class Checkout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
+        // get cart and email from cookie
         String cart = "";
+        String email = "";
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {
                 cart = cookie.getValue();
-                break;
+            }
+            if (cookie.getName().equals("email")) {
+                email = cookie.getValue();
             }
         }
         List<Product> products = HandleCookie.CookieToProduct(cart);
+
+        // get data user
+        if (email != null) {
+            AccountDAO accountDAO = new AccountDAO();
+            Account user = accountDAO.getAccountByEmail(email);
+            request.setAttribute("user", user);
+        } else {
+            request.setAttribute("user", null);
+        }
+
         request.setAttribute("data", products);
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
@@ -87,7 +104,20 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        // get cart and email from cookie
+        String cart = "";
+        String email = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("cart")) {
+                cart = cookie.getValue();
+            }
+            if (cookie.getName().equals("email")) {
+                email = cookie.getValue();
+            }
+        }
+        List<Product> products = HandleCookie.CookieToProduct(cart);
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
     /**

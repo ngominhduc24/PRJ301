@@ -87,12 +87,11 @@ public class LoginServlet extends HttpServlet {
 
         // set cookie
         Cookie cookie1 = new Cookie("email", email);
+        cookie1.setMaxAge(60 * 60 * 24);
         Cookie cookie2 = new Cookie("password", password);
         if (remember != null) {
-            cookie1.setMaxAge(60 * 60 * 24);
             cookie2.setMaxAge(60 * 60 * 24);
         } else {
-            cookie1.setMaxAge(0);
             cookie2.setMaxAge(0);
         }
         response.addCookie(cookie1);

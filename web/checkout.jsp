@@ -72,7 +72,7 @@
             <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
             <div class="container mt-4">
                 <form class="needs-validation" name="frmthanhtoan" method="post"
-                      action="#">
+                      action="">
                     <input type="hidden" name="kh_tendangnhap" value="dnpcuong">
 
                     <div class="py-5 text-center">
@@ -121,37 +121,22 @@
                                 <div class="col-md-12">
                                     <label for="kh_ten">Họ tên</label>
                                     <input type="text" class="form-control" name="kh_ten" id="kh_ten"
-                                           value="" readonly="">
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="kh_gioitinh">Giới tính</label>
-                                    <input type="text" class="form-control" name="kh_gioitinh" id="kh_gioitinh" value=""
-                                           readonly="">
+                                           value="${user.name}" readonly="">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_diachi">Địa chỉ</label>
                                     <input type="text" class="form-control" name="kh_diachi" id="kh_diachi"
-                                           value="" readonly="">
+                                           value="${user.address}" readonly="">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_dienthoai">Điện thoại</label>
                                     <input type="text" class="form-control" name="kh_dienthoai" id="kh_dienthoai"
-                                           value="" readonly="">
+                                           value="${user.phone}" readonly="">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_email">Email</label>
                                     <input type="text" class="form-control" name="kh_email" id="kh_email"
-                                           value="" readonly="">
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="kh_ngaysinh">Ngày sinh</label>
-                                    <input type="text" class="form-control" name="kh_ngaysinh" id="kh_ngaysinh"
-                                           value="" readonly="">
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="kh_cmnd">CMND</label>
-                                    <input type="text" class="form-control" name="kh_cmnd" id="kh_cmnd" value=""
-                                           readonly="">
+                                           value="${user.email}" readonly="">
                                 </div>
                             </div>
 
@@ -167,11 +152,6 @@
                                     <input id="httt-2" name="httt_ma" type="radio" class="custom-control-input" required=""
                                            value="2">
                                     <label class="custom-control-label" for="httt-2">Chuyển khoản</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="httt-3" name="httt_ma" type="radio" class="custom-control-input" required=""
-                                           value="3">
-                                    <label class="custom-control-label" for="httt-3">Ship COD</label>
                                 </div>
                             </div>
                             <hr class="mb-4">

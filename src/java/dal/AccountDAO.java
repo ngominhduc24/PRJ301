@@ -38,6 +38,27 @@ public class AccountDAO {
         return null;
     }
 
+    public Account getAccountByEmail(String email) {
+        String sql = "SELECT * FROM Account WHERE email = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setAccountID(rs.getInt("accountID"));
+                account.setEmail(rs.getString("email"));
+                account.setName(rs.getString("name"));
+                account.setPhone(rs.getString("phone"));
+                account.setAddress(rs.getString("address"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
     public Account createAccount(Account account) {
         String sql = "INSERT INTO Account(email, password, name, phone, address, role) VALUES(?,?,?,?,?,?)";
         try {
