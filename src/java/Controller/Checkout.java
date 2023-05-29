@@ -9,9 +9,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Product;
+import utils.HandleCookie;
 
 /**
  *
@@ -59,6 +63,16 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        String cart = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("cart")) {
+                cart = cookie.getValue();
+                break;
+            }
+        }
+        List<Product> products = HandleCookie.CookieToProduct(cart);
+        request.setAttribute("data", products);
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
