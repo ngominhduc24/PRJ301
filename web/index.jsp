@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Hello ${sessionScope.role}</h1>
+        <a href="${pageContext.request.contextPath}/login">Login</a>
     </body>
 </html>

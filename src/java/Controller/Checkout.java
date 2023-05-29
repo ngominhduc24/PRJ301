@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author ASUS PC
  */
 @WebServlet(name = "PurchaseOrderServlet", urlPatterns = { "/checkout" })
-public class PurchaseOrderServlet extends HttpServlet {
+public class Checkout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

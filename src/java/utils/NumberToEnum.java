@@ -8,7 +8,7 @@ package utils;
  *
  * @author ASUS PC
  */
-public class HandleMagicNumber {
+public class NumberToEnum {
     public enum UserRole {
         ADMIN(1), USER(2), STAFF(3);
  
