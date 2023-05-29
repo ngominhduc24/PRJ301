@@ -126,17 +126,23 @@ public class Checkout extends HttpServlet {
 
         // get data order from request
 
-        order.setOrderID(1);
         order.setAccountID(accountID);
         order.setOrderDate(date);
         order.setAddress(request.getParameter("address"));
         order.setTotalPrice(Integer.parseInt(request.getParameter("totalPrice")));
         order.setStatus(0);
         OrderDAO orderDAO = new OrderDAO();
-        orderDAO.insertOrder(order);
+        System.out.println("order id: " + order.getOrderID());
+        System.out.println("account id: " + order.getAccountID());
+        System.out.println("order date: " + order.getOrderDate());
+        System.out.println("address: " + order.getAddress());
+        System.out.println("total price: " + order.getTotalPrice());
+        System.out.println("status: " + order.getStatus());
+        // save order to database
+        int orderID = orderDAO.insertOrder(order);
 
         // save list order detail to database
-        List<OrderDetail> listOrderDetails = HandleCookie.CookieToOrderDetail(cart, order.getOrderID());
+        List<OrderDetail> listOrderDetails = HandleCookie.CookieToOrderDetail(cart, orderID);
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         for (OrderDetail orderDetail : listOrderDetails) {
             orderDetailDAO.insertOrderDetail(orderDetail);
