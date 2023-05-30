@@ -16,7 +16,7 @@ import java.util.List;
  * @author ASUS PC
  */
 public class CategoryDAO {
-    public List<Category> getAllProduct() {
+    public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
         String sql = "SELECT * FROM Category ";
         try {

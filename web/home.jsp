@@ -47,7 +47,7 @@
                     <div class="img">
                         <img src="https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg" class="card-img-top" alt="...">
                     </div>
-                    <span class="txt">Card title</span>
+                    <span class="txt">${listCategory.get(0).name}</span>
                 </a>
               </div>
               <div class="col-sm">

@@ -18,13 +18,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
+import dal.CategoryDAO;
+import model.Category;
 
 /**
  *
  * @author ASUS PC
  */
 @WebServlet(name = "DisplayProductServlet", urlPatterns = { "/home" })
-public class DisplayProductServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +42,13 @@ public class DisplayProductServlet extends HttpServlet {
         String page = request.getParameter("page");
         ProductDAO productDAO = new ProductDAO();
         List<Product> listProduct = new ArrayList<>();
+
+        // get category list
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<Category> listCategory = categoryDAO.getAllCategory();
+        request.setAttribute("listCategory", listCategory);
+
+        // paging product list
         int page_size = 8;
         try {
             int start_product = Integer.parseInt(page) * page_size - page_size;
@@ -51,6 +60,8 @@ public class DisplayProductServlet extends HttpServlet {
         } catch (Exception e) {
             listProduct = productDAO.getProductByPage(0, page_size);
         }
+
+        // render product list
         if (listProduct != null) {
             request.setAttribute("data", listProduct);
             request.getRequestDispatcher("home.jsp").forward(request, response);
