@@ -30,14 +30,68 @@
         </style>
     </head>
     <body>
+        <!-- code -->
+        <c:if test="${param.logout != null }">
+                <c:remove var="role" scope="session"/>
+        </c:if>
 
-        <!-- Sidebar (hidden by default) -->
-        <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
-            <a href="javascript:void(0)" onclick="w3_close()"
-               class="w3-bar-item w3-button">Close Menu</a>
-            <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Food</a>
-            <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
-        </nav>
+        <!-- Header -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed fixed-top" style="height: 60px; " >
+                <div class="container" > 
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                          <div class="navbar-nav mr-auto">
+                            <!-- Image and text -->
+                            <a class="navbar-brand" href="#">
+                                <div style="display: flex;">
+                                    <img src="https://getbootstrap.com/docs/4.6/assets/brand/bootstrap-solid.svg" width="40px" height="40px" class="d-inline-block align-top" alt="">
+                                    <p style="margin-top: 10px; margin-left: 5px; font-family:'Courier New', Courier, monospace ">NMĐ-Shop</p> 
+                                </div>
+                            </a>
+                          </div>
+                          <div class="navbar-nav mr-auto">
+                            <form class="form-inline my-2 my-lg-0" action="home">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                              </form>
+                          </div>
+                          <div>
+                            <a href="cart">
+                            <svg width="30px" height="30px" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="cart" clip-path="url(#clip-cart)">
+                                  <g id="pills" transform="translate(0 -116)">
+                                    <g id="Group_154" data-name="Group 154">
+                                      <path id="Path_188" data-name="Path 188" d="M92,132H84.619a8.361,8.361,0,0,0-7.956,5.47L63.712,174.53A8.364,8.364,0,0,1,55.755,180H21.321a8.4,8.4,0,0,1-7.773-4.994l-8.925-21C2.387,148.746,6.445,143,12.4,143H57" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                      <circle id="Ellipse_335" data-name="Ellipse 335" cx="4.5" cy="4.5" r="4.5" transform="translate(20 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                      <circle id="Ellipse_336" data-name="Ellipse 336" cx="4.5" cy="4.5" r="4.5" transform="translate(49 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                    </g>
+                                  </g>
+                                </g>
+                            </svg>
+                            </a>
+                            <c:if test="${sessionScope.role == null}">
+                            <a href="login">
+                                <svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#555" d="M9.99296258,10.5729355 C12.478244,10.5729355 14.4929626,8.55821687 14.4929626,6.0729355 C14.4929626,3.58765413 12.478244,1.5729355 9.99296258,1.5729355 C7.5076812,1.5729355 5.49296258,3.58765413 5.49296258,6.0729355 C5.49296258,8.55821687 7.5076812,10.5729355 9.99296258,10.5729355 Z M10,0 C13.3137085,0 16,2.6862915 16,6 C16,8.20431134 14.8113051,10.1309881 13.0399615,11.173984 C16.7275333,12.2833441 19.4976819,15.3924771 19.9947005,19.2523727 C20.0418583,19.6186047 19.7690435,19.9519836 19.3853517,19.9969955 C19.0016598,20.0420074 18.6523872,19.7816071 18.6052294,19.4153751 C18.0656064,15.2246108 14.4363723,12.0699838 10.034634,12.0699838 C5.6099956,12.0699838 1.93381693,15.231487 1.39476476,19.4154211 C1.34758036,19.7816499 0.998288773,20.0420271 0.614600177,19.9969899 C0.230911582,19.9519526 -0.0418789616,19.6185555 0.00530544566,19.2523267 C0.500630192,15.4077896 3.28612316,12.3043229 6.97954305,11.1838052 C5.19718955,10.1447285 4,8.21217353 4,6 C4,2.6862915 6.6862915,0 10,0 Z"/>
+                                  </svg>
+                            </a>
+                        </c:if>
+                            <c:if test="${sessionScope.role != null}">
+                            <a href="logout">
+                                <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Login">
+                                      <g>
+                                        <path  d="M20.944,18.432a2.577,2.577,0,0,1-2.729,2.5c-2.153.012-4.307,0-6.46,0a.5.5,0,0,1,0-1c2.2,0,4.4.032,6.6,0,1.107-.016,1.589-.848,1.589-1.838V5.63a1.545,1.545,0,0,0-.969-1.471,3.027,3.027,0,0,0-1.061-.095H11.755a.5.5,0,0,1,0-1c2.225,0,4.465-.085,6.688,0a2.566,2.566,0,0,1,2.5,2.67Z"/>
+                                        <path  d="M15.794,12.354a.459.459,0,0,0,.138-.312A.3.3,0,0,0,15.938,12a.29.29,0,0,0-.006-.041.455.455,0,0,0-.138-.313L12.125,7.978a.5.5,0,0,0-.707.707L14.234,11.5H3.492a.5.5,0,0,0,0,1H14.234l-2.816,2.815a.5.5,0,0,0,.707.707Z"/>
+                                      </g>
+                                    </g>
+                                  </svg>
+                            </a>
+                        </c:if>
+                          </div>
+                        </div>
+                    </div>
+                </nav>
+        
 
         <!-- category -->
         <div class="container category">
@@ -54,23 +108,6 @@
                 </c:forEach>
             </div>
           </div>
-
-        <!-- Top menu -->
-        <div class="w3-top">
-            <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
-                <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
-                <c:if test="${param.logout != null }">
-                    <c:remove var="role" scope="session"/>
-                </c:if>
-                <c:if test="${sessionScope.role != null}">
-                    <a  href="logout" class="w3-button w3-padding-16 w3-right" id="logout">Logout <i class="fa fa-caret-down"></i></a>
-                    </c:if>
-                    <c:if test="${sessionScope.role == null}">
-                    <a href="login" class="w3-button w3-padding-16 w3-right">Login <i class="fa fa-caret-down"></i></a>
-                    </c:if>
-                <a href="cart" class="w3-button w3-padding-16 w3-right">Cart <i class="fa fa-caret-down"></i></a>
-            </div>
-        </div>
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
@@ -185,6 +222,8 @@
 
             <!-- End page content -->
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script>
             // Script to open and close sidebar

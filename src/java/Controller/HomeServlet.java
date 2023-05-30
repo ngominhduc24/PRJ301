@@ -62,9 +62,12 @@ public class HomeServlet extends HttpServlet {
 
         // get product list
         String categoryID = request.getParameter("category");
-
-        if (categoryID == null) {
+        String search = request.getParameter("search");
+        System.out.println(search);
+        if (categoryID == null && search == null) {
             listProduct = productDAO.getProductByPage(start_product, page_size);
+        } else if (search != null) {
+            listProduct = productDAO.searchProduct(start_product, page_size, search);
         } else {
             listProduct = productDAO.getProductByPage(start_product, page_size, categoryID);
         }

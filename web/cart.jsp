@@ -59,7 +59,7 @@
                                     </td>
                                 </tr>
                                 <c:forEach var="p" items="${data}">
-                                    <c:set var="total" value="${total + p.price}" />
+                                    <c:set var="total" value="${total + p.price*p.quantity}" />
                                 <form action="updatecart">
 
                                     <tr>

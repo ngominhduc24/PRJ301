@@ -68,6 +68,34 @@ public class ProductDAO {
         return null;
     }
 
+    public List<Product> searchProduct(int begin, int number_of_product, String search) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM dbo.Product WHERE Name LIKE ? ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
+
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, "%" + search + "%");
+            ps.setInt(2, begin);
+            ps.setInt(3, number_of_product);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("ProductID"));
+                product.setName(rs.getString("Name"));
+                product.setPrice(rs.getInt("Price"));
+                product.setCategoryID(rs.getInt("CategoryID"));
+                product.setImage(rs.getString("Image"));
+                product.setDescription(rs.getString("Description"));
+                list.add(product);
+            }
+            return list;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
     public Product getProductByID(String id) {
         String sql = "SELECT * FROM Product WHERE ProductID = ?";
         try {
