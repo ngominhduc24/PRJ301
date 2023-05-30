@@ -14,6 +14,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link
+        rel="stylesheet"
+        type="text/css"
+        href="${pageContext.request.contextPath}/styles/home.css"
+        />
         <style>
             body,h1,h2,h3,h4,h5,h6 {
                 font-family: "Karma", sans-serif
@@ -32,6 +38,50 @@
             <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Food</a>
             <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
         </nav>
+
+        <!-- category -->
+        <div class="container category">
+            <div class="row">
+              <div class="col-sm">
+                <a href="">
+                    <div class="img">
+                        <img src="https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg" class="card-img-top" alt="...">
+                    </div>
+                    <span class="txt">Card title</span>
+                </a>
+              </div>
+              <div class="col-sm">
+                <a href="">
+                    <div class="img">
+                        <img src="https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg" class="card-img-top" alt="...">
+                    </div>
+                    <span class="txt">Card title</span>
+                </a>
+              </div>
+              <div class="col-sm">
+                <a href="">
+                    <div class="img">
+                        <img src="https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg" class="card-img-top" alt="...">
+                    </div>
+                    <span class="txt">Card title</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        <!-- <div class="category" >
+                <a class="card" >
+                    <span class="img">
+                        <img src="https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/i/milkis_-_c.thu_n_99.png" class="card-img-top" alt="...">
+                    </span>
+                    <span class="txt">Card title</span>
+                </a>
+                <a class="card" >
+                    <span class="img">
+                        <img src="https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/i/milkis_-_c.thu_n_99.png" class="card-img-top" alt="...">
+                    </span>
+                    <span class="txt">Card title</span>
+                </a>
+        </div> -->
 
         <!-- Top menu -->
         <div class="w3-top">

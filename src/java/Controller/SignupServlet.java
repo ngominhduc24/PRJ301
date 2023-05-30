@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -103,6 +104,10 @@ public class SignupServlet extends HttpServlet {
                 request.setAttribute("error", "Email already exists");
                 request.getRequestDispatcher("/signup.jsp").forward(request, response);
             } else if (session.getAttribute("loginmessage") != null) {
+                Cookie cookie = new Cookie("email", email);
+                cookie.setMaxAge(60 * 60 * 24);
+                response.addCookie(cookie);
+
                 session.removeAttribute("loginmessage");
                 session.setAttribute("role", "user");
                 response.sendRedirect("checkout");
