@@ -42,46 +42,18 @@
         <!-- category -->
         <div class="container category">
             <div class="row">
-              <div class="col-sm">
-                <a href="">
-                    <div class="img">
-                        <img src="https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg" class="card-img-top" alt="...">
+                <c:forEach items="${listCategory}" var="category">
+                    <div class="col-sm">
+                        <a href="home?category=${category.categoryID}">
+                            <div class="img">
+                                <img src="${category.image}" class="card-img-top" alt="...">
+                            </div>
+                            <span class="txt">${category.name}</span>
+                        </a>
                     </div>
-                    <span class="txt">${listCategory.get(0).name}</span>
-                </a>
-              </div>
-              <div class="col-sm">
-                <a href="">
-                    <div class="img">
-                        <img src="https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <span class="txt">Card title</span>
-                </a>
-              </div>
-              <div class="col-sm">
-                <a href="">
-                    <div class="img">
-                        <img src="https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <span class="txt">Card title</span>
-                </a>
-              </div>
+                </c:forEach>
             </div>
           </div>
-        <!-- <div class="category" >
-                <a class="card" >
-                    <span class="img">
-                        <img src="https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/i/milkis_-_c.thu_n_99.png" class="card-img-top" alt="...">
-                    </span>
-                    <span class="txt">Card title</span>
-                </a>
-                <a class="card" >
-                    <span class="img">
-                        <img src="https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/m/i/milkis_-_c.thu_n_99.png" class="card-img-top" alt="...">
-                    </span>
-                    <span class="txt">Card title</span>
-                </a>
-        </div> -->
 
         <!-- Top menu -->
         <div class="w3-top">

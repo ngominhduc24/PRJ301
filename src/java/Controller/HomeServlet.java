@@ -50,15 +50,23 @@ public class HomeServlet extends HttpServlet {
 
         // paging product list
         int page_size = 8;
+        int start_product = 0;
         try {
-            int start_product = Integer.parseInt(page) * page_size - page_size;
-            int end_product = start_product + page_size;
+            start_product = Integer.parseInt(page) * page_size - page_size;
             // int total = productDAO.count();
             // int total_page = (total % page_size == 0) ? total / page_size : total /
             // page_size + 1;
-            listProduct = productDAO.getProductByPage(start_product, page_size);
         } catch (Exception e) {
-            listProduct = productDAO.getProductByPage(0, page_size);
+            System.out.println(e);
+        }
+
+        // get product list
+        String categoryID = request.getParameter("category");
+
+        if (categoryID == null) {
+            listProduct = productDAO.getProductByPage(start_product, page_size);
+        } else {
+            listProduct = productDAO.getProductByPage(start_product, page_size, categoryID);
         }
 
         // render product list
