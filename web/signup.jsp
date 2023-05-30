@@ -54,7 +54,7 @@
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input type="password" id="form3Example4cd" class="form-control" name="address" />
+                                                    <input type="text" id="form3Example4cd" class="form-control" name="address" />
                                                     <label class="form-label" for="form3Example4cd">Your Address</label>
                                                 </div>
                                             </div>

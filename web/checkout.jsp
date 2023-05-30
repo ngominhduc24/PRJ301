@@ -57,11 +57,11 @@
                 </div>
                 <ul class="navbar-nav px-3">
                     <li class="nav-item text-nowrap">
-                        <a class="nav-link" href="cart.html">Giỏ hàng</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/cart">Giỏ hàng</a>
                     </li>
                     <li class="nav-item text-nowrap">
                         <!-- Nếu chưa đăng nhập thì hiển thị nút Đăng nhập -->
-                        <a class="nav-link" href="login.html">Đăng nhập</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập</a>
                     </li>
                 </ul>
             </div>

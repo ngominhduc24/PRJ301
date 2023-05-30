@@ -77,6 +77,9 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        // get data from form
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
@@ -84,6 +87,8 @@ public class SignupServlet extends HttpServlet {
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
         String checkbox = request.getParameter("checkbox");
+
+        // validate data
         if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty() || repassword.isEmpty()
                 || address.isEmpty()) {
             request.setAttribute("error", "Please fill all the fields");
@@ -97,8 +102,11 @@ public class SignupServlet extends HttpServlet {
             if (accountDAO.createAccount(account) == null) {
                 request.setAttribute("error", "Email already exists");
                 request.getRequestDispatcher("/signup.jsp").forward(request, response);
+            } else if (session.getAttribute("loginmessage") != null) {
+                session.removeAttribute("loginmessage");
+                session.setAttribute("role", "user");
+                response.sendRedirect("checkout");
             } else {
-                HttpSession session = request.getSession();
                 session.setAttribute("role", "user");
                 request.getRequestDispatcher("/home").forward(request, response);
             }

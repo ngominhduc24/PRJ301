@@ -17,7 +17,7 @@ create table Account (
 GO
 
 create table Orders (
-    OrderID int not null primary key,
+    OrderID int IDENTITY(1,1) primary key,
     AccountID int not null,
     OrderDate date not null,
     Address varchar(50) not null,
@@ -97,7 +97,7 @@ insert into Product values (16, 'Beef Combo', 49, '01 LChicken Burger\n01 Fried 
 insert into Product values (17, 'Fish Combo', 66, 'Fish Combo', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/p/a/pack_loking_set_2.png', 5);
 
 -- order
-insert into Orders values (1, 1, '2023-12-12', 'Ha Dong, Ha Noi', 300, 1);
+insert into Orders values (1, '2023-12-12', 'Ha Dong, Ha Noi', 300, 1);
 
 -- OrderDetail
 insert into OrderDetail values (1, 1, 2);

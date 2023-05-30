@@ -32,4 +32,10 @@
       </div>
     </form>
   </body>
+  <script> 
+    var message = "${sessionScope.loginmessage}";
+    if (message != null && message != "") {
+      alert(message);
+    }
+  </script>
 </html>

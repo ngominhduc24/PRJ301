@@ -19,6 +19,7 @@ import java.sql.Date;
 import dal.AccountDAO;
 import dal.OrderDAO;
 import dal.OrderDetailDAO;
+import jakarta.servlet.http.HttpSession;
 import model.Account;
 import model.OrderDetail;
 import model.Orders;
@@ -71,6 +72,13 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null) {
+            session.setAttribute("loginmessage", "You must login to checkout");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
         Cookie[] cookies = request.getCookies();
         // get cart and email from cookie
         String cart = "";
