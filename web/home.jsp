@@ -21,8 +21,8 @@
         href="${pageContext.request.contextPath}/styles/home.css"
         />
         <style>
-            body,h1,h2,h3,h4,h5,h6 {
-                font-family: "Karma", sans-serif
+            body,h1,h2,h3,h4,h5,h6, p {
+                font-family: Roboto,Arial,sans-serif;
             }
             .w3-bar-block .w3-bar-item {
                 padding:20px
@@ -43,8 +43,8 @@
                             <!-- Image and text -->
                             <a class="navbar-brand" href="#">
                                 <div style="display: flex;">
-                                    <img src="https://getbootstrap.com/docs/4.6/assets/brand/bootstrap-solid.svg" width="40px" height="40px" class="d-inline-block align-top" alt="">
-                                    <p style="margin-top: 10px; margin-left: 5px; font-family:'Courier New', Courier, monospace ">NMĐ-Shop</p> 
+                                    <img src="https://png.pngtree.com/element_our/png/20180917/food-logo-design.-knife-fork-and-spoon-logo.-png_98037.jpg" width="40px" height="40px" class="d-inline-block align-top" alt="">
+                                    <h3 style="margin-top: 10px; margin-left: 5px;  ">NMD-Shop</h3> 
                                 </div>
                             </a>
                           </div>
@@ -56,17 +56,17 @@
                           </div>
                           <div>
                             <a href="cart">
-                            <svg width="30px" height="30px" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <g id="cart" clip-path="url(#clip-cart)">
-                                  <g id="pills" transform="translate(0 -116)">
-                                    <g id="Group_154" data-name="Group 154">
-                                      <path id="Path_188" data-name="Path 188" d="M92,132H84.619a8.361,8.361,0,0,0-7.956,5.47L63.712,174.53A8.364,8.364,0,0,1,55.755,180H21.321a8.4,8.4,0,0,1-7.773-4.994l-8.925-21C2.387,148.746,6.445,143,12.4,143H57" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
-                                      <circle id="Ellipse_335" data-name="Ellipse 335" cx="4.5" cy="4.5" r="4.5" transform="translate(20 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
-                                      <circle id="Ellipse_336" data-name="Ellipse 336" cx="4.5" cy="4.5" r="4.5" transform="translate(49 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
-                                    </g>
-                                  </g>
-                                </g>
-                            </svg>
+                                    <svg width="30px" height="30px" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="cart" clip-path="url(#clip-cart)">
+                                        <g id="pills" transform="translate(0 -116)">
+                                            <g id="Group_154" data-name="Group 154">
+                                            <path id="Path_188" data-name="Path 188" d="M92,132H84.619a8.361,8.361,0,0,0-7.956,5.47L63.712,174.53A8.364,8.364,0,0,1,55.755,180H21.321a8.4,8.4,0,0,1-7.773-4.994l-8.925-21C2.387,148.746,6.445,143,12.4,143H57" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                            <circle id="Ellipse_335" data-name="Ellipse 335" cx="4.5" cy="4.5" r="4.5" transform="translate(20 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                            <circle id="Ellipse_336" data-name="Ellipse 336" cx="4.5" cy="4.5" r="4.5" transform="translate(49 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                            </g>
+                                        </g>
+                                        </g>
+                                    </svg>
                             </a>
                             <c:if test="${sessionScope.role == null}">
                             <a href="login">
@@ -94,7 +94,7 @@
         
 
         <!-- category -->
-        <div class="container category">
+        <!-- <div class="container category">
             <div class="row">
                 <c:forEach items="${listCategory}" var="category">
                     <div class="col-sm">
@@ -102,21 +102,22 @@
                             <div class="img">
                                 <img src="${category.image}" class="card-img-top" alt="...">
                             </div>
-                            <span class="txt">${category.name}</span>
+                            <p class="txt">${category.name}</p>
                         </a>
                     </div>
                 </c:forEach>
             </div>
-          </div>
+          </div> -->
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
             <!-- First Photo Grid-->
-            <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+            <div class="w3-row-padding w3-padding-16 w3-center " id="food">
+                <!-- <div class="product w3-center" id="food"></div> -->
                 <c:forEach items="${data}" var="item" varStatus="loop">
                     <c:if test="${loop.index < 4}">
-                        <div class="w3-quarter">
+                        <div class="w3-quarter ">
                             <img src="${item.image}" alt="Sandwich" style="width:100%">
                             <div>
                                 <h3>${item.name}</h3>
@@ -128,7 +129,7 @@
                             <p style="color: #ef4242; font-weight: 700; font-size: 25px; line-height: 100%; margin-bottom: 5px;">${item.price}.000 ₫</p>
                             <form action="addtocart" method="post">
                                 <input name="productID" hidden value="${item.productID}"></input>
-                                <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
+                                <input type="submit" name="add" value="Add to cart" class="btn btn-secondary">
                             </form>
                         </div>
                     </c:if>
@@ -151,7 +152,7 @@
                             <p style="color: #ef4242; font-weight: 700; font-size: 25px; line-height: 100%; margin-bottom: 5px;">${item.price}.000 ₫</p>
                             <form action="addtocart" method="post">
                                 <input name="productID" hidden value="${item.productID}"></input>
-                                <input type="submit" name="add" value="Add to cart" class="w3-button w3-black w3-margin-bottom">
+                                <input type="submit" name="add" value="Add to cart" class="btn btn-secondary">
                             </form>
                         </div>
                     </c:if>
@@ -170,61 +171,60 @@
                 </div>
             </div>
 
+        <!-- End page content -->
+        </div>
+
             <hr id="about">
 
-            <!-- About Section -->
-            <div class="w3-container w3-padding-32 w3-center">  
-                <h3>About Me, The Food Man</h3><br>
-                <img src="/w3images/chef.jpg" alt="Me" class="w3-image" style="display:block;margin:auto" width="800" height="533">
-                <div class="w3-padding-32">
-                    <h4><b>I am Who I Am!</b></h4>
-                    <h6><i>With Passion For Real, Good Food</i></h6>
-                    <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+            <!-- slide -->
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="https://dscnnwjxnwl3f.cloudfront.net/media/banner/b/a/banner_web-01_2.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="	https://dscnnwjxnwl3f.cloudfront.net/media/banner/b/a/banner-dli-01_2.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://dscnnwjxnwl3f.cloudfront.net/media/banner/b/a/banner_web_vxmm-01_vx.jpg" class="d-block w-100" alt="...">
+                  </div>
                 </div>
-            </div>
-            <hr>
-
+                <button style="padding: 0; opacity: 0;" class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev" >
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </button>
+                <button style="padding: 0; opacity: 0;"  class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </button>
+              </div>
+              
             <!-- Footer -->
-            <footer class="w3-row-padding w3-padding-32">
-                <div class="w3-third">
-                    <h3>FOOTER</h3>
-                    <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-                    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+            <footer class="footer " style="display: grid; padding: 0; margin-top: 0; background-color: #FFEAE3;">
+                <div class="container" style="padding: 50px; display: block; max-width: fit-content;">
+                    <div class="w3-third" style="width: inherit;" >
+                        <h3 style="text-align: center;">ĐĂNG KÝ NHẬN THÔNG TIN KHUYẾN MÃI</h3>
+                        <p style="text-align: center;">Đặc biệt hơn, NMD-Shop giao hàng MIỄN PHÍ khi bạn đặt hàng qua Website NMD-Shop hoặc gọi đến số 1900.1111.</p>
+                    </div>
                 </div>
-
-                <div class="w3-third">
-                    <h3>BLOG POSTS</h3>
-                    <ul class="w3-ul w3-hoverable">
-                        <li class="w3-padding-16">
-                            <img src="/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
-                            <span class="w3-large">Lorem</span><br>
-                            <span>Sed mattis nunc</span>
-                        </li>
-                        <li class="w3-padding-16">
-                            <img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
-                            <span class="w3-large">Ipsum</span><br>
-                            <span>Praes tinci sed</span>
-                        </li> 
-                    </ul>
-                </div>
-
-                <div class="w3-third w3-serif">
-                    <h3>POPULAR TAGS</h3>
-                    <p>
-                        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dinner</span>
-                        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Salmon</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">France</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Drinks</span>
-                        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Flavors</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Cuisine</span>
-                        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Chicken</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dressing</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fried</span>
-                        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fish</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Duck</span>
-                    </p>
+                <div class="copyright" style="background-color: #FF9EA2; padding:0px; text-align: center; ">
+                    <p style="margin-top: 15px;">© 2022 NMD-Shop All Rights Reserved Site by LDCC</p>
+                    
                 </div>
             </footer>
 
-            <!-- End page content -->
-        </div>
+            
+
+          
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
         <script>
             // Script to open and close sidebar
             function w3_open() {
