@@ -37,15 +37,15 @@ public class LogoutServlet extends HttpServlet {
         session.removeAttribute("role");
         session.removeAttribute("username");
         session.removeAttribute("password");
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("cart") || cookie.getName().equals("email")
-                    || cookie.getName().equals("password")) {
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-                break;
-            }
-        }
+        // Cookie[] cookies = request.getCookies();
+        // for (Cookie cookie : cookies) {
+        // if (cookie.getName().equals("cart") || cookie.getName().equals("email")
+        // || cookie.getName().equals("password")) {
+        // cookie.setMaxAge(0);
+        // response.addCookie(cookie);
+        // break;
+        // }
+        // }
         response.sendRedirect("home");
     }
 

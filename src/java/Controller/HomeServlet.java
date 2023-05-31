@@ -60,6 +60,17 @@ public class HomeServlet extends HttpServlet {
             System.out.println(e);
         }
 
+        // count product
+        Cookie[] cookies = request.getCookies();
+        String cart = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("cart")) {
+                cart = cookie.getValue();
+            }
+        }
+        int countProduct = cart != "" ? cart.split("/").length : 0;
+        request.setAttribute("countProduct", countProduct);
+
         // get product list
         String categoryID = request.getParameter("category");
         String search = request.getParameter("search");

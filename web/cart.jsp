@@ -35,7 +35,6 @@
                         <table class="table table-sm">
                             <tbody>
                                 <tr>
-                                        <th><a href="login.jsp" ><button type="button" class="btn btn-danger "><i class="fa fa-times-circle"></i> Login</button></a></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>

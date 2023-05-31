@@ -126,12 +126,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_diachi">Địa chỉ</label>
-                                    <input type="text" class="form-control" name="address" id="kh_diachi"
+                                    <input type="text" class="form-control" name="address" id="kh_diachi" required=""
                                            value="${user.address}" >
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_dienthoai">Điện thoại</label>
-                                    <input type="text" class="form-control" name="phone" id="kh_dienthoai"
+                                    <input type="text" class="form-control" name="phone" id="kh_dienthoai" required=""
                                            value="${user.phone}" >
                                 </div>
                                 <div class="col-md-12">
@@ -169,7 +169,7 @@
         <!-- footer -->
         <footer class="footer mt-auto py-3">
             <div class="container">
-                <span>Bản quyền © bởi <a href="https://nentang.vn">Nền Tảng</a> - <script>document.write(new Date().getFullYear());</script>.</span>
+                <span>Bản quyền © bởi NMD-Shop - <script>document.write(new Date().getFullYear());</script>.</span>
                 <span class="text-muted">Hành trang tới Tương lai</span>
 
                 <p class="float-right">
