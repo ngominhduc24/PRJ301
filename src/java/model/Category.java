@@ -11,13 +11,15 @@ package model;
 public class Category {
     private int categoryID;
     private String name;
+    private String image;
 
     public Category() {
     }
 
-    public Category(int categoryID, String name) {
+    public Category(int categoryID, String name, String image) {
         this.categoryID = categoryID;
         this.name = name;
+        this.image = image;
     }
 
     public int getCategoryID() {
@@ -34,6 +36,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

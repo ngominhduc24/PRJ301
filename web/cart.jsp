@@ -35,13 +35,12 @@
                         <table class="table table-sm">
                             <tbody>
                                 <tr>
-                                        <th><a href="login.jsp" ><button type="button" class="btn btn-danger "><i class="fa fa-times-circle"></i> Login</button></a></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                         <th style="text-align:right">
-                                            <a href="SaveShoppingCartServlet" class="btn checkout-btn"><button type="button" class="btn btn_back "><i  class="fa fa-shopping-cart"></i> Check out</button></a>
+                                            <a href="checkout" class="btn checkout-btn"><button type="button" class="btn btn_back "><i  class="fa fa-shopping-cart"></i>Purchase Order</button></a>
                                         </th>
                                 </tr>
                                 <tr>
@@ -59,7 +58,7 @@
                                     </td>
                                 </tr>
                                 <c:forEach var="p" items="${data}">
-                                    <c:set var="total" value="${total + p.price}" />
+                                    <c:set var="total" value="${total + p.price*p.quantity}" />
                                 <form action="updatecart">
 
                                     <tr>

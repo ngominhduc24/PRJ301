@@ -1,6 +1,3 @@
-if exists (select * from sys.databases where name = 'prj301')
-    drop database prj301
-GO
 
 create database prj301
 GO
@@ -20,10 +17,11 @@ create table Account (
 GO
 
 create table Orders (
-    OrderID int not null primary key,
+    OrderID int IDENTITY(1,1) primary key,
     AccountID int not null,
     OrderDate date not null,
     Address varchar(50) not null,
+	TotalPrice int not null,
     Status int not null, -- 1: processing, 2: shipping, 3: delivered 
     foreign key (AccountID) references Account(AccountID)
 );
@@ -31,7 +29,8 @@ GO
 
 create table Category (
     CategoryID int not null primary key,
-    Name varchar(50) not null
+    Name varchar(50) not NULL,
+    Image varchar(500),
 );
 GO
 
@@ -40,7 +39,7 @@ create table Product (
     Name varchar(50) not null,
     Price int not null,
     Description varchar(50) not null,
-    Image varchar(500) not null,
+    Image varchar(500),
     CategoryID int not null,
     foreign key (CategoryID) references Category(CategoryID)
 );
@@ -49,8 +48,7 @@ GO
 create table OrderDetail (
     OrderID int not null,
     ProductID int not null,
-    Quantity int not null,
-    Price int not null,
+    Quantity int not null
     foreign key (OrderID) references Orders(OrderID),
     foreign key (ProductID) references Product(ProductID),
     primary key (OrderID, ProductID)
@@ -66,11 +64,11 @@ insert into Account values ('dung@fu.com', '123456', 'thi dung', '0123456789', '
 insert into Account values ('admin', '1', 'admin', '0123456789', '', 1);
 
 -- category
-insert into Category values (1, 'Chicken');
-insert into Category values (2, 'Burger');
-insert into Category values (3, 'Pizza');
-insert into Category values (4, 'Drink');
-insert into Category values (5, 'Combo');
+insert into Category values (1, 'Chicken', 'https://www.lotteria.vn/media/catalog/tmp/category/BG-Menu-Chicken-01-01_2.jpg');
+insert into Category values (2, 'Burger', 'https://www.lotteria.vn/media/catalog/tmp/category/BG_New-02_4.jpg');
+insert into Category values (3, 'Pizza', 'https://www.lotteria.vn/media/catalog/tmp/category/BG_New-10_1.jpg');
+insert into Category values (4, 'Drink', '	https://www.lotteria.vn/media/catalog/tmp/category/Promotion-10_2.jpg');
+insert into Category values (5, 'Combo', '	https://www.lotteria.vn/media/catalog/tmp/category/BG_New-05_1.jpg');
 
 -- type 1: Chicken
 insert into Product values (1, 'Mala Chicken', 40, 'Chicken made by Mala', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/p/a/pack_loking_set_2.png', 1);
@@ -95,14 +93,14 @@ insert into Product values (13, 'Pepsi', 10, '', 'https://dscnnwjxnwl3f.cloudfro
 insert into Product values (14, '7Up', 10, '', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/z/e/zero.jpg', 4);
 
 -- type 5: Combo
-insert into Product values (15, 'LChicken Combo', 80, '01 LChicken Burger\n01 Fried Fries', 'combo.jpg', 5);
-insert into Product values (16, 'Beef Combo', 49, '01 LChicken Burger\n01 Fried Fries', 'combo.jpg', 5);
-insert into Product values (17, 'Fish Combo', 66, 'Fish Combo', 'combo.jpg', 5);
+insert into Product values (15, 'LChicken Combo', 80, '01 LChicken Burger\n01 Fried Fries', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/p/a/pack_loking_set_2.png', 5);
+insert into Product values (16, 'Beef Combo', 49, '01 LChicken Burger\n01 Fried Fries', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/p/a/pack_loking_set_2.png', 5);
+insert into Product values (17, 'Fish Combo', 66, 'Fish Combo', 'https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/p/a/pack_loking_set_2.png', 5);
 
 -- order
-insert into Orders values (1, 1, '2023-12-12', 'Ha Dong, Ha Noi', 3);
+insert into Orders values (1, '2023-12-12', 'Ha Dong, Ha Noi', 300, 1);
 
 -- OrderDetail
-insert into OrderDetail values (1, 1, 2, 80);
-insert into OrderDetail values (1, 5, 2, 80);
-insert into OrderDetail values (1, 11, 1, 10);
+insert into OrderDetail values (1, 1, 2);
+insert into OrderDetail values (1, 5, 2);
+insert into OrderDetail values (1, 11, 1);

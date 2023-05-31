@@ -15,17 +15,19 @@ public class Orders {
     private int accountID;
     private Date orderDate;
     private String address;
+    private int totalPrice;
     private int status;
 
     public Orders() {
     }
 
-    public Orders(int orderID, int accountID, Date orderDate, String address, int status) {
+    public Orders(int orderID, int accountID, Date orderDate, String address, int totalPrice, int status) {
         this.orderID = orderID;
         this.accountID = accountID;
         this.orderDate = orderDate;
         this.address = address;
         this.status = status;
+        this.totalPrice = totalPrice;
     }
 
     public int getOrderID() {
@@ -66,6 +68,14 @@ public class Orders {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override

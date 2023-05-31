@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : May 25, 2023, 8:04:27 AM
+    Document   : success
+    Created on : May 29, 2023, 12:07:56 PM
     Author     : ASUS PC
 --%>
 
@@ -12,8 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello ${sessionScope.role}</h1>
-        <a href="${pageContext.request.contextPath}/login">Login</a>
-        <a href="${pageContext.request.contextPath}/home">Home</a>
+        <h1>check out sucessfully!</h1>
+        <a href="home">back to home page</a>
     </body>
 </html>

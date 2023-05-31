@@ -5,9 +5,9 @@
 
 package Controller;
 
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import dal.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -15,15 +15,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Account;
 import utils.NumberToEnum.UserRole;
+import model.Account;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "Login", urlPatterns = { "/login" })
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "SignupServlet", urlPatterns = { "/signup" })
+public class SignupServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +42,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet SignupServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SignupServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,12 +64,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("loginmessage") != null) {
-            session.removeAttribute("loginmessage");
-        }
-
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/signup.jsp").forward(request, response);
     }
 
     /**
@@ -85,39 +80,42 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        // get parameter
+        // get data from form
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String password = request.getParameter("Password");
-        String remember = request.getParameter("remember");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String password = request.getParameter("password");
+        String repassword = request.getParameter("repassword");
+        String checkbox = request.getParameter("checkbox");
 
-        // set cookie
-        Cookie cookie1 = new Cookie("email", email);
-        cookie1.setMaxAge(60 * 60 * 24);
-        Cookie cookie2 = new Cookie("password", password);
-        if (remember != null) {
-            cookie2.setMaxAge(60 * 60 * 24);
+        // validate data
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty() || repassword.isEmpty()
+                || address.isEmpty()) {
+            request.setAttribute("error", "Please fill all the fields");
+            request.getRequestDispatcher("/signup.jsp").forward(request, response);
+        } else if (!password.equals(repassword)) {
+            request.setAttribute("error", "Password and Re-Password must be same");
+            request.getRequestDispatcher("/signup.jsp").forward(request, response);
         } else {
-            cookie2.setMaxAge(0);
-        }
-        response.addCookie(cookie1);
-        response.addCookie(cookie2);
+            Account account = new Account(email, password, name, phone, address, UserRole.USER.getValue());
+            AccountDAO accountDAO = new AccountDAO();
+            if (accountDAO.createAccount(account) == null) {
+                request.setAttribute("error", "Email already exists");
+                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+            } else if (session.getAttribute("loginmessage") != null) {
+                Cookie cookie = new Cookie("email", email);
+                cookie.setMaxAge(60 * 60 * 24);
+                response.addCookie(cookie);
 
-        // check account
-        AccountDAO accountDAO = new AccountDAO();
-        Account account = accountDAO.checkAccount(email, password);
-
-        // set session
-        if (account != null) {
-            if (account.getRole() == UserRole.ADMIN.getValue()) {
-                session.setAttribute("role", "admin");
-            }
-            if (account.getRole() == UserRole.USER.getValue()) {
+                session.removeAttribute("loginmessage");
                 session.setAttribute("role", "user");
+                response.sendRedirect("checkout");
+            } else {
+                session.setAttribute("role", "user");
+                request.getRequestDispatcher("/home").forward(request, response);
             }
-            response.sendRedirect("home?page=1");
-        } else {
-            request.setAttribute("error", "Username or password is incorrect");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+
         }
     }
 

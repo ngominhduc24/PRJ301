@@ -5,7 +5,6 @@
 
 package Controller;
 
-import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,17 +13,14 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.util.ArrayList;
-import java.util.List;
-import model.Product;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "DisplayProductServlet", urlPatterns = { "/home" })
-public class DisplayProductServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = { "/logout" })
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,15 +33,20 @@ public class DisplayProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> listProduct = productDAO.getAllProduct();
-        if (listProduct != null) {
-            request.setAttribute("data", listProduct);
-            request.getRequestDispatcher("home.jsp").forward(request, response);
-        } else {
-            request.setAttribute("error", "Error");
-            request.getRequestDispatcher("index.html").forward(request, response);
-        }
+        HttpSession session = request.getSession();
+        session.removeAttribute("role");
+        session.removeAttribute("username");
+        session.removeAttribute("password");
+        // Cookie[] cookies = request.getCookies();
+        // for (Cookie cookie : cookies) {
+        // if (cookie.getName().equals("cart") || cookie.getName().equals("email")
+        // || cookie.getName().equals("password")) {
+        // cookie.setMaxAge(0);
+        // response.addCookie(cookie);
+        // break;
+        // }
+        // }
+        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
