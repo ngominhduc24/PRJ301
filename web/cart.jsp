@@ -73,13 +73,19 @@
                                                     name="item-quantity"
                                                     /></label></td>
                                         <td><fmt:formatNumber type="number" pattern="#,###" value=""/> ${p.price * p.quantity}.000 ₫</td>
+                                        <!-- <td>
+                                            <a href="deletecart?pid=${p.productID}" class="a_remove">
+                                                <div type="button" class="badge bg-danger text-wrap " style="width: 5rem;">
+                                                    <i class="fa fa-times"></i> Remove
+                                                </div>
+                                            </a>
+                                        </td> -->
                                         <td>
-                                            <a href="deletecart?pid=${p.productID}">
+                                            <a href="#" onclick="confirmDelete('${p.productID}');" class="a_remove">
                                                 <div type="button" class="badge bg-danger text-wrap" style="width: 5rem;">
                                                     <i class="fa fa-times"></i> Remove
                                                 </div>
                                             </a>
-
                                         </td>
                                         <td>
                                             <input type="hidden" name="pid" value="${p.productID}" />
@@ -111,12 +117,17 @@
             </div>
         </div>
     </section>
-
-
-
-
-
 </body>
+
+<script>
+    function confirmDelete(productID) {
+        if (confirm("Are you sure you want to remove this item?")) {
+            window.location.href = "deletecart?pid=" + productID;
+        } else {
+            return false;
+        }
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
