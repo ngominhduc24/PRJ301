@@ -43,6 +43,12 @@ public class HomeServlet extends HttpServlet {
         ProductDAO productDAO = new ProductDAO();
         List<Product> listProduct = new ArrayList<>();
 
+        // delete session
+        if (request.getSession().getAttribute("loginmessage") != null) {
+            request.getSession().removeAttribute("loginmessage");
+            request.setAttribute("loginmessage", "email or password is incorrect!");
+        }
+
         // get category list
         CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> listCategory = categoryDAO.getAllCategory();

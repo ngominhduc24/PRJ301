@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,33 +34,36 @@
               <div class="col-md-6 contents">
                 <div class="row justify-content-center">
                   <div class="col-md-12" style="padding: 0px;">
-                    <div class="form-block"  style="padding: 30px; width: 798px;">
+                    <div class="form-block"  style="padding: 30px; width:538px;">
+                      <c:set var="cookie" value="${pageContext.request.cookies}" />
                         <div class="mb-4">
                         <h3>Sign In to <strong>Colorlib</strong></h3>
                         <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
                       </div>
-                      <form action="#" method="post">
+                      <form action="login" method="post">
                         <div class="form-group first">
-                          <label for="username">Username</label>
-                          <input type="text" class="form-control" id="username">
+                          <label for="username">Email</label>
+                          <input type="text" name="email" class="form-control" id="username" value="${cookie.email.value}">
       
                         </div>
                         <div class="form-group last mb-4">
                           <label for="password">Password</label>
-                          <input type="password" class="form-control" id="password">
+                          <input type="password" name="Password" class="form-control" id="password" value="${cookie.password.value}">
                           
                         </div>
                         
                         <div class="d-flex mb-5 align-items-center">
                           <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                            <input type="checkbox" checked="checked"/>
+                            <input type="checkbox" name="remember" ${(cookie.email != null ? "checked" : "")}></input>
                             <div class="control__indicator"></div>
                           </label>
                           <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
                         </div>
-      
+                        <c:if test="${loginmessage != null}">
+                            <p style="color: red">${loginmessage}</p>
+                        </c:if>
                         <input style="background-color: #ff5b6a; border: #ff5b6a;" type="submit" value="Log In" class="btn btn-pill text-white btn-block btn-primary">
-      
+                        <p>No account yet? <a href="signup">Sign up</a></p> 
                         <span class="d-block text-center my-4 text-muted"> or sign in with</span>
                         
                         <div class="social-login text-center">
