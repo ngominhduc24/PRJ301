@@ -94,7 +94,15 @@ public class DisplayCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String cart = request.getParameter("cart");
+            Cookie cookie = new Cookie("cart", cart);
+            cookie.setMaxAge(60 * 60 * 24);
+            response.addCookie(cookie);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        response.sendRedirect("cart");
     }
 
     /**

@@ -182,14 +182,21 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
               <div class="modal-content" style="width: 540px; margin-left: 180px;">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+                  <!-- <h5 class="modal-title" id="exampleModalLongTitle">Login</h5> -->
+                  <div>
+                    <button id="modallogin">Log in</button>
+                    <button id="modalsignup">Sign up</button>
+                  </div>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body" style="padding: 0px;">
-                    <div style=" margin-left: 0px; padding: 0px;  width: 538px;">
+                    <div id="divlogin" style=" margin-left: 0px; padding: 0px;  width: 538px; display: block;">
                         <%@include file="login.jsp"%>
+                    </div>
+                    <div id="divsignup" style=" margin-left: 0px; padding: 0px;  width: 538px; display: none;">
+                        <%@include file="signup.jsp"%>
                     </div>
                 </div>
               </div>
@@ -230,15 +237,14 @@
               
             <!-- Footer -->
             <footer class="footer " style="display: grid; padding: 0; margin-top: 0; background-color: #FFEAE3;">
-                <div class="container" style="padding: 50px; display: block; max-width: fit-content;">
+                <div class="container" style="padding: 35px; display: block; max-width: fit-content;">
                     <div class="w3-third" style="width: inherit;" >
                         <h3 style="text-align: center;">ĐĂNG KÝ NHẬN THÔNG TIN KHUYẾN MÃI</h3>
                         <p style="text-align: center;">Đặc biệt hơn, NMD-Shop giao hàng MIỄN PHÍ khi bạn đặt hàng qua Website NMD-Shop hoặc gọi đến số 1900.1111.</p>
                     </div>
                 </div>
                 <div class="copyright" style="background-color: #FF9EA2; padding:0px; text-align: center; ">
-                    <p style="margin-top: 15px;">© 2023 NMD-Shop All Rights Reserved Site by LDCC</p>
-                    
+                    <p style="margin-top: 15px; color: white;">© 2023 NMD-Shop All Rights Reserved Site by LDCC</p>
                 </div>
             </footer>
 
@@ -278,11 +284,25 @@
                 });
             }
 
-            // login fail
+            // click if login fail
                 var message = "${loginmessage}";
                 if (message != null && message != "") {
                     document.getElementById("btnlogin").click();
                 }
+
+            // signup 
+            var signup = document.getElementById("modalsignup");
+            signup.addEventListener("click", function() {
+                document.getElementById("divlogin").style.display = "none";
+                document.getElementById("divsignup").style.display = "block";
+            });
+
+            // login
+            var login = document.getElementById("modallogin");
+            login.addEventListener("click", function() {
+                document.getElementById("divsignup").style.display = "none";
+                document.getElementById("divlogin").style.display = "block";
+            });
         </script>
 
     </body>

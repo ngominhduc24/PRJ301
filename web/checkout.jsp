@@ -17,6 +17,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
         <!-- Font awesome -->
         <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
 
@@ -58,12 +59,8 @@
                 border-radius: 4px;
             }
 
-            body{
-                font-weight: 500;
-            }
             h2{
                 font-family: Roboto,Arial,sans-serif;
-                font-weight: 700;
             }
             label {
                 margin-top: 10px;
@@ -104,7 +101,7 @@
                                 </g>
                                 </g>
                             </svg>
-                            <span class='badge badge-warning' id='lblCartCount'>${countProduct}</span>
+                            <span class='badge badge-warning' id='lblCartCount'>${data.size()}</span>
                         </a>
                         <c:if test="${sessionScope.role == null}">
                         <!-- <button href="login"> -->
@@ -169,11 +166,10 @@
                                 </li>
                             </ul>
 
-
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Mã khuyến mãi">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-secondary" style="background-color: #FF9EA2;">Xác nhận</button>
+                                    <button type="submit" class="btn btn-secondary" style="background-color: #ff5b6a;">Xác nhận</button>
                                 </div>
                             </div>
 
@@ -209,7 +205,7 @@
                             </div>
                             <hr class="mb-4">
                             <button class="btn btn-secondary" type="submit" 
-                            style="/* Auto layout */ border-color: #FF9EA2;  padding: 10px 20px; width: 270px; height: 40px; /* pink */ background: #FF9EA2; border-radius: 4px; display: flex; justify-content: center; align-items: center;">
+                            style="/* Auto layout */ border-color: #ff5b6a;  padding: 10px 20px; width: 270px; height: 40px; /* pink */ background: #ff5b6a; border-radius: 4px; display: flex; justify-content: center; align-items: center;">
                             <p style=" text-align: center; margin: 0;">Pay Now</p> 
                         </button>
                         
@@ -222,14 +218,16 @@
         </main>
 
         <!-- footer -->
-        <footer class="footer mt-auto py-3">
-            <div class="container">
-                <span>Bản quyền © bởi NMD-Shop - <script>document.write(new Date().getFullYear());</script>.</span>
-                <span class="text-muted">Hành trang tới Tương lai</span>
-
-                <p class="float-right">
-                    <a href="#">Về đầu trang</a>
-                </p>
+        <footer class="footer " style="display: grid; padding: 0; margin-top: 50px; background-color: #FFEAE3;">
+            <div class="container" style="padding: 35px; display: block; max-width: fit-content;">
+                <div class="w3-third" style="width: inherit;" >
+                    <h3 style="text-align: center;">ĐĂNG KÝ NHẬN THÔNG TIN KHUYẾN MÃI</h3>
+                    <h6 style="text-align: center;">Đặc biệt hơn, NMD-Shop giao hàng MIỄN PHÍ khi bạn đặt hàng qua Website NMD-Shop hoặc gọi đến số 1900.1111.</h6>
+                </div>
+            </div>
+            <div class="copyright" style="background-color: #FF9EA2; padding:0px; text-align: center; ">
+                <h6 style="margin-top: 15px; color: white;">© 2023 NMD-Shop All Rights Reserved Site by LDCC</h6>
+                
             </div>
         </footer>
         <!-- end footer -->

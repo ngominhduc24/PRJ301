@@ -63,7 +63,6 @@
                             <p style="color: red">${loginmessage}</p>
                         </c:if>
                         <input style="background-color: #ff5b6a; border: #ff5b6a;" type="submit" value="Log In" class="btn btn-pill text-white btn-block btn-primary">
-                        <p>No account yet? <a href="signup">Sign up</a></p> 
                         <span class="d-block text-center my-4 text-muted"> or sign in with</span>
                         
                         <div class="social-login text-center">
