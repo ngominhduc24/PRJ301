@@ -68,10 +68,13 @@ public class DisplayCartServlet extends HttpServlet {
         List<Product> listProduct = new ArrayList<>();
         ProductDAO productDAO = new ProductDAO();
         Cookie[] cookies = request.getCookies();
+        int countProduct = 0;
         String cart = "";
+
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {
                 cart = cookie.getValue();
+                countProduct = HandleCookie.CookieToProduct(cart).size();
                 break;
             }
         }
@@ -79,6 +82,8 @@ public class DisplayCartServlet extends HttpServlet {
             listProduct = HandleCookie.CookieToProduct(cart);
             request.setAttribute("data", listProduct);
         }
+
+        request.setAttribute("countProduct", countProduct);
 
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }

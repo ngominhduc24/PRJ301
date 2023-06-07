@@ -7,23 +7,29 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import dal.AccountDAO;
+import dal.OrderDAO;
+import dal.OrderDetailDAO;
+import dal.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
-import utils.NumberToEnum.UserRole;
+import java.util.ArrayList;
+import java.util.List;
+import model.OrderDetail;
+import model.Product;
+import model.Bill;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "Login", urlPatterns = { "/login" })
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "BillServlet", urlPatterns = { "/invoice" })
+public class BillServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +48,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet BillServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BillServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,12 +70,35 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("loginmessage") != null) {
-            session.removeAttribute("loginmessage");
+        Cookie[] cookies = request.getCookies();
+        OrderDAO orderDAO = new OrderDAO();
+        ProductDAO productDAO = new ProductDAO();
+        List<Bill> listbill = new ArrayList<>();
+        int accountID = -1;
+
+        // get id from cookie
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("accountID")) {
+                try {
+                    accountID = Integer.parseInt(cookie.getValue());
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
         }
 
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        // get Order from database
+        List<Integer> listOrderID = orderDAO.getAllOrderIDByAccountID(accountID);
+
+        for (int orderID : listOrderID) {
+            // get list order detail from database
+            List<Product> listProduct = productDAO.getListProductByOrderID(orderID);
+            listbill.add(new Bill(listProduct));
+        }
+
+        request.setAttribute("data", listbill);
+        request.getRequestDispatcher("bill.jsp").forward(request, response);
+
     }
 
     /**
@@ -83,50 +112,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        // get parameter
-        String email = request.getParameter("email");
-        String password = request.getParameter("Password");
-        String remember = request.getParameter("remember");
-        String id = request.getParameter("id");
-
-        // set cookie
-        Cookie cookie1 = new Cookie("email", email);
-        cookie1.setMaxAge(60 * 60 * 24);
-        Cookie cookie2 = new Cookie("password", password);
-        if (remember != null) {
-            cookie2.setMaxAge(60 * 60 * 24);
-        } else {
-            cookie2.setMaxAge(0);
-        }
-        response.addCookie(cookie1);
-        response.addCookie(cookie2);
-
-        // check account
-        AccountDAO accountDAO = new AccountDAO();
-        Account account = accountDAO.checkAccount(email, password);
-
-        // set cokkie
-
-        Cookie cookie3 = new Cookie("accountID", String.valueOf(account.getAccountID()));
-        cookie3.setMaxAge(60 * 60 * 24);
-        response.addCookie(cookie3);
-        // set session
-        if (account != null) {
-            if (account.getRole() == UserRole.ADMIN.getValue()) {
-                session.setAttribute("role", "admin");
-            }
-            if (account.getRole() == UserRole.USER.getValue()) {
-                session.setAttribute("role", "user");
-            }
-            response.sendRedirect("home?page=1");
-        } else {
-            session.setAttribute("loginmessage", "Login failed");
-            request.setAttribute("error", "Username or password is incorrect");
-            // request.getRequestDispatcher("/home.jsp").forward(request, response);
-            response.sendRedirect("home?page=1");
-        }
+        processRequest(request, response);
     }
 
     /**
