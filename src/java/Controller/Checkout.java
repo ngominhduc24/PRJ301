@@ -135,13 +135,14 @@ public class Checkout extends HttpServlet {
         }
 
         // get data order from request
-
         order.setAccountID(accountID);
         order.setOrderDate(date);
         order.setAddress(request.getParameter("address"));
         order.setTotalPrice(Integer.parseInt(request.getParameter("totalPrice")));
         order.setStatus(0);
         OrderDAO orderDAO = new OrderDAO();
+
+
         // save order to database
         int orderID = orderDAO.insertOrder(order);
 
@@ -158,17 +159,17 @@ public class Checkout extends HttpServlet {
         listbill.add(new Bill(products));
         for (Bill bill : listbill) {
             for (Product product : bill.getProducts()) {
-                System.out.println(product.getName());
+                System.out.println("check<< " + product.getName());
             }
         }
-        // request.setAttribute("data", listbill);
+         request.setAttribute("data", listbill);
 
         // delete cookie
         Cookie cookie = new Cookie("cart", "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        request.getRequestDispatcher("success.jsp").forward(request, response);
+        request.getRequestDispatcher("bill.jsp").forward(request, response);
     }
 
     /**

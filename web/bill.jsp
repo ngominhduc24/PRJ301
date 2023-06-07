@@ -64,35 +64,39 @@
                     </div>
                     <div class="orderlist" style="padding: 15px 20px;">
 
-                        <c:forEach items="${data}" var="bills">
+                        <c:forEach items="${data}" var="bill" varStatus="loopStatus">
 
-                            <c:forEach items="bills" var="products">
+                            <c:forEach items="${bill}" var="products" varStatus="innerLoopStatus">
                             <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
                                     <div class="col-md-9 product" style="padding: 0;">
                                     <div class="img">
-                                        <img src="https://api2.lotteria.vn/media/mageplaza/blog/post/resize/296.74666666667x208/c/t/ct_e_web_1.png" alt="">
+                                        <img src="${products.image}" alt="">
                                     </div>
                                     <div class="content">
                                         <h5 class="mt-0">${products.name}</h5>
                                         <p>${products.description}</p>
-                                        <p class="mb-0">${products.quantity}</p>
+                                        <p class="mb-0">product code: ${products.productID}</p>
                                     </div>
                                     </div>
 
                                     <div class="col-md-3 second-product" style="padding: 0;">
                                         <div class="text">
-                                            <p style="margin-left: 30px;">count</p> <br>
+                                            <p style="margin-left: 30px;">${products.quantity} Pcs</p> <br>
                                             <p style="margin-left: 30px;">total: </p>
                                         </div>
                                         <div class="text">
-                                            <p>price</p> <br>
-                                            <p>1</p>
+                                            <p>${products.price}.000 ₫</p> <br>
+                                            <p>${bill.getTotalPrice()}.000 ₫</p>
                                         </div>
                                     </div>
                                 </div>
+                            <c:if test="${!innerLoopStatus.last}">
+                                <div style="background-color: black; margin-top: 20px; margin-bottom: 20px; padding: 0.3px 0px;"></div>
+                            </c:if>
+                            </c:forEach>
+                        <c:if test="${!loopStatus.last}">
                             <div style="background-color: black; margin-top: 20px; margin-bottom: 20px; padding: 0.3px 0px;"></div>
-                             </c:forEach>
-                            <div style="background-color: black; margin-top: 20px; margin-bottom: 20px; padding: 0.3px 0px;"></div>
+                        </c:if>
                         </c:forEach>
 
                     </div>

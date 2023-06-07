@@ -42,20 +42,20 @@
                         <form action="login" method="post">
                             <div class="form-group first">
                                 <label for="username">Your Name</label>
-                                <input type="text" name="name" class="form-control" id="username" value="">
+                                <input type="text" name="name" class="form-control" id="name" value="">
                             </div>
                             <div class="form-group first">
                                 <label for="username">Your Email</label>
-                                <input type="text" name="email" class="form-control" id="username" value="">
+                                <input type="text" name="email" class="form-control" id="email" value="">
                             </div>
                               
                             <div class="form-group first">
                                 <label for="username">Your Phone</label>
-                                <input type="text" name="phone" class="form-control" id="username" value="">
+                                <input type="text" name="phone" class="form-control" id="phone" value="">
                             </div>
                             <div class="form-group first">
                                 <label for="username">Your Address</label>
-                                <input type="text" name="address" class="form-control" id="username" value="">
+                                <input type="text" name="address" class="form-control" id="address" value="">
                             </div>
 
                             <div class="form-group first row" style="display: flex; ">
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="password" >Repeat your password</label>
-                                    <input type="password" name="repassword" class="form-control" id="password" value="">
+                                    <input type="password" name="repassword" class="form-control" id="repassword" value="">
                                 </div>
                               </div>
 

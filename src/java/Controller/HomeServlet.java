@@ -20,6 +20,7 @@ import java.util.List;
 import model.Product;
 import dal.CategoryDAO;
 import model.Category;
+import utils.HandleCookie;
 
 /**
  *
@@ -39,7 +40,6 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = request.getParameter("page");
         ProductDAO productDAO = new ProductDAO();
         List<Product> listProduct = new ArrayList<>();
 
@@ -55,6 +55,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("listCategory", listCategory);
 
         // paging product list
+        String page = request.getParameter("page") != null ? request.getParameter("page") : "1";
         int page_size = 8;
         int start_product = 0;
         try {
@@ -68,19 +69,17 @@ public class HomeServlet extends HttpServlet {
 
         // count product
         Cookie[] cookies = request.getCookies();
-        String cart = "";
+        int countProduct = 0;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {
-                cart = cookie.getValue();
+                countProduct = HandleCookie.CookieToProduct(cookie.getValue()).size();
             }
         }
-        int countProduct = cart != "" ? cart.split("/").length : 0;
         request.setAttribute("countProduct", countProduct);
 
         // get product list
         String categoryID = request.getParameter("category");
         String search = request.getParameter("search");
-        System.out.println(search);
         if (categoryID == null && search == null) {
             listProduct = productDAO.getProductByPage(start_product, page_size);
         } else if (search != null) {
