@@ -38,7 +38,7 @@
     
             .session-product {
                 border: 1px;
-                box-shadow: 0px 2px 4px black;
+                box-shadow: 0px 0px 2px 0px #533939;
                 background: white;
                 padding: 10px;
                 border-radius: 10px;
@@ -48,7 +48,24 @@
 
             .price-addtocart {
                 position: relative;
-                bottom: -10px;
+                bottom: -5px;
+            }
+
+            .price-addtocart .text{
+                font-family: Roboto,Arial,sans-serif;
+                color: #ff5b6a; 
+                font-weight: 700; 
+                font-size: 25px; 
+                line-height: 100%;
+                 margin-bottom: 5px;
+            }
+
+            .btn-addtocart{
+                background: #ff5b6a;
+                border-color: #ff5b6a;
+                margin-top: 10px;
+                width: 100%;
+                color: white;
             }
         </style>
     </head>
@@ -59,11 +76,11 @@
         </c:if>
 
         <!-- Header -->
-            <%@include file="header.jsp"%>
+             <!-- <%@include file="header.jsp"%>  -->
         <!-- end header -->
 
         <!-- category -->
-        <div class="container category">
+        <!-- <div class="container category">
             <div class="row">
                 <c:forEach items="${listCategory}" var="category">
                     <div class="col-sm">
@@ -76,7 +93,7 @@
                     </div>
                 </c:forEach>
             </div>
-          </div>
+          </div> -->
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
@@ -96,10 +113,10 @@
                                 <p style="margin-top: 0px;"> ${item.description}</p>
                             </div>
                             <div class="price-addtocart">
-                                <p style="color: #ef4242; font-weight: 700; font-size: 25px; line-height: 100%; margin-bottom: 5px;">${item.price}.000 ₫</p>
+                                <p class="text" >${item.price}.000 ₫</p>
                                 <form action="addtocart" method="post">
                                     <input name="productID" hidden value="${item.productID}"></input>
-                                    <input type="submit" name="add" value="Add to cart" class="btn btn-secondary">
+                                    <input type="submit" name="add" value="Add to cart" class="btn btn-addtocart">
                                 </form>
                             </div>
                         </div>
@@ -122,10 +139,10 @@
                                 <p style="margin-top: 0px;"> ${item.description}</p>
                             </div>
                             <div class="price-addtocart">
-                                <p style="color: #ef4242; font-weight: 700; font-size: 25px; line-height: 100%; margin-bottom: 5px;">${item.price}.000 ₫</p>
+                                <p class="text">${item.price}.000 ₫</p>
                                 <form action="addtocart" method="post">
                                     <input name="productID" hidden value="${item.productID}"></input>
-                                    <input type="submit" name="add" value="Add to cart" class="btn btn-secondary">
+                                    <input type="submit" name="add" value="Add to cart" class="btn btn-addtocart">
                                 </form>
                             </div>
                         </div>
