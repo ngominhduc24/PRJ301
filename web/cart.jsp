@@ -131,7 +131,8 @@
         var btn_update = document.getElementsByName("updatecart")[0];
         btn_update.onclick = () => {
         var cart = "";
-        for (var i = 0; i < 4; i++) {
+        var cart_count = ${data.size()};
+        for (var i = 0; i <cart_count; i++) {
           try {
             var productid = document.getElementsByName("productid")[i].value;
             var quantity = document.getElementsByName("quantity")[i].value;

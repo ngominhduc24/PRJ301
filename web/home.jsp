@@ -68,7 +68,7 @@
                                     </g>
                                     </g>
                                 </svg>
-                                <span class='badge badge-warning' id='lblCartCount'>${countProduct}</span>
+                                <span class='badge badge-warning' id='lblCartCount' style="border-radius: 60rem;">${countProduct}</span>
                             </a>
                             <c:if test="${sessionScope.role == null}">
                             <!-- <button href="login"> -->

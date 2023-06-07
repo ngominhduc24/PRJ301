@@ -101,7 +101,7 @@
                                 </g>
                                 </g>
                             </svg>
-                            <span class='badge badge-warning' id='lblCartCount'>${data.size()}</span>
+                            <span class='badge badge-warning' id='lblCartCount' style="background-color: #ec3443; border-radius: 9px; padding: 1px 4px;">${data.size()}</span>
                         </a>
                         <c:if test="${sessionScope.role == null}">
                         <!-- <button href="login"> -->
@@ -145,7 +145,7 @@
                         <div class="col-md-4 order-md-2 mb-4">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Giỏ hàng</span>
-                                <span class="badge badge-secondary badge-pill">${data.size()}</span>
+                                <span class="badge badge-secondary badge-pill" style="background-color: #ff5b6a;">${data.size()}</span>
                             </h4>
                             <ul class="list-group mb-3">
                                 <c:forEach items="${data}" var="item">
