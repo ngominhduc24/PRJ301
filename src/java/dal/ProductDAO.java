@@ -146,4 +146,29 @@ public class ProductDAO {
         return null;
     }
 
+    public List<Product> getListProductByOrderID(int orderID) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT Product.*, OrderDetail.Quantity FROM OrderDetail JOIN Product ON OrderDetail.ProductID = Product.ProductID WHERE OrderDetail.OrderID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, orderID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("ProductID"));
+                product.setName(rs.getString("Name"));
+                product.setPrice(rs.getInt("Price"));
+                product.setCategoryID(rs.getInt("CategoryID"));
+                product.setImage(rs.getString("Image"));
+                product.setDescription(rs.getString("Description"));
+                product.setQuantity(rs.getInt("Quantity"));
+                list.add(product);
+            }
+            return list;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
 }
