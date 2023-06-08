@@ -49,7 +49,11 @@
         <title>Cart</title>
     </head>
 
-    <body style="background-color: #FFEAE3; margin-top: 50px; ">
+    <body style="background-color: #FFEAE3; margin-top: 80px; ">
+
+        <!-- Header -->
+             <!-- <%@include file="header.jsp"%>  -->
+        <!-- end header -->
 
 
         <div class="row" style="width: 60%; height: auto; margin: 0 auto; ">
