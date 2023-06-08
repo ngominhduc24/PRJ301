@@ -33,17 +33,28 @@
                 margin-top: 17px;
             }
 
+            .text p {
+                display: inline;
+            }
+
+            .total {
+                justify-content: flex-end;
+            }
+            .text .right {
+                margin-left: 50px;
+            }
+
 
         </style>
         <title>Cart</title>
     </head>
 
-    <body style="background-color: #FF9EA2; margin-top: 50px; ">
+    <body style="background-color: #FFEAE3; margin-top: 50px; ">
 
 
         <div class="row" style="width: 60%; height: auto; margin: 0 auto; ">
           <!-- menu -->
-            <div class="col-md-3 menu" style="padding: 20px 30px;">
+            <div class="col-md-3 menu" style="padding: 20px 30px; width: auto; height: 278px;">
                 <h5>Account</h5>
                 <h6>Contact information</h6>
                 <h6>Change password</h6>
@@ -91,11 +102,38 @@
                                     </div>
                                 </div>
                             <c:if test="${!innerLoopStatus.last}">
-                                <div style="background-color: black; margin-top: 20px; margin-bottom: 20px; padding: 0.3px 0px;"></div>
+                                <div style="background-color: rgb(226, 226, 226); margin-top: 20px; margin-bottom: 20px; padding: 0.3px 0px;"></div>
                             </c:if>
+                            <c:if test="${innerLoopStatus.last}">
+                                    <div style="background-color: rgb(226, 226, 226); margin-top: 20px; margin-bottom: 20px; padding: 0.1px 0px;"></div>
+                                    <!-- total bill -->
+                                    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+                                        <div class="col-md-8 product" style="padding: 0;">
+                                            <div class="content">
+                                                <p>Delivery Date: 27-2023</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 second-product total" style="padding: 0;">
+                                            <div class="text">
+
+                                                <div >
+                                                    <p >Total:</p> <p class="right">${bill.getTotalPrice()}.000 ₫</p><br>
+                                                </div>
+                                                <div  style="margin-top:5px;">
+                                                    <p style="padding-right: 37px;">Delivery:</p> <p class="right">0 ₫</p><br>
+                                                </div>
+                                                <div  style="margin-top:5px;"><p style="margin-left: 30px;">Total: </p> <p class="right">${bill.getTotalPrice()}.000 ₫</p></div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end total bill -->
+                                </c:if>
                             </c:forEach>
                         <c:if test="${!loopStatus.last}">
-                            <div style="background-color: black; margin-top: 20px; margin-bottom: 20px; padding: 0.3px 0px;"></div>
+                            <div style="background-color: rgb(121, 121, 121); margin-top: 20px; margin-bottom: 20px; padding: 0.3px 0px;"></div>
                         </c:if>
                         </c:forEach>
 

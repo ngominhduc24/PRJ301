@@ -44,6 +44,12 @@ body {
 }
 
 
+.text .right {
+    margin-left: 20px;
+}
+
+
+
 .product .txt {
     color: #142f43;
     display: block;
