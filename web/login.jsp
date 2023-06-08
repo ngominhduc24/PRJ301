@@ -62,11 +62,12 @@
                         <c:if test="${loginmessage != null}">
                             <p style="color: red">${loginmessage}</p>
                         </c:if>
-                        <input style="background-color: #ff5b6a; border: #ff5b6a;" type="submit" value="Log In" class="btn btn-pill text-white btn-block btn-primary">
+                        <input hidden value="url" name="url">
+                        <input style="background-color: #ff5b6a; border: #ff5b6a;" type="submit" value="Log In" onclick="btnSubmit();" class="btn btn-pill text-white btn-block btn-primary">
                         <span class="d-block text-center my-4 text-muted"> or sign in with</span>
                         
                         <div class="social-login text-center">
-                          <a href="#" class="facebook">
+                          <a onclick="btnSubmit();"  href="#" class="facebook">
                             <span class="icon-facebook mr-3"></span> 
                           </a>
                           <a href="#" class="twitter">
@@ -92,5 +93,13 @@
           <script src="js/popper.min.js"></script>
           <script src="js/bootstrap.min.js"></script>
           <script src="js/main.js"></script>
+
+          <script>
+            function btnSubmit() {
+              const href = window.location.href;
+              const url = href.split("/")
+              document.getElementsByName("url")[0].value = url[url.length - 1];
+            }
+          </script>
         </body>
 </html>
