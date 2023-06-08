@@ -93,8 +93,10 @@ public class Checkout extends HttpServlet {
                 email = cookie.getValue();
             }
         }
+
         List<Product> products = HandleCookie.CookieToProduct(cart);
 
+        request.setAttribute("countProduct", countProduct);
         // get data user
         if (email != null) {
             AccountDAO accountDAO = new AccountDAO();

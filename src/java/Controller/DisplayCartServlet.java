@@ -76,8 +76,14 @@ public class DisplayCartServlet extends HttpServlet {
             }
         }
         if (!cart.equals("")) {
+            // get list product from cookie
             listProduct = HandleCookie.CookieToProduct(cart);
             request.setAttribute("data", listProduct);
+
+            // get number of product
+            int countProduct = listProduct.size();
+            request.setAttribute("countProduct", countProduct);
+
         }
 
         request.getRequestDispatcher("cart.jsp").forward(request, response);
