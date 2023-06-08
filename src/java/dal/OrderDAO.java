@@ -7,8 +7,6 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import model.Orders;
 
@@ -40,22 +38,6 @@ public class OrderDAO {
             System.out.println(ex);
         }
         return -1;
-    }
-
-    public List<Integer> getAllOrderIDByAccountID(int accountID) {
-        String sql = "SELECT orderID FROM Orders WHERE accountID = ?";
-        List<Integer> listOrderID = new ArrayList<>();
-        try {
-            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
-            ps.setInt(1, accountID);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                listOrderID.add(rs.getInt("orderID"));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        return listOrderID;
     }
 
 }

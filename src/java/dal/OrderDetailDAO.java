@@ -30,21 +30,4 @@ public class OrderDetailDAO {
 
     }
 
-    public List<OrderDetail> getListOrderDetailByOrderID(int orderID) {
-        String sql = "SELECT * FROM OrderDetail WHERE orderID = ?";
-        try {
-            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
-            ps.setInt(1, orderID);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setOrderID(rs.getInt("orderID"));
-                orderDetail.setProductID(rs.getInt("productID"));
-                orderDetail.setQuantity(rs.getInt("quantity"));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        return null;
-    }
 }

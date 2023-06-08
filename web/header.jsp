@@ -22,17 +22,15 @@
     </head>
     <body>
         <!-- Header -->
-            <nav class="navbar navbar-expand-lg navbar-light position-fixed fixed-top" style="height: 60px; background-color: rgb(247 227 212 / 97%); " >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed fixed-top" style="height: 60px; " >
                 <div class="container" > 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                           <div class="navbar-nav mr-auto">
                             <!-- Image and text -->
                             <a class="navbar-brand" href="#">
                                 <div style="display: flex;">
-                                    <a href="home">
-                                    <img src="img/header.png" width="60px" height="60px" class="d-inline-block align-top" alt="">
-                                    <h3 style="margin-top: 10px; margin-left: 5px;  "></h3> 
-                                    </a>
+                                    <img src="https://png.pngtree.com/element_our/png/20180917/food-logo-design.-knife-fork-and-spoon-logo.-png_98037.jpg" width="40px" height="40px" class="d-inline-block align-top" alt="">
+                                    <h3 style="margin-top: 10px; margin-left: 5px;  ">NMD-Shop</h3> 
                                 </div>
                             </a>
                           </div>

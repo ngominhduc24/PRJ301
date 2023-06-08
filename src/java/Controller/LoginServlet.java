@@ -89,7 +89,6 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("Password");
         String remember = request.getParameter("remember");
-        String id = request.getParameter("id");
 
         // set cookie
         Cookie cookie1 = new Cookie("email", email);
@@ -107,11 +106,6 @@ public class LoginServlet extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.checkAccount(email, password);
 
-        // set cokkie
-
-        Cookie cookie3 = new Cookie("accountID", String.valueOf(account.getAccountID()));
-        cookie3.setMaxAge(60 * 60 * 24);
-        response.addCookie(cookie3);
         // set session
         if (account != null) {
             if (account.getRole() == UserRole.ADMIN.getValue()) {
