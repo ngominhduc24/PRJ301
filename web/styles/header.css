@@ -1,0 +1,85 @@
+.category {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: -80px;
+}
+
+.category .col-sm {
+    margin-left: -15px;
+}
+
+.category a {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.category a:hover {
+    color: #f00;
+}
+
+.category .img {
+    width: 100px;
+    height: auto;
+}
+
+.category img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.category .txt {
+    color: #142f43;
+    display: block;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 5px;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 500;
+}
+
+.category .txt:hover {
+    color: #f00;
+}
+
+.product {
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    padding: 5spx;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    border-radius: 60rem;
+    margin-right: 5px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #c67605;
+}
+
+#lblCartCount {
+    font-size: 12px;
+    background: #e72a39;
+    color: #fff;
+    vertical-align: top;
+    margin-left: -15px;
+    padding: 1px 4px
+}
+
