@@ -42,24 +42,11 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         ProductDAO productDAO = new ProductDAO();
         List<Product> listProduct = new ArrayList<>();
-        Cookie[] cookies = request.getCookies();
 
-        // delete session if login fail
+        // delete session
         if (request.getSession().getAttribute("loginmessage") != null) {
             request.getSession().removeAttribute("loginmessage");
             request.setAttribute("loginmessage", "email or password is incorrect!");
-        }
-
-        // check if cookie have email and password then set attribute loginmessage = ""
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("email")) {
-                for (Cookie cookie2 : cookies) {
-                    if (cookie2.getName().equals("password")) {
-                        request.setAttribute("loginmessage", "");
-                        break;
-                    }
-                }
-            }
         }
 
         // get category list
@@ -73,11 +60,15 @@ public class HomeServlet extends HttpServlet {
         int start_product = 0;
         try {
             start_product = Integer.parseInt(page) * page_size - page_size;
+            // int total = productDAO.count();
+            // int total_page = (total % page_size == 0) ? total / page_size : total /
+            // page_size + 1;
         } catch (Exception e) {
             System.out.println(e);
         }
 
         // count product
+        Cookie[] cookies = request.getCookies();
         int countProduct = 0;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {

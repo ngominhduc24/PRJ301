@@ -5,13 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Header</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
@@ -19,17 +16,17 @@
         <link
         rel="stylesheet"
         type="text/css"
-        href="${pageContext.request.contextPath}/styles/header.css"
+        href="${pageContext.request.contextPath}/styles/home.css"
         />
         <title>JSP Page</title>
     </head>
     <body>
-          -->
-            <nav class="navbar navbar-expand-lg navbar-light position-fixed fixed-top" style="height: 60px; width: 100%; background-color: rgb(247 227 212 / 97%); " >
+        <!-- Header -->
+            <nav class="navbar navbar-expand-lg navbar-light position-fixed fixed-top" style="height: 60px; background-color: rgb(247 227 212 / 97%); " >
                 <div class="container" > 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                           <div class="navbar-nav mr-auto">
-                            
+                            <!-- Image and text -->
                             <a class="navbar-brand" href="#">
                                 <div style="display: flex;">
                                     <a href="home">
@@ -60,14 +57,15 @@
                                 </svg>
                                 <span class='badge badge-warning' id='lblCartCount' style="border-radius: 60rem;">${countProduct}</span>
                             </a>
-                            <c:if test="${sessionScope.role == null}">
+                            <!--<c:if test="${sessionScope.role == null}">-->
+                            <!-- <button href="login"> -->
                             <button type="button" id="btnlogin" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #f8f9fa; padding: 6px; border: 0px;">
                                 <svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="#555" d="M9.99296258,10.5729355 C12.478244,10.5729355 14.4929626,8.55821687 14.4929626,6.0729355 C14.4929626,3.58765413 12.478244,1.5729355 9.99296258,1.5729355 C7.5076812,1.5729355 5.49296258,3.58765413 5.49296258,6.0729355 C5.49296258,8.55821687 7.5076812,10.5729355 9.99296258,10.5729355 Z M10,0 C13.3137085,0 16,2.6862915 16,6 C16,8.20431134 14.8113051,10.1309881 13.0399615,11.173984 C16.7275333,12.2833441 19.4976819,15.3924771 19.9947005,19.2523727 C20.0418583,19.6186047 19.7690435,19.9519836 19.3853517,19.9969955 C19.0016598,20.0420074 18.6523872,19.7816071 18.6052294,19.4153751 C18.0656064,15.2246108 14.4363723,12.0699838 10.034634,12.0699838 C5.6099956,12.0699838 1.93381693,15.231487 1.39476476,19.4154211 C1.34758036,19.7816499 0.998288773,20.0420271 0.614600177,19.9969899 C0.230911582,19.9519526 -0.0418789616,19.6185555 0.00530544566,19.2523267 C0.500630192,15.4077896 3.28612316,12.3043229 6.97954305,11.1838052 C5.19718955,10.1447285 4,8.21217353 4,6 C4,2.6862915 6.6862915,0 10,0 Z"/>
                                   </svg>
                             </button>
-                        </c:if>
-                            <c:if test="${sessionScope.role != null}">
+                        <!--</c:if>-->
+                            <!--<c:if test="${sessionScope.role != null}">-->
                             <a href="logout">
                                 <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <g id="Login">
@@ -78,10 +76,11 @@
                                     </g>
                                   </svg>
                             </a>
-                        </c:if>
+                        <!--</c:if>-->
                           </div>
                         </div>
                     </div>
                 </nav>
+        <!-- end header -->
     </body>
 </html>

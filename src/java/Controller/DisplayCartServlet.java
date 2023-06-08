@@ -65,32 +65,27 @@ public class DisplayCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            List<Product> listProduct = new ArrayList<>();
-            ProductDAO productDAO = new ProductDAO();
-            Cookie[] cookies = request.getCookies();
-            int countProduct = 0;
-            String cart = "";
+        List<Product> listProduct = new ArrayList<>();
+        ProductDAO productDAO = new ProductDAO();
+        Cookie[] cookies = request.getCookies();
+        int countProduct = 0;
+        String cart = "";
 
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("cart")) {
-                    cart = cookie.getValue();
-                    break;
-                }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("cart")) {
+                cart = cookie.getValue();
+                countProduct = HandleCookie.CookieToProduct(cart).size();
+                break;
             }
-            if (!cart.equals("")) {
-                listProduct = HandleCookie.CookieToProduct(cart);
-                countProduct = listProduct.size();
-                request.setAttribute("data", listProduct);
-            }
-
-            request.setAttribute("countProduct", countProduct);
-
-            request.getRequestDispatcher("cart.jsp").forward(request, response);
-        } catch (Exception e) {
-            response.sendRedirect("index.jsp");
+        }
+        if (!cart.equals("")) {
+            listProduct = HandleCookie.CookieToProduct(cart);
+            request.setAttribute("data", listProduct);
         }
 
+        request.setAttribute("countProduct", countProduct);
+
+        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     /**

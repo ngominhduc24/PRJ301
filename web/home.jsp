@@ -75,9 +75,9 @@
                 <c:remove var="role" scope="session"/>
         </c:if>
 
-        <!-- header -->
+        <!-- Header -->
              <!-- <%@include file="header.jsp"%>  -->
-        <!-- endhader -->
+        <!-- end header -->
 
         <!-- category -->
         <!-- <div class="container category">
@@ -274,7 +274,7 @@
 
             // click if login fail
                 var message = "${loginmessage}";
-                if (message != null) {
+                if (message != null && message != "") {
                     document.getElementById("btnlogin").click();
                 }
 
