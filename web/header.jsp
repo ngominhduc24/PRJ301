@@ -29,7 +29,9 @@
                             <!-- Image and text -->
                             <a class="navbar-brand" href="#">
                                 <div style="display: flex;">
-                                    <img src="https://png.pngtree.com/element_our/png/20180917/food-logo-design.-knife-fork-and-spoon-logo.-png_98037.jpg" width="40px" height="40px" class="d-inline-block align-top" alt="">
+                                    <a href="home">
+                                        <img src="https://png.pngtree.com/element_our/png/20180917/food-logo-design.-knife-fork-and-spoon-logo.-png_98037.jpg" width="40px" height="40px" class="d-inline-block align-top" alt="">
+                                    </a>
                                     <h3 style="margin-top: 10px; margin-left: 5px;  ">NMD-Shop</h3> 
                                 </div>
                             </a>

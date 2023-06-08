@@ -77,7 +77,7 @@ public class Checkout extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("role") == null) {
             session.setAttribute("loginmessage", "You must login to checkout");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("cart");
             return;
         }
 
@@ -142,7 +142,6 @@ public class Checkout extends HttpServlet {
         order.setStatus(0);
         OrderDAO orderDAO = new OrderDAO();
 
-
         // save order to database
         int orderID = orderDAO.insertOrder(order);
 
@@ -162,7 +161,7 @@ public class Checkout extends HttpServlet {
                 System.out.println("check<< " + product.getName());
             }
         }
-         request.setAttribute("data", listbill);
+        request.setAttribute("data", listbill);
 
         // delete cookie
         Cookie cookie = new Cookie("cart", "");
