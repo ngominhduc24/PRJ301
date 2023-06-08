@@ -35,6 +35,11 @@
         <title>Cart</title>
     </head>
     <body style="background-color: #FFEAE3;">
+        
+         <!-- Header -->
+             <!-- <%@include file="header.jsp"%>  -->
+        <!-- end header -->
+        
       <form id="updateForm" action="cart" method="post">
         <div class="container px-3 my-5 clearfix" >
             <!-- Shopping cart table -->
@@ -118,7 +123,39 @@
             </div>
         </div>
       </form>
+                            
+                            <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+              <div class="modal-content" style="width: 540px; margin-left: 180px;">
+                <div class="modal-header">
+                  <!-- <h5 class="modal-title" id="exampleModalLongTitle">Login</h5> -->
+                  <div>
+                    <button id="modallogin">Log in</button>
+                    <button id="modalsignup">Sign up</button>
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="padding: 0px;">
+                    <div id="divlogin" style=" margin-left: 0px; padding: 0px;  width: 538px; display: block;">
+                        <%@include file="login.jsp"%>
+                    </div>
+                    <div id="divsignup" style=" margin-left: 0px; padding: 0px;  width: 538px; display: none;">
+                        <%@include file="signup.jsp"%>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- end Modal -->
+        
     </body>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <script>
         function confirmDelete(productID) {
             if (confirm("Are you sure you want to remove this item?")) {
@@ -156,5 +193,25 @@
 
         form.submit();
       }
+      
+      // click if login fail
+                var message = "${loginmessage}";
+                if (message != null && message != "") {
+                    document.getElementById("btnlogin").click();
+                }
+
+            // signup 
+            var signup = document.getElementById("modalsignup");
+            signup.addEventListener("click", function() {
+                document.getElementById("divlogin").style.display = "none";
+                document.getElementById("divsignup").style.display = "block";
+            });
+
+            // login
+            var login = document.getElementById("modallogin");
+            login.addEventListener("click", function() {
+                document.getElementById("divsignup").style.display = "none";
+                document.getElementById("divlogin").style.display = "block";
+            });
     </script>
 </html>

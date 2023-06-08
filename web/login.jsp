@@ -37,7 +37,7 @@
                     <div class="form-block"  style="padding: 30px; width:538px;">
                       <c:set var="cookie" value="${pageContext.request.cookies}" />
                         <div class="mb-4">
-                        <h3>Sign In to <strong>Colorlib</strong></h3>
+                        <h3>Sign In to <strong>NMD - SHOP</strong></h3>
                         <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
                       </div>
                       <form action="login" method="post">

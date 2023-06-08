@@ -72,7 +72,9 @@ public class HomeServlet extends HttpServlet {
         int countProduct = 0;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {
-                countProduct = HandleCookie.CookieToProduct(cookie.getValue()).size();
+                if(cookie.getValue() != "") {
+                    countProduct = HandleCookie.CookieToProduct(cookie.getValue()).size();
+                }
             }
         }
         request.setAttribute("countProduct", countProduct);
