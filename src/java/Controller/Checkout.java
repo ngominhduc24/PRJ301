@@ -123,7 +123,7 @@ public class Checkout extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         Orders order = new Orders();
         String email = request.getParameter("email");
-        int accountID = accountDAO.getIdByEmail(email);
+        int accountID = accountDAO.getAccountIDByEmail(email);
         Date date = new Date(System.currentTimeMillis());
 
         // get cart and email from cookie

@@ -114,8 +114,6 @@ public class LoginServlet extends HttpServlet {
             if (account.getRole() == UserRole.USER.getValue()) {
                 session.setAttribute("role", "user");
             }
-            System.out.println(account.getAccountID());
-            Cookie cookie3 = new Cookie("accountID", String.valueOf(account.getAccountID()));
             response.sendRedirect(url);
         } else {
             session.setAttribute("loginmessage", "Login failed");

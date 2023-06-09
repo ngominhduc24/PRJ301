@@ -72,10 +72,10 @@
                         <input type="text" name="address" class="form-control" id="address" value="${account.address}">
                     </div>
                     <c:if test="${cookie.successinfo != null}">
-                        <p style="color: rgb(3, 219, 39)" >Change password successfully!</p>
+                        <p style="color: rgb(3, 219, 39)" >Update info successfully!</p>
                     </c:if>
                     <c:if test="${cookie.errorinfo != null}">
-                        <p style="color: rgb(255, 0, 0)">Old password is incorrect!</p>
+                        <p style="color: rgb(255, 0, 0)">Not valid!</p>
                     </c:if>
                     <input style="background-color: #ff5b6a; border: #ff5b6a; margin-top: 30px;" type="submit" value="Save" class="btn btn-pill text-white btn-block btn-primary">
                 </div>

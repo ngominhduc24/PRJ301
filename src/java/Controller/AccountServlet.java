@@ -71,6 +71,7 @@ public class AccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            AccountDAO accountDAO = new AccountDAO();
             Cookie[] cookies = request.getCookies();
             OrderDAO orderDAO = new OrderDAO();
             ProductDAO productDAO = new ProductDAO();
@@ -79,8 +80,8 @@ public class AccountServlet extends HttpServlet {
 
             // get id from cookie
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("accountID")) {
-                    accountID = Integer.parseInt(cookie.getValue());
+                if (cookie.getName().equals("email")) {
+                    accountID = accountDAO.getAccountIDByEmail(cookie.getValue());
                 }
             }
 
@@ -95,7 +96,6 @@ public class AccountServlet extends HttpServlet {
             request.setAttribute("data", listbill);
 
             // get account from database
-            AccountDAO accountDAO = new AccountDAO();
             request.setAttribute("account", accountDAO.getAccountByID(accountID));
 
             request.getRequestDispatcher("account.jsp").forward(request, response);

@@ -80,7 +80,7 @@ public class AccountDAO {
         return null;
     }
 
-    public int getIdByEmail(String email) {
+    public int getAccountIDByEmail(String email) {
         String sql = "SELECT accountID FROM Account WHERE email = ?";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
