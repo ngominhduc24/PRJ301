@@ -68,23 +68,30 @@
 
         <div class="row" style="width: 60%; height: auto; margin: 0 auto; ">
             <!-- menu -->
-            <div class="col-md-3 menu" style="padding: 20px 30px; width: auto; height: 278px;">
+            <div class="col-md-3 menu" style="padding: 20px 30px; width: auto; height: 305px;">
                 <h5 style="color: #ee5360; font-weight: 720; user-select: none;">Account</h5>
-                <h6>Contact information</h6>
-                <h6>Change password</h6>
+                <h6 class="txtinfo">Contact information</h6>
+                <h6 class="txtpassword">Change password</h6>
                 <h6 class=" dropdown-toggle dropdown" onclick="dropdown();" > Orders </h6>
-                <div id="dropdown" style="display: none; color: #606060;">
-                    <a>All Orders</a> <br>
+                <div id="dropdown" style="display: block; color: #606060;">
+                    <a href="account">All Orders</a> <br>
                     <a>Processing</a> <br>
                     <a>Completed</a> <br>
                     <a>Cancelled</a>
                 </div>
+                <h6>Log out</h6>
             </div>
 
             <div class="col-md-9">
-                <%@include file="info_account.jsp"%> 
-                <!-- <%@include file="password_account.jsp"%>  -->
-                <!-- <%@include file="orderlist.jsp"%>  -->
+                <!-- <div class="info" style="display: none;">
+                    <%@include file="info_account.jsp"%> 
+                </div>
+                <div class="password" style="display: none;">
+                    <%@include file="password_account.jsp"%> 
+                </div> -->
+                <!-- <div class="order" style=""> -->
+                    <%@include file="orderlist.jsp"%> 
+                <!-- </div> -->
             </div>
         </div>
         <div class="container px-3 my-5 clearfix" >
@@ -95,13 +102,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-                    function dropdown() {
-                        var x = document.getElementById("dropdown");
-                        if (x.style.display === "none") {
-                            x.style.display = "block";
-                        } else {
-                            x.style.display = "none";
-                        }
-                    }
+        function dropdown() {
+            var x = document.getElementById("dropdown");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                document.getElementsByClassName("menu")[0].style.height = "305px";
+            } else {
+                x.style.display = "none";
+                document.getElementsByClassName("menu")[0].style.height = "200px";
+            }
+        }
     </script>
 </html>
