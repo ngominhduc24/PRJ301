@@ -26,6 +26,22 @@
 
             .menu h6 {
                 margin-top: 17px;
+                font-size: 15px;
+                user-select: none;
+            }
+
+            .menu h6:hover {
+                color: #ee5360;
+            }
+
+            .menu a {
+                font-size: 14px;
+                font-weight: 500;
+                user-select: none;
+            }
+
+            .menu a:hover {
+                color: #2c2c2c;
             }
 
             .text p {
@@ -53,11 +69,11 @@
         <div class="row" style="width: 60%; height: auto; margin: 0 auto; ">
             <!-- menu -->
             <div class="col-md-3 menu" style="padding: 20px 30px; width: auto; height: 278px;">
-                <h5 style="color: #ee5360;">Account</h5>
+                <h5 style="color: #ee5360; font-weight: 720; user-select: none;">Account</h5>
                 <h6>Contact information</h6>
                 <h6>Change password</h6>
-                <h6 class=" dropdown-toggle dropdown" onclick="dropdown();" style="user-select: none;" > Orders </h6>
-                <div id="dropdown" style="display: none;">
+                <h6 class=" dropdown-toggle dropdown" onclick="dropdown();" > Orders </h6>
+                <div id="dropdown" style="display: none; color: #606060;">
                     <a>All Orders</a> <br>
                     <a>Processing</a> <br>
                     <a>Completed</a> <br>
