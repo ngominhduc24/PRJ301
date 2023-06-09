@@ -90,7 +90,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("Password");
         String remember = request.getParameter("remember");
         String url = request.getParameter("url");
-        // set cookie
+        // set cookie for email and password
         Cookie cookie1 = new Cookie("email", email);
         cookie1.setMaxAge(60 * 60 * 24);
         Cookie cookie2 = new Cookie("password", password);
@@ -114,6 +114,8 @@ public class LoginServlet extends HttpServlet {
             if (account.getRole() == UserRole.USER.getValue()) {
                 session.setAttribute("role", "user");
             }
+            System.out.println(account.getAccountID());
+            Cookie cookie3 = new Cookie("accountID", String.valueOf(account.getAccountID()));
             response.sendRedirect(url);
         } else {
             session.setAttribute("loginmessage", "Login failed");

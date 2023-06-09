@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,28 +53,34 @@
             <div class="card-header" style="background-color: #FF9EA2;">
                 <h2 style="font-family: 'Poppins'; font-weight: revert; color: white; text-align: center;">Contact information</h2>
             </div>
-            <form action="#">
-            <div class="orderlist" style="padding: 15px 20px;">
-                <div class="form-group first">
-                    <label for="username">Your Email</label>
-                    <input type="text" name="email" class="form-control" id="email" value="">
+            <form action="updateinfo" method="post">
+                <div class="orderlist" style="padding: 15px 20px;">
+                    <div class="form-group first">
+                        <label for="username">Your Email</label>
+                        <input type="text" name="email" class="form-control" id="email" value="${account.email}" style="background-color: white;" readonly>
+                    </div>
+                    <div class="form-group first">
+                        <label for="username">Your Name</label>
+                        <input type="text" name="name" class="form-control" id="name" value="${account.name}">
+                    </div>
+                    <div class="form-group first">
+                        <label for="username">Your Phone</label>
+                        <input type="text" name="phone" class="form-control" id="phone" value="${account.phone}">
+                    </div>
+                    <div class="form-group first">
+                        <label for="username">Your Address</label>
+                        <input type="text" name="address" class="form-control" id="address" value="${account.address}">
+                    </div>
+                    <c:if test="${cookie.successinfo != null}">
+                        <p style="color: rgb(3, 219, 39)" >Change password successfully!</p>
+                    </c:if>
+                    <c:if test="${cookie.errorinfo != null}">
+                        <p style="color: rgb(255, 0, 0)">Old password is incorrect!</p>
+                    </c:if>
+                    <input style="background-color: #ff5b6a; border: #ff5b6a; margin-top: 30px;" type="submit" value="Save" class="btn btn-pill text-white btn-block btn-primary">
                 </div>
-                <div class="form-group first">
-                    <label for="username">Your Name</label>
-                    <input type="text" name="name" class="form-control" id="name" value="">
-                </div>
-                <div class="form-group first">
-                    <label for="username">Your Phone</label>
-                    <input type="text" name="phone" class="form-control" id="phone" value="">
-                </div>
-                <div class="form-group first">
-                    <label for="username">Your Address</label>
-                    <input type="text" name="address" class="form-control" id="address" value="">
-                </div>
-                <input style="background-color: #ff5b6a; border: #ff5b6a; margin-top: 30px;" type="submit" value="Save" class="btn btn-pill text-white btn-block btn-primary">
             </form>
-            </div>
         </div>
     </div>
-    </body>
+</body>
 </html>

@@ -76,8 +76,25 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // get email from cookie
         Cookie[] cookies = request.getCookies();
+
+        // delete all cookie message
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("errorpass")) {
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+            if (cookie.getName().equals("successpass")) {
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+            if (cookie.getName().equals("cferror")) {
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+
+        // get email from cookie
         String email = "";
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("email")) {
@@ -99,21 +116,31 @@ public class ChangePasswordServlet extends HttpServlet {
                 if (accountDAO.changePassword(email, newPassword)) {
                     account.setPassword(newPassword);
                     request.getSession().setAttribute("account", account);
+
+                    // set cookie for password
                     Cookie cookie = new Cookie("password", newPassword);
-                    cookie.setMaxAge(60 * 60 * 24 * 365);
+                    cookie.setMaxAge(60 * 60 * 24);
                     response.addCookie(cookie);
-                    request.setAttribute("successpass", "Change password successfully!");
-                    request.getRequestDispatcher("account.jsp").forward(request, response);
+
+                    // set cookie for success message
+                    Cookie cookie1 = new Cookie("successpass", "mess");
+                    cookie1.setMaxAge(10);
+                    response.addCookie(cookie1);
+                    response.sendRedirect("account.jsp");
                 }
             } else {
-                System.out.println();
-                request.setAttribute("errorpass", "Old password is incorrect!");
-                request.getRequestDispatcher("account.jsp").forward(request, response);
+                Cookie cookie1 = new Cookie("errorpass", "mess");
+                cookie1.setMaxAge(10);
+                response.addCookie(cookie1);
+                response.sendRedirect("account.jsp");
             }
         } else {
-            request.setAttribute("cferror", "New password and confirm new password are not match!");
-            request.getRequestDispatcher("account.jsp").forward(request, response);
+            Cookie cookie1 = new Cookie("cferror", "mess");
+            cookie1.setMaxAge(10);
+            response.addCookie(cookie1);
+            response.sendRedirect("account.jsp");
         }
+        processRequest(request, response);
     }
 
     /**

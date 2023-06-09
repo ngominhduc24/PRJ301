@@ -76,14 +76,14 @@
                             <input type="text" name="cf_new_password" class="form-control" id="phone" value="" style="width: 100%; margin-top: 5px;">
                         </div>
                     </div>
-                    <c:if test="${successpass != null}">
-                        <p style="color: rgb(3, 219, 39)">${successpass}</p>
+                    <c:if test="${cookie.successpass != null}">
+                        <p style="color: rgb(3, 219, 39)" >Change password successfully!</p>
                     </c:if>
-                    <c:if test="${errorpass != null}">
-                        <p style="color: rgb(255, 0, 0)">${errorpass}</p>
+                    <c:if test="${cookie.errorpass != null}">
+                        <p style="color: rgb(255, 0, 0)">Old password is incorrect!</p>
                     </c:if>
-                    <c:if test="${cferror != null}">
-                        <p style="color: rgb(255, 0, 0)">${cferror}</p>
+                    <c:if test="${cookie.cferror != null}">
+                        <p style="color: rgb(255, 0, 0)">New password and confirm new password are not match!</p>
                     </c:if>
                     <div class="form-group first"></div>
                     <input style="background-color: #ff5b6a; border: #ff5b6a; margin-top: 30px;" type="submit" value="Save" class="btn btn-pill text-white btn-block btn-primary">

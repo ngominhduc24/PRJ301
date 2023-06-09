@@ -70,34 +70,40 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        OrderDAO orderDAO = new OrderDAO();
-        ProductDAO productDAO = new ProductDAO();
-        List<Bill> listbill = new ArrayList<>();
-        int accountID = -1;
+        try {
+            Cookie[] cookies = request.getCookies();
+            OrderDAO orderDAO = new OrderDAO();
+            ProductDAO productDAO = new ProductDAO();
+            List<Bill> listbill = new ArrayList<>();
+            int accountID = -1;
 
-        // get id from cookie
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("accountID")) {
-                try {
+            // get id from cookie
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("accountID")) {
                     accountID = Integer.parseInt(cookie.getValue());
-                } catch (Exception e) {
-                    System.out.println(e);
                 }
             }
+
+            // get Order from database
+            List<Integer> listOrderID = orderDAO.getAllOrderIDByAccountID(accountID);
+
+            for (int orderID : listOrderID) {
+                // get list order detail from database
+                List<Product> listProduct = productDAO.getListProductByOrderID(orderID);
+                listbill.add(new Bill(listProduct));
+            }
+            request.setAttribute("data", listbill);
+
+            // get account from database
+            AccountDAO accountDAO = new AccountDAO();
+            request.setAttribute("account", accountDAO.getAccountByID(accountID));
+
+            request.getRequestDispatcher("account.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.out.println(e);
+            response.sendRedirect("home");
         }
 
-        // get Order from database
-        List<Integer> listOrderID = orderDAO.getAllOrderIDByAccountID(accountID);
-
-        for (int orderID : listOrderID) {
-            // get list order detail from database
-            List<Product> listProduct = productDAO.getListProductByOrderID(orderID);
-            listbill.add(new Bill(listProduct));
-        }
-
-        request.setAttribute("data", listbill);
-        request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
     /**

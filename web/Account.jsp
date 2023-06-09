@@ -82,9 +82,9 @@
             </div>
 
             <div class="col-md-9">
+                <%@include file="info_account.jsp"%> 
+                <!-- <%@include file="password_account.jsp"%>  -->
                 <!-- <%@include file="orderlist.jsp"%>  -->
-                <!-- <%@include file="info_account.jsp"%>  -->
-                <%@include file="password_account.jsp"%> 
             </div>
         </div>
         <div class="container px-3 my-5 clearfix" >

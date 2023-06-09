@@ -39,6 +39,13 @@ public class Account {
         this.role = role;
     }
 
+    public Account(String email, String name, String phone, String address) {
+        this.email = email;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public int getAccountID() {
         return accountID;
     }
