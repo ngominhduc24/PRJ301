@@ -16,7 +16,7 @@
         <link
             rel="stylesheet"
             type="text/css"
-            href="${pageContext.request.contextPath}/styles/invoice.css"
+            href="${pageContext.request.contextPath}/styles/account.css"
             />
         <style>
             html {

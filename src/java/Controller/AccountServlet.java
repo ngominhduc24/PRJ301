@@ -28,8 +28,8 @@ import model.Bill;
  *
  * @author ASUS PC
  */
-@WebServlet(name = "InvoiceServlet", urlPatterns = { "/invoice" })
-public class InvoiceServlet extends HttpServlet {
+@WebServlet(name = "InvoiceServlet", urlPatterns = { "/account" })
+public class AccountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -97,7 +97,7 @@ public class InvoiceServlet extends HttpServlet {
         }
 
         request.setAttribute("data", listbill);
-        request.getRequestDispatcher("bill.jsp").forward(request, response);
+        request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
     /**

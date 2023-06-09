@@ -168,7 +168,7 @@ public class Checkout extends HttpServlet {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        request.getRequestDispatcher("bill.jsp").forward(request, response);
+        request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
     /**
