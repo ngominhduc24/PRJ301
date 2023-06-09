@@ -180,8 +180,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="kh_ten">Họ tên</label>
-                                    <input type="text" class="form-control" name="name" id="kh_ten" style="background-color: white;"
-                                           value="${user.name}" readonly>
+                                    <input type="text" class="form-control" name="name" id="kh_ten"
+                                           value="${user.name}" >
                                 </div>
                                 <div class="col-md-12">
                                     <label for="kh_diachi">Địa chỉ</label>

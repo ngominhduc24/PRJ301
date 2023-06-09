@@ -99,7 +99,7 @@
                                             <div >
                                                 <p >${products.quantity} Pcs</p> <p class="right">${products.price}.000 ₫</p><br>
                                             </div>
-                                            <div  style="margin-top:5px;">
+                                            <div  style="margin-top: 25px;">
                                                 <p >total: </p> <p class="right">${bill.getTotalPrice()}.000 ₫</p>
                                             </div>
                                         </div>
