@@ -39,12 +39,11 @@
                 margin-left: 50px;
             }
 
-
         </style>
         <title>Cart</title>
     </head>
 
-    <body style="background-color: #FFEAE3; margin-top: 80px; ">
+    <body style="background-color: #FFEAE3; margin-top: 95px; ">
 
         <!-- Header -->
         <!-- <%@include file="header.jsp"%>  -->
@@ -54,7 +53,7 @@
         <div class="row" style="width: 60%; height: auto; margin: 0 auto; ">
             <!-- menu -->
             <div class="col-md-3 menu" style="padding: 20px 30px; width: auto; height: 278px;">
-                <h5>Account</h5>
+                <h5 style="color: #ee5360;">Account</h5>
                 <h6>Contact information</h6>
                 <h6>Change password</h6>
                 <h6 class=" dropdown-toggle dropdown" onclick="dropdown();" style="user-select: none;" > Orders </h6>
@@ -67,12 +66,12 @@
             </div>
 
             <div class="col-md-9">
-                <%@include file="orderlist.jsp"%> 
-
+                <!-- <%@include file="orderlist.jsp"%>  -->
+                <!-- <%@include file="info_account.jsp"%>  -->
+                <%@include file="password_account.jsp"%> 
             </div>
         </div>
         <div class="container px-3 my-5 clearfix" >
-
         </div>
     </body>
 
