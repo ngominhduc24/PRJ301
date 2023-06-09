@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -57,12 +58,12 @@
             <div class="card-header" style="background-color: #FF9EA2;">
                 <h2 style="font-family: 'Poppins'; font-weight: revert; color: white; text-align: center;">Change password</h2>
             </div>
-            <form action="#">
+            <form action="changepassword" method="post">
                 <div class="orderlist" style="padding: 15px 20px;">
                     <div class="form-group first inline">
                         <div class="form-inline" style="margin-right: 15px;">
                             <label for="username">Old Password</label> 
-                            <input type="text" name="old_password" class="form-control" id="name" value="" style="width: 75%;  margin-top: 5px;">
+                            <input type="text" name="old_Password" class="form-control" id="name" value="" style="width: 100%;  margin-top: 5px;">
                         </div>  
                     </div>
                     <div class="form-group first inline">
@@ -75,12 +76,19 @@
                             <input type="text" name="cf_new_password" class="form-control" id="phone" value="" style="width: 100%; margin-top: 5px;">
                         </div>
                     </div>
-
-                    <div class="form-group first">
-                    </div>
+                    <c:if test="${successpass != null}">
+                        <p style="color: rgb(3, 219, 39)">${successpass}</p>
+                    </c:if>
+                    <c:if test="${errorpass != null}">
+                        <p style="color: rgb(255, 0, 0)">${errorpass}</p>
+                    </c:if>
+                    <c:if test="${cferror != null}">
+                        <p style="color: rgb(255, 0, 0)">${cferror}</p>
+                    </c:if>
+                    <div class="form-group first"></div>
                     <input style="background-color: #ff5b6a; border: #ff5b6a; margin-top: 30px;" type="submit" value="Save" class="btn btn-pill text-white btn-block btn-primary">
-                    </form>
                 </div>
+            </form>
         </div>
     </body>
 </html>

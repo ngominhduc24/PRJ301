@@ -91,4 +91,18 @@ public class AccountDAO {
         }
         return null;
     }
+
+    public boolean changePassword(String email, String newPassword) {
+        String sql = "UPDATE Account SET password = ? WHERE email = ? ";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 }
