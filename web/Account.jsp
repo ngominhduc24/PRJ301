@@ -74,24 +74,22 @@
                 <h6 class="txtpassword">Change password</h6>
                 <h6 class=" dropdown-toggle dropdown" onclick="dropdown();" > Orders </h6>
                 <div id="dropdown" style="display: block; color: #606060;">
-                    <a href="account">All Orders</a> <br>
+                    <a href="account" >All Orders</a> <br>
                     <a>Processing</a> <br>
                     <a>Completed</a> <br>
                     <a>Cancelled</a>
                 </div>
                 <h6>Log out</h6>
             </div>
-
-            <div class="col-md-9">
-                <!-- <div class="info" style="display: none;">
-                    <%@include file="info_account.jsp"%> 
-                </div>
-                <div class="password" style="display: none;">
-                    <%@include file="password_account.jsp"%> 
-                </div> -->
-                <!-- <div class="order" style=""> -->
-                    <%@include file="orderlist.jsp"%> 
-                <!-- </div> -->
+            <div class="col-md-9" id="info" hidden>
+                <%@include file="info_account.jsp"%> 
+            </div>
+            
+            <div class="col-md-9" id="password" hidden>
+                <%@include file="password_account.jsp"%> 
+            </div>
+            <div class="col-md-9" id="order">
+                <%@include file="orderlist.jsp"%> 
             </div>
         </div>
         <div class="container px-3 my-5 clearfix" >
@@ -112,5 +110,32 @@
                 document.getElementsByClassName("menu")[0].style.height = "200px";
             }
         }
+
+        document.getElementsByClassName("txtinfo")[0].onclick = function () {
+            document.getElementsByClassName("txtinfo")[0].style.color = "#ee5360";
+            document.getElementsByClassName("txtpassword")[0].style.color = "#000000";
+            document.getElementsByClassName("dropdown-toggle")[0].style.color = "#000000";
+            document.getElementById("info").hidden = false;
+            document.getElementById("order").hidden = true;
+            document.getElementById("password").hidden = true;
+        };
+
+        document.getElementsByClassName("txtpassword")[0].onclick = function () {
+            document.getElementsByClassName("txtpassword")[0].style.color = "#ee5360";
+            document.getElementsByClassName("txtinfo")[0].style.color = "#000000";
+            document.getElementsByClassName("dropdown-toggle")[0].style.color = "#000000";
+            document.getElementById("info").hidden = true;
+            document.getElementById("order").hidden = true;
+            document.getElementById("password").hidden = false;
+        };
+
+        document.getElementsByClassName("dropdown-toggle")[0].onclick = function () {
+            document.getElementsByClassName("dropdown-toggle")[0].style.color = "#ee5360";
+            document.getElementsByClassName("txtinfo")[0].style.color = "#000000";
+            document.getElementsByClassName("txtpassword")[0].style.color = "#000000";
+            document.getElementById("info").hidden = true;
+            document.getElementById("order").hidden = false;
+            document.getElementById("password").hidden = true;
+        };
     </script>
 </html>
