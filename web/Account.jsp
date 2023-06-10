@@ -79,7 +79,9 @@
                     <a>Completed</a> <br>
                     <a>Cancelled</a>
                 </div>
-                <h6>Log out</h6>
+                <h6>
+                    <a href="logout">Log out</a>
+                </h6>
             </div>
             <div class="col-md-9" id="info" hidden>
                 <%@include file="info_account.jsp"%> 
