@@ -18,7 +18,7 @@
             href="${pageContext.request.contextPath}/styles/cart.css"
             />
         <style>
-            h1, h3, h4, h5, h6, p, a, label, button {
+             h3, h4, h5, h6, button {
                 font-family: 'Poppins';
                 font-style: normal;
                 font-weight: 600;
@@ -34,7 +34,7 @@
         </style>
         <title>Cart</title>
     </head>
-    <body style="background-color: #FFEAE3;">
+    <body style="background-color: #FFEAE3; margin-top: 100px;">
         
          <!-- Header -->
              <!-- <%@include file="header.jsp"%>  -->
@@ -68,7 +68,7 @@
                                           <td class="p-4">
                                               <div class="media align-items-center">
                                                   <div class="media-body">
-                                                      <h6 class="d-block text-dark">${item.name}</h6>
+                                                      <h6 class="d-block text-dark" style="font-size: 18px;">${item.name}</h6>
                                                       <small>
                                                           <span class="text-muted">${item.description}</span>
                                                       </small>
