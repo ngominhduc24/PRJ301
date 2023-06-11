@@ -64,7 +64,6 @@
                                   <!-- for Item -->
                                   <c:forEach var="item" items="${data}" varStatus="loop">
                                       <c:set var="total" value="${total + item.price*item.quantity}" />
-                                  <form action="updatecart">
                                       <tr>
                                           <td class="p-4">
                                               <div class="media align-items-center">
@@ -87,7 +86,6 @@
                                               </button>
                                           </td>
                                       </tr>
-                                  </form>
                               </c:forEach>
                               <!-- end for -->
                             </tbody>
@@ -123,8 +121,8 @@
             </div>
         </div>
       </form>
-                            
-                            <!-- Modal -->
+                           
+      <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
               <div class="modal-content" style="width: 540px; margin-left: 180px;">
