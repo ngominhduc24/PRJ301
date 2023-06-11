@@ -41,7 +41,7 @@
         <!-- end header -->
         
       <form id="updateForm" action="cart" method="post">
-        <div class="container px-3 my-5 clearfix" style="margin-top: 90px !important; ">
+        <div class="container px-3 my-5 clearfix" >
             <!-- Shopping cart table -->
             <div class="card">
                 <div class="card-header" style="background-color: #FF9EA2;">
