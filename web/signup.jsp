@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/fonts/icomoon/style.css">
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/owl.carousel.min.css">
-        <!-- Style -->
         <link
             rel="stylesheet"
             type="text/css"
@@ -26,11 +25,6 @@
     </head>
     <body>
 
-
-
-        <!-- <div class="content"> -->
-        <!-- <div class="container"> -->
-        <!-- <div class="row justify-content-center"> -->
         <div class="col-md-6 contents">
             <div class="row justify-content-center">
                 <div class="col-md-12" style="padding: 0px;">
@@ -93,14 +87,5 @@
 
         </div>
 
-        <!-- </div> -->
-        <!-- </div> -->
-        <!-- </div> -->
-
-
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
     </body>
 </html>

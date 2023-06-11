@@ -43,6 +43,7 @@ public class AddToCartServlet extends HttpServlet {
                 break;
             }
         }
+        System.out.println("check" + cart);
         if (cart.isEmpty()) {
             cart = productID + ":" + 1;
         } else {

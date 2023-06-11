@@ -21,12 +21,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <!-- Header -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed fixed-top" style="height: 60px; " >
                 <div class="container" > 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                           <div class="navbar-nav mr-auto">
-                            <!-- Image and text -->
                             <a class="navbar-brand" href="#">
                                 <div style="display: flex;">
                                     <a href="home">
@@ -43,20 +41,20 @@
                               </form>
                           </div>
                           <div style="margin-top: 10px;">
-                            <a href="cart">
-                                <svg width="30px" height="30px" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <g id="cart" clip-path="url(#clip-cart)">
-                                    <g id="pills" transform="translate(0 -116)">
-                                        <g id="Group_154" data-name="Group 154">
-                                        <path id="Path_188" data-name="Path 188" d="M92,132H84.619a8.361,8.361,0,0,0-7.956,5.47L63.712,174.53A8.364,8.364,0,0,1,55.755,180H21.321a8.4,8.4,0,0,1-7.773-4.994l-8.925-21C2.387,148.746,6.445,143,12.4,143H57" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
-                                        <circle id="Ellipse_335" data-name="Ellipse 335" cx="4.5" cy="4.5" r="4.5" transform="translate(20 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
-                                        <circle id="Ellipse_336" data-name="Ellipse 336" cx="4.5" cy="4.5" r="4.5" transform="translate(49 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                <a href="cart">
+                                    <svg width="30px" height="30px" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="cart" clip-path="url(#clip-cart)">
+                                        <g id="pills" transform="translate(0 -116)">
+                                            <g id="Group_154" data-name="Group 154">
+                                            <path id="Path_188" data-name="Path 188" d="M92,132H84.619a8.361,8.361,0,0,0-7.956,5.47L63.712,174.53A8.364,8.364,0,0,1,55.755,180H21.321a8.4,8.4,0,0,1-7.773-4.994l-8.925-21C2.387,148.746,6.445,143,12.4,143H57" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                            <circle id="Ellipse_335" data-name="Ellipse 335" cx="4.5" cy="4.5" r="4.5" transform="translate(20 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                            <circle id="Ellipse_336" data-name="Ellipse 336" cx="4.5" cy="4.5" r="4.5" transform="translate(49 187)" fill="none" stroke="#58595b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                                            </g>
                                         </g>
-                                    </g>
-                                    </g>
-                                </svg>
-                                <span class='badge badge-warning' id='lblCartCount' style="border-radius: 60rem;">${countProduct}</span>
-                            </a>
+                                        </g>
+                                    </svg>
+                                    <span class='badge badge-warning' id='lblCartCount' style="border-radius: 60rem;">${countProduct}</span>
+                        </form>
                             <c:if test="${sessionScope.role == null}">
                             <button type="button" id="btnlogin" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #f8f9fa; padding: 6px; border: 0px;">
                                 <svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -67,20 +65,11 @@
                             <c:if test="${sessionScope.role != null}">
                             <a href="account">
                                 <svg width="39" height="34" viewBox="0 0 1.2 1.2" xmlns="http://www.w3.org/2000/svg"><path d="m.754.647.173.079A.125.125 0 0 1 1 .839v.036A.125.125 0 0 1 .875 1h-.55A.125.125 0 0 1 .2.875V.839A.125.125 0 0 1 .273.725L.446.646a.25.25 0 1 1 .308 0ZM.498.678.294.771A.075.075 0 0 0 .25.839v.036A.075.075 0 0 0 .325.95h.55A.075.075 0 0 0 .95.875V.839A.075.075 0 0 0 .906.771L.702.678A.249.249 0 0 1 .6.7.249.249 0 0 1 .498.678ZM.6.65a.2.2 0 1 0 0-.4.2.2 0 0 0 0 .4Z"/></svg>
-                                <!-- <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="Login">
-                                      <g>
-                                        <path  d="M20.944,18.432a2.577,2.577,0,0,1-2.729,2.5c-2.153.012-4.307,0-6.46,0a.5.5,0,0,1,0-1c2.2,0,4.4.032,6.6,0,1.107-.016,1.589-.848,1.589-1.838V5.63a1.545,1.545,0,0,0-.969-1.471,3.027,3.027,0,0,0-1.061-.095H11.755a.5.5,0,0,1,0-1c2.225,0,4.465-.085,6.688,0a2.566,2.566,0,0,1,2.5,2.67Z"/>
-                                        <path  d="M15.794,12.354a.459.459,0,0,0,.138-.312A.3.3,0,0,0,15.938,12a.29.29,0,0,0-.006-.041.455.455,0,0,0-.138-.313L12.125,7.978a.5.5,0,0,0-.707.707L14.234,11.5H3.492a.5.5,0,0,0,0,1H14.234l-2.816,2.815a.5.5,0,0,0,.707.707Z"/>
-                                      </g>
-                                    </g>
-                                  </svg> -->
                             </a>
                         </c:if>
                           </div>
                         </div>
                     </div>
                 </nav>
-        <!-- end header 
     </body>
 </html>
