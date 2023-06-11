@@ -172,18 +172,18 @@
                 <div class="modal-header">
                   <!-- <h5 class="modal-title" id="exampleModalLongTitle">Login</h5> -->
                   <div>
-                    <button id="modallogin">Log in</button>
-                    <button id="modalsignup">Sign up</button>
+                    <button class="btn btn-secondary" id="modal_login" style="background-color: #ff5b6a; border: #ff5b6a; width: 100px; height: auto;">Log in</button>
+                    <button class="btn btn-secondary" id="modal_signup" style="background-color: #ff5b6a; border: #ff5b6a; width: 100px; height: auto;">Sign up</button> 
                   </div>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body" style="padding: 0px;">
-                    <div id="divlogin" style=" margin-left: 0px; padding: 0px;  width: 538px; display: block;">
+                    <div id="divlogin" style=" margin-left: 0px; padding: 0px;  width: 538px;">
                         <%@include file="login.jsp"%>
                     </div>
-                    <div id="divsignup" style=" margin-left: 0px; padding: 0px;  width: 538px; display: none;">
+                    <div id="divsignup" style=" margin-left: 0px; padding: 0px;  width: 538px;" hidden>
                         <%@include file="signup.jsp"%>
                     </div>
                 </div>
@@ -279,17 +279,17 @@
                 }
 
             // signup 
-            var signup = document.getElementById("modalsignup");
+            var signup = document.getElementById("modal_signup");
             signup.addEventListener("click", function() {
-                document.getElementById("divlogin").style.display = "none";
-                document.getElementById("divsignup").style.display = "block";
+                document.getElementById("divlogin").hidden = true;
+                document.getElementById("divsignup").hidden = false;
             });
 
             // login
-            var login = document.getElementById("modallogin");
+            var login = document.getElementById("modal_login");
             login.addEventListener("click", function() {
-                document.getElementById("divsignup").style.display = "none";
-                document.getElementById("divlogin").style.display = "block";
+                document.getElementById("divlogin").hidden = false;
+                document.getElementById("divsignup").hidden = true;
             });
         </script>
 
