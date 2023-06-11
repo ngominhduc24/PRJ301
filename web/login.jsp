@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group last mb-4">
                           <label for="password">Password</label>
-                          <input type="password" name="Password" class="form-control" id="loginpassword" value="${cookie.password.value}">
+                          <input type="password" name="Password" class="form-control" id="password" value="${cookie.password.value}">
                           
                         </div>
                         

@@ -37,7 +37,7 @@
     <body style="background-color: #FFEAE3;">
         
          <!-- Header -->
-             <%@include file="header.jsp"%> 
+             <!-- <%@include file="header.jsp"%>  -->
         <!-- end header -->
         
       <form id="updateForm" action="cart" method="post">
@@ -77,10 +77,10 @@
                                               </div>
                                           </td>
 
-                                          <td class="text-right font-weight-semibold align-middle p-4">${item.price}.000 ₫</td>
+                                          <td class="text-right font-weight-semibold align-middle p-4">${item.price}</td>
                                           <input type="hidden" name="productid" value="${item.productID}"></input>
                                           <td class="align-middle p-4"><input type="number" min="1" max="20" class="form-control text-center" name="quantity" value="${item.quantity}"></td>
-                                          <td class="text-right font-weight-semibold align-middle p-4">${item.price * item.quantity}.000 ₫</td>
+                                          <td class="text-right font-weight-semibold align-middle p-4">${item.price * item.quantity}</td>
                                           <td class="text-center align-middle px-0" >
                                               <button type="button" onclick="confirmDelete('${item.productID}');" style="border: 0px; padding: 0px; background-color: white; " id="" class="" >
                                                   <svg width="20" height="20" viewBox="0 0 128 128" fill="#ff5b6a" class="icon" xmlns="http://www.w3.org/2000/svg"><path d="M4 30.2c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5l117.5.2c1.4 0 2.5 1.1 2.5 2.5s-1.1 2.5-2.5 2.5L4 30.2zm19.3 5.1c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v86.1l73.2-.8V36.2c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v89.6l-83.3.9V35.3z"/><path d="M85.3 108.4c-1.4 0-2.5-1.1-2.5-2.5V46.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v59.4c.1 1.4-1.1 2.5-2.5 2.5zm-39.4 0c-1.4 0-2.5-1.1-2.5-2.5V46.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v59.4c.1 1.4-1.1 2.5-2.5 2.5zm19.7 0c-1.4 0-2.5-1.1-2.5-2.5V46.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v59.4c.1 1.4-1.1 2.5-2.5 2.5zm16.3-81.7v-6.1c0-2.2-1.8-4-4-4H52.3c-2.3 0-4 1.8-4 4.1V26h-5v-5.3c0-5 4.1-9.1 9.1-9.1H78c5 0 9.1 4.1 9.1 9.1v6.1h-5.2z" fill="ff5b6a"/></svg>
@@ -124,26 +124,25 @@
         </div>
       </form>
                             
-         <!-- Modal -->
-         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
               <div class="modal-content" style="width: 540px; margin-left: 180px;">
                 <div class="modal-header">
                   <!-- <h5 class="modal-title" id="exampleModalLongTitle">Login</h5> -->
                   <div>
-                    <p class="btn btn-secondary" id="modal_login" style="background-color: #ff5b6a; border: #ff5b6a; width: 100px; height: auto; cursor: pointer;">Log in</p>
-                    <p class="btn btn-secondary" id="modal_signup" style="background-color: #ff5b6a; border: #ff5b6a; width: 100px; height: auto; cursor: pointer;">Sign up</p>
-
+                    <button id="modallogin">Log in</button>
+                    <button id="modalsignup">Sign up</button>
                   </div>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body" style="padding: 0px;">
-                    <div id="divlogin" style=" margin-left: 0px; padding: 0px;  width: 538px;">
+                    <div id="divlogin" style=" margin-left: 0px; padding: 0px;  width: 538px; display: block;">
                         <%@include file="login.jsp"%>
                     </div>
-                    <div id="divsignup" style=" margin-left: 0px; padding: 0px;  width: 538px;" hidden>
+                    <div id="divsignup" style=" margin-left: 0px; padding: 0px;  width: 538px; display: none;">
                         <%@include file="signup.jsp"%>
                     </div>
                 </div>
@@ -192,7 +191,7 @@
         cartInput.setAttribute("name", "cart");
         cartInput.setAttribute("value", cart.substring(0, cart.length - 1));
         form.appendChild(cartInput);
-        
+
         form.submit();
       }
       
@@ -203,17 +202,17 @@
                 }
 
             // signup 
-            var signup = document.getElementById("modal_signup");
+            var signup = document.getElementById("modalsignup");
             signup.addEventListener("click", function() {
-                document.getElementById("divlogin").hidden = true;
-                document.getElementById("divsignup").hidden = false;
+                document.getElementById("divlogin").style.display = "none";
+                document.getElementById("divsignup").style.display = "block";
             });
 
             // login
-            var login = document.getElementById("modal_login");
+            var login = document.getElementById("modallogin");
             login.addEventListener("click", function() {
-                document.getElementById("divlogin").hidden = false;
-                document.getElementById("divsignup").hidden = true;
+                document.getElementById("divsignup").style.display = "none";
+                document.getElementById("divlogin").style.display = "block";
             });
     </script>
 </html>
