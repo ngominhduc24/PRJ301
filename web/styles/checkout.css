@@ -6,7 +6,6 @@ body {
     color: #5a5a5a;
 }
 
-
 /* CUSTOMIZE THE CAROUSEL
     -------------------------------------------------- */
 
@@ -73,6 +72,29 @@ body {
     letter-spacing: -.05rem;
 }
 
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    border-radius: 60rem;
+    margin-right: 5px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #c67605;
+}
+
+#lblCartCount {
+    font-size: 12px;
+    background: #ff5b6a;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -15px;
+}
 
 /* RESPONSIVE CSS
     -------------------------------------------------- */

@@ -18,18 +18,23 @@ import model.Product;
 public class HandleCookie {
 
     public static List<Product> CookieToProduct(String cookie) {
-        String[] listProductString = cookie.split("/");
-        List<Product> listProduct = new ArrayList<>();
-        ProductDAO productDAO = new ProductDAO();
-        for (String productString : listProductString) {
-            String[] item = productString.split(":");
-            String productID = item[0];
-            int quantity = Integer.parseInt(item[1]);
-            Product product = productDAO.getProductByID(productID);
-            product.setQuantity(quantity);
-            listProduct.add(product);
+        try {
+            String[] listProductString = cookie.split("/");
+            List<Product> listProduct = new ArrayList<>();
+            ProductDAO productDAO = new ProductDAO();
+            for (String productString : listProductString) {
+                String[] item = productString.split(":");
+                String productID = item[0];
+                int quantity = Integer.parseInt(item[1]);
+                Product product = productDAO.getProductByID(productID);
+                product.setQuantity(quantity);
+                listProduct.add(product);
+            }
+            return listProduct;
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return listProduct;
+        return null;
     }
 
     public static List<OrderDetail> CookieToOrderDetail(String cookie, int orderID) {

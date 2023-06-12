@@ -59,7 +59,28 @@ public class AccountDAO {
         return null;
     }
 
-    public int getIdByEmail(String email) {
+    public Account getAccountByID(int accountID) {
+        String sql = "SELECT * FROM Account WHERE accountID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, accountID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setAccountID(rs.getInt("accountID"));
+                account.setEmail(rs.getString("email"));
+                account.setName(rs.getString("name"));
+                account.setPhone(rs.getString("phone"));
+                account.setAddress(rs.getString("address"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+    public int getAccountIDByEmail(String email) {
         String sql = "SELECT accountID FROM Account WHERE email = ?";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
@@ -90,5 +111,35 @@ public class AccountDAO {
             System.out.println(ex);
         }
         return null;
+    }
+
+    public boolean changePassword(String email, String newPassword) {
+        String sql = "UPDATE Account SET password = ? WHERE email = ? ";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public boolean updateInfo(String email, String name, String phone, String address) {
+        String sql = "UPDATE Account SET name = ?, phone = ?, address = ? WHERE email = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, phone);
+            ps.setString(3, address);
+            ps.setString(4, email);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
     }
 }

@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
@@ -21,6 +22,7 @@ import dal.OrderDAO;
 import dal.OrderDetailDAO;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.Bill;
 import model.OrderDetail;
 import model.Orders;
 import model.Product;
@@ -75,7 +77,7 @@ public class Checkout extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("role") == null) {
             session.setAttribute("loginmessage", "You must login to checkout");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("cart");
             return;
         }
 
@@ -121,7 +123,7 @@ public class Checkout extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         Orders order = new Orders();
         String email = request.getParameter("email");
-        int accountID = accountDAO.getIdByEmail(email);
+        int accountID = accountDAO.getAccountIDByEmail(email);
         Date date = new Date(System.currentTimeMillis());
 
         // get cart and email from cookie
@@ -133,19 +135,13 @@ public class Checkout extends HttpServlet {
         }
 
         // get data order from request
-
         order.setAccountID(accountID);
         order.setOrderDate(date);
         order.setAddress(request.getParameter("address"));
         order.setTotalPrice(Integer.parseInt(request.getParameter("totalPrice")));
         order.setStatus(0);
         OrderDAO orderDAO = new OrderDAO();
-        System.out.println("order id: " + order.getOrderID());
-        System.out.println("account id: " + order.getAccountID());
-        System.out.println("order date: " + order.getOrderDate());
-        System.out.println("address: " + order.getAddress());
-        System.out.println("total price: " + order.getTotalPrice());
-        System.out.println("status: " + order.getStatus());
+
         // save order to database
         int orderID = orderDAO.insertOrder(order);
 
@@ -156,12 +152,23 @@ public class Checkout extends HttpServlet {
             orderDetailDAO.insertOrderDetail(orderDetail);
         }
 
+        // get product from cookie
+        List<Product> products = HandleCookie.CookieToProduct(cart);
+        List<Bill> listbill = new ArrayList<>();
+        listbill.add(new Bill(products));
+        for (Bill bill : listbill) {
+            for (Product product : bill.getProducts()) {
+                System.out.println("check<< " + product.getName());
+            }
+        }
+        request.setAttribute("data", listbill);
+
         // delete cookie
         Cookie cookie = new Cookie("cart", "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        request.getRequestDispatcher("success.jsp").forward(request, response);
+        request.getRequestDispatcher("account.jsp").forward(request, response);
     }
 
     /**

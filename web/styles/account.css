@@ -1,0 +1,71 @@
+body {
+    margin-top: 20px;
+    background: #eee;
+}
+
+.card {
+    box-shadow: 0 1px 15px 1px rgba(52, 40, 104, .08);
+}
+
+.orderlist {
+    margin: 0px 30px;
+    background-color: #fff;
+}
+
+.menu {
+    background-color: #ffffff;
+}
+
+.product {
+    display: flex;
+    margin: 0px;
+}
+
+.product img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.content {
+    margin-left: 10px;
+}
+
+.second-product {
+    display: flex;
+    margin: 0px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text {
+    text-align: right;
+}
+
+
+
+.product .txt {
+    color: #142f43;
+    display: block;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 5px;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 500;
+}
+
+.product .content-product {
+    margin-left: 10px;
+}
+
+
+.content-product {
+    color: black;
+}
+
+.session {
+    margin-top: 10px;
+}
+
+/* drop box */

@@ -5,7 +5,7 @@
 
 package Controller;
 
-import dal.ProductDAO;
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,17 +14,14 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import model.Product;
-import utils.HandleCookie;
+import model.Account;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "DisplayCartServlet", urlPatterns = { "/cart" })
-public class DisplayCartServlet extends HttpServlet {
+@WebServlet(name = "UpdateInfoServlet", urlPatterns = { "/updateinfo" })
+public class UpdateInfoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +40,10 @@ public class DisplayCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DisplayCartServlet</title>");
+            out.println("<title>Servlet UpdateInfoServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DisplayCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateInfoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,28 +62,7 @@ public class DisplayCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> listProduct = new ArrayList<>();
-        ProductDAO productDAO = new ProductDAO();
-        Cookie[] cookies = request.getCookies();
-        String cart = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("cart")) {
-                cart = cookie.getValue();
-                break;
-            }
-        }
-        if (!cart.equals("")) {
-            // get list product from cookie
-            listProduct = HandleCookie.CookieToProduct(cart);
-            request.setAttribute("data", listProduct);
-
-            // get number of product
-            int countProduct = listProduct.size();
-            request.setAttribute("countProduct", countProduct);
-
-        }
-
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -100,15 +76,28 @@ public class DisplayCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String cart = request.getParameter("cart");
-            Cookie cookie = new Cookie("cart", cart);
-            cookie.setMaxAge(60 * 60 * 24);
+        AccountDAO accountDAO = new AccountDAO();
+
+        // get data from form
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+
+        // update info with email
+        if (accountDAO.updateInfo(email, name, phone, address)) {
+            // set cookie for success message
+            Cookie cookie3 = new Cookie("successinfo", "mess");
+            cookie3.setMaxAge(10);
+            response.addCookie(cookie3);
+            response.sendRedirect("account");
+        } else {
+            // set cookie for error message
+            Cookie cookie = new Cookie("errorinfo", "mess");
+            cookie.setMaxAge(10);
             response.addCookie(cookie);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            response.sendRedirect("account");
         }
-        response.sendRedirect("cart");
     }
 
     /**

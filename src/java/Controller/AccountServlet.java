@@ -5,9 +5,13 @@
 
 package Controller;
 
-import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import dal.AccountDAO;
+import dal.OrderDAO;
+import dal.OrderDetailDAO;
+import dal.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -16,15 +20,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import model.OrderDetail;
 import model.Product;
-import utils.HandleCookie;
+import model.Bill;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "DisplayCartServlet", urlPatterns = { "/cart" })
-public class DisplayCartServlet extends HttpServlet {
+@WebServlet(name = "InvoiceServlet", urlPatterns = { "/account" })
+public class AccountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +48,10 @@ public class DisplayCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DisplayCartServlet</title>");
+            out.println("<title>Servlet InvoiceServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DisplayCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InvoiceServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,28 +70,40 @@ public class DisplayCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> listProduct = new ArrayList<>();
-        ProductDAO productDAO = new ProductDAO();
-        Cookie[] cookies = request.getCookies();
-        String cart = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("cart")) {
-                cart = cookie.getValue();
-                break;
+        try {
+            AccountDAO accountDAO = new AccountDAO();
+            Cookie[] cookies = request.getCookies();
+            OrderDAO orderDAO = new OrderDAO();
+            ProductDAO productDAO = new ProductDAO();
+            List<Bill> listbill = new ArrayList<>();
+            int accountID = -1;
+
+            // get id from cookie
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("email")) {
+                    accountID = accountDAO.getAccountIDByEmail(cookie.getValue());
+                }
             }
+
+            // get Order from database
+            List<Integer> listOrderID = orderDAO.getAllOrderIDByAccountID(accountID);
+
+            for (int orderID : listOrderID) {
+                // get list order detail from database
+                List<Product> listProduct = productDAO.getListProductByOrderID(orderID);
+                listbill.add(new Bill(listProduct));
+            }
+            request.setAttribute("data", listbill);
+
+            // get account from database
+            request.setAttribute("account", accountDAO.getAccountByID(accountID));
+
+            request.getRequestDispatcher("account.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.out.println(e);
+            response.sendRedirect("home");
         }
-        if (!cart.equals("")) {
-            // get list product from cookie
-            listProduct = HandleCookie.CookieToProduct(cart);
-            request.setAttribute("data", listProduct);
 
-            // get number of product
-            int countProduct = listProduct.size();
-            request.setAttribute("countProduct", countProduct);
-
-        }
-
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     /**
@@ -100,15 +117,7 @@ public class DisplayCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String cart = request.getParameter("cart");
-            Cookie cookie = new Cookie("cart", cart);
-            cookie.setMaxAge(60 * 60 * 24);
-            response.addCookie(cookie);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        response.sendRedirect("cart");
+        processRequest(request, response);
     }
 
     /**
