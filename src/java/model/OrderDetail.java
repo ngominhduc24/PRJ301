@@ -4,6 +4,8 @@
  */
 package model;
 
+import model.Product;
+
 /**
  *
  * @author ASUS PC
@@ -12,6 +14,7 @@ public class OrderDetail {
     private int orderID;
     private int productID;
     private int quantity;
+    private Product product;
 
     public OrderDetail() {
     }
@@ -44,6 +47,18 @@ public class OrderDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public model.Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(model.Product product) {
+        this.product = product;
+    }
+
+    public int getTotalPrice() {
+        return product.getPrice() * quantity;
     }
 
     @Override

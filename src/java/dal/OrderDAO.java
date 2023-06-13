@@ -58,4 +58,27 @@ public class OrderDAO {
         return listOrderID;
     }
 
+    public List<Orders> getListOrderByAccountID(int accountID) {
+        String sql = "SELECT * FROM Orders WHERE accountID = ?";
+        List<Orders> listOrder = new ArrayList<>();
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, accountID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Orders order = new Orders();
+                order.setOrderID(rs.getInt("orderID"));
+                order.setAccountID(rs.getInt("accountID"));
+                order.setOrderDate(rs.getDate("orderDate"));
+                order.setAddress(rs.getString("address"));
+                order.setTotalPrice(rs.getInt("totalPrice"));
+                order.setStatus(rs.getInt("status"));
+                listOrder.add(order);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listOrder;
+    }
+
 }

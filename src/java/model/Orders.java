@@ -5,6 +5,10 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import utils.Validate;
 
 /**
  *
@@ -17,6 +21,7 @@ public class Orders {
     private String address;
     private int totalPrice;
     private int status;
+    private List<OrderDetail> orderDetails;
 
     public Orders() {
     }
@@ -28,6 +33,17 @@ public class Orders {
         this.address = address;
         this.status = status;
         this.totalPrice = totalPrice;
+    }
+
+    public Orders(int orderID, int accountID, Date orderDate, String address, int totalPrice, int status,
+            List<OrderDetail> orderDetails) {
+        this.orderID = orderID;
+        this.accountID = accountID;
+        this.orderDate = orderDate;
+        this.address = address;
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.orderDetails = orderDetails;
     }
 
     public int getOrderID() {
@@ -76,6 +92,30 @@ public class Orders {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public List<OrderDetail> getListOrderDetails() {
+        if (orderDetails == null) {
+            orderDetails = new ArrayList<>();
+        }
+        return orderDetails;
+    }
+
+    public void setListOrderDetail(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public int getTotalPriceOrder() {
+        int total = 0;
+        for (OrderDetail orderDetail : getListOrderDetails()) {
+            total += orderDetail.getTotalPrice();
+        }
+        return total;
+    }
+
+    public String getMonth() {
+        String[] date = orderDate.toString().split("-");
+        return Validate.convertToMonth(date[1]) + " " + date[2] + ", " + date[0];
     }
 
     @Override

@@ -54,28 +54,28 @@
             </div>
             <div class="orderlist" style="padding: 15px 20px;">
 
-                <c:forEach items="${data}" var="bill" varStatus="loopStatus">
+                <c:forEach items="${listOrders}" var="orders" varStatus="loopStatus">
 
-                    <c:forEach items="${bill}" var="products" varStatus="innerLoopStatus">
+                    <c:forEach items="${orders.getListOrderDetails()}" var="orderDetail" varStatus="innerLoopStatus">
                         <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
                             <div class="col-md-8 product" style="padding: 0;">
                                 <div class="img">
-                                    <img src="${products.image}" alt="">
+                                    <img src="${orderDetail.getProduct().image}" alt="">
                                 </div>
                                 <div class="content">
-                                    <h5 class="mt-0">${products.name}</h5>
-                                    <p>${products.description}</p>
-                                    <p class="mb-0">product code: ${products.productID}</p>
+                                    <h5 class="mt-0">${orderDetail.getProduct().name}</h5>
+                                    <p>${orderDetail.getProduct().description}</p>
+                                    <p class="mb-0">product code: ${orderDetail.getProduct().productID}</p>
                                 </div>
                             </div>
 
                             <div class="col-md-4 second-product total" style="padding: 0;">
                                 <div class="text">
                                     <div >
-                                        <p >${products.quantity} Pcs</p> <p class="right">${products.price}.000 ₫</p><br>
+                                        <p >${orderDetail.quantity} Pcs</p> <p class="right">${orderDetail.getProduct().price}.000 ₫</p><br>
                                     </div>
                                     <div  style="margin-top: 25px;">
-                                        <p >total: </p> <p class="right">${bill.getTotalPrice()}.000 ₫</p>
+                                        <p >total: </p> <p class="right">${orderDetail.quantity * orderDetail.getProduct().price} .000 ₫</p>
                                     </div>
                                 </div>
                             </div>
@@ -88,20 +88,20 @@
                             <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
                                 <div class="col-md-8 product" style="padding: 0;">
                                     <div class="content">
-                                        <p>Delivery Date: 27-2023</p>
+                                        <p>Delivery Date: ${orders.getMonth()}</p>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 second-product total" style="padding: 0;">
                                     <div class="text">
                                         <div >
-                                            <p >Total:</p> <p class="right">${bill.getTotalPrice()}.000 ₫</p><br>
+                                            <p >Total:</p> <p class="right">${orders.getTotalPriceOrder()}.000 ₫</p><br>
                                         </div>
                                         <div  style="margin-top:5px;">
                                             <p style="padding-right: 37px;">Delivery:</p> <p class="right">0 ₫</p><br>
                                         </div>
                                         <div  style="margin-top:5px;">
-                                            <p style="margin-left: 30px;">Total: </p> <p class="right">${bill.getTotalPrice()}.000 ₫</p>
+                                            <p style="margin-left: 30px;">Total: </p> <p class="right">${orders.getTotalPriceOrder()}.000 ₫</p>
                                         </div>
                                     </div>
                                 </div>

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ArrayList;
 
 import model.OrderDetail;
 
@@ -28,6 +29,26 @@ public class OrderDetailDAO {
             System.out.println(ex);
         }
 
+    }
+
+    public List<OrderDetail> getListOrderDetailByOrderID(int orderID) {
+        String sql = "SELECT * FROM OrderDetail WHERE orderID = ?";
+        List<OrderDetail> listOrderDetail = new ArrayList<>();
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, orderID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setOrderID(rs.getInt("orderID"));
+                orderDetail.setProductID(rs.getInt("productID"));
+                orderDetail.setQuantity(rs.getInt("quantity"));
+                listOrderDetail.add(orderDetail);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listOrderDetail;
     }
 
 }

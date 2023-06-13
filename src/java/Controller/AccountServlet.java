@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import model.OrderDetail;
+import model.Orders;
 import model.Product;
 import model.Bill;
 
@@ -75,7 +76,7 @@ public class AccountServlet extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             OrderDAO orderDAO = new OrderDAO();
             ProductDAO productDAO = new ProductDAO();
-            List<Bill> listbill = new ArrayList<>();
+            List<Orders> listOrders = new ArrayList<>();
             int accountID = -1;
 
             // get id from cookie
@@ -85,17 +86,36 @@ public class AccountServlet extends HttpServlet {
                 }
             }
 
-            // get Order from database
-            List<Integer> listOrderID = orderDAO.getAllOrderIDByAccountID(accountID);
+            // get list order from database
+            listOrders = orderDAO.getListOrderByAccountID(accountID);
 
-            for (int orderID : listOrderID) {
-                // get list order detail from database
-                List<Product> listProduct = productDAO.getListProductByOrderID(orderID);
-                listbill.add(new Bill(listProduct));
+            // get list order detail from database
+            List<OrderDetail> listOrderDetail = new ArrayList<>();
+            for (Orders order : listOrders) {
+                listOrderDetail.addAll(new OrderDetailDAO().getListOrderDetailByOrderID(order.getOrderID()));
+
+                // get product from database and set to order detail
+                for (OrderDetail orderDetail : listOrderDetail) {
+                    Product product = productDAO.getProductByID(orderDetail.getProductID());
+                    orderDetail.setProduct(product);
+                }
+                // set list order detail to order
+                order.setListOrderDetail(listOrderDetail);
+
+                // clear list order detail
+                listOrderDetail = new ArrayList<>();
             }
-            request.setAttribute("data", listbill);
+
+            // print all order detail
+            for (Orders order : listOrders) {
+                System.out.println("OrderID: " + order.getOrderID());
+                for (OrderDetail orderDetail : order.getListOrderDetails()) {
+                    System.out.println(orderDetail.getProduct().getName());
+                }
+            }
 
             // get account from database
+            request.setAttribute("listOrders", listOrders);
             request.setAttribute("account", accountDAO.getAccountByID(accountID));
 
             request.getRequestDispatcher("account.jsp").forward(request, response);
