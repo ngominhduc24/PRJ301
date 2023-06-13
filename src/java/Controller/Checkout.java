@@ -152,23 +152,12 @@ public class Checkout extends HttpServlet {
             orderDetailDAO.insertOrderDetail(orderDetail);
         }
 
-        // get product from cookie
-        List<Product> products = HandleCookie.CookieToProduct(cart);
-        List<Bill> listbill = new ArrayList<>();
-        listbill.add(new Bill(products));
-        for (Bill bill : listbill) {
-            for (Product product : bill.getProducts()) {
-                System.out.println("check<< " + product.getName());
-            }
-        }
-        request.setAttribute("data", listbill);
-
         // delete cookie
         Cookie cookie = new Cookie("cart", "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        request.getRequestDispatcher("account.jsp").forward(request, response);
+        response.sendRedirect("account");
     }
 
     /**
