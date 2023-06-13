@@ -218,7 +218,7 @@
         </main>
 
         <!-- footer -->
-        <footer class="footer " style="display: grid; padding: 0; margin-top: 50px; background-color: #FFEAE3; position: absolute; width: 100%; ">
+        <footer class="footer " style="display: grid; padding: 0; margin-top: 50px; background-color: #FFEAE3; position: absolute; width: 100%; position: absolute; bottom: 0; ">
             <div class="container" style="padding: 35px; display: block; max-width: fit-content;">
                 <div class="w3-third" style="width: inherit;" >
                     <h3 style="text-align: center;">ĐĂNG KÝ NHẬN THÔNG TIN KHUYẾN MÃI</h3>
