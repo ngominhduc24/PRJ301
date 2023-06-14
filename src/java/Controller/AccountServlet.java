@@ -23,7 +23,6 @@ import java.util.List;
 import model.OrderDetail;
 import model.Orders;
 import model.Product;
-import model.Bill;
 
 /**
  *
@@ -104,14 +103,6 @@ public class AccountServlet extends HttpServlet {
 
                 // clear list order detail
                 listOrderDetail = new ArrayList<>();
-            }
-
-            // print all order detail
-            for (Orders order : listOrders) {
-                System.out.println("OrderID: " + order.getOrderID());
-                for (OrderDetail orderDetail : order.getListOrderDetails()) {
-                    System.out.println(orderDetail.getProduct().getName());
-                }
             }
 
             // get account from database

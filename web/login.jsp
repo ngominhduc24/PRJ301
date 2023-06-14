@@ -67,7 +67,7 @@
                         <span class="d-block text-center my-4 text-muted"> or sign in with</span>
                         
                         <div class="social-login text-center">
-                          <a onclick="btnSubmit();"  href="#" class="facebook">
+                          <a href="#" class="facebook">
                             <span class="icon-facebook mr-3"></span> 
                           </a>
                           <a href="#" class="twitter">

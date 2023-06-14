@@ -39,33 +39,33 @@
                         <div class="mb-4">
                             <h3>Sign Up </h3>
                         </div>
-                        <form action="login" method="post">
+                        <form action="signup" method="post">
                             <div class="form-group first">
                                 <label for="username">Your Name</label>
-                                <input type="text" name="name" class="form-control" id="name" value="">
+                                <input type="text" name="signup_name" class="form-control" id="name" value="">
                             </div>
                             <div class="form-group first">
                                 <label for="username">Your Email</label>
-                                <input type="text" name="email" class="form-control" id="email" value="">
+                                <input type="text" name="signup_email" class="form-control" id="email" value="">
                             </div>
                               
                             <div class="form-group first">
                                 <label for="username">Your Phone</label>
-                                <input type="text" name="phone" class="form-control" id="phone" value="">
+                                <input type="text" name="signup_phone" class="form-control" id="phone" value="">
                             </div>
                             <div class="form-group first">
                                 <label for="username">Your Address</label>
-                                <input type="text" name="address" class="form-control" id="address" value="">
+                                <input type="text" name="signup_address" class="form-control" id="address" value="">
                             </div>
 
                             <div class="form-group first row" style="display: flex; ">
                                 <div class="col-md-6">
                                     <label for="password">Password</label>
-                                    <input type="password" name="Password" class="form-control" id="password" value="">
+                                    <input type="password" name="signup_password" class="form-control" id="password" value="">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="password" >Repeat your password</label>
-                                    <input type="password" name="repassword" class="form-control" id="repassword" value="">
+                                    <input type="password" name="signup_repassword" class="form-control" id="repassword" value="">
                                 </div>
                               </div>
 
@@ -77,14 +77,15 @@
 
                             <div class="d-flex mb-5 align-items-center">
                                 <label class="control control--checkbox mb-0"><span class="caption">I agree all statements in <a href="#!">Terms of service</a></span>
-                                    <input type="checkbox" name="checkbox" ></input>
+                                    <input type="checkbox" name="signup_checkbox" ></input>
                                     <div class="control__indicator"></div>
                                 </label>
                             </div>
-                            <c:if test="${loginmessage != null}">
-                                <p style="color: red">${loginmessage}</p>
+                            <c:if test="${signupmessage != null}">
+                                <p style="color: red">${signupmessage}</p>
                             </c:if>
-                            <input style="background-color: #ff5b6a; border: #ff5b6a; margin-top: -10px;" type="submit" value="Sign Up" class="btn btn-pill text-white btn-block btn-primary">
+                                <input hidden value="" name="urlsignup" id="urlsignup">
+                            <input style="background-color: #ff5b6a; border: #ff5b6a; margin-top: -10px;" type="submit" onclick="btnSignupSubmit();" value="Sign Up" class="btn btn-pill text-white btn-block btn-primary">
 
                         </form>
                     </div>
@@ -102,5 +103,12 @@
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+        <script>    
+            function btnSignupSubmit() {
+              const href = window.location.href;
+              const url = href.split("/");
+              document.getElementById("urlsignup").value = url[url.length - 1];
+            }
+          </script>
     </body>
 </html>

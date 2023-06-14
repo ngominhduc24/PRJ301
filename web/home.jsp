@@ -272,12 +272,6 @@
                 });
             }
 
-            // click if login fail
-                var message = "${loginmessage}";
-                if (message != null && message != "") {
-                    document.getElementById("btnlogin").click();
-                }
-
             // signup 
             var signup = document.getElementById("modal_signup");
             signup.addEventListener("click", function() {
@@ -291,6 +285,21 @@
                 document.getElementById("divlogin").hidden = false;
                 document.getElementById("divsignup").hidden = true;
             });
+
+            var btnmodal = document.getElementById("btnlogin");
+            // click if login fail
+            var loginmessage = "${loginmessage}";
+            if (loginmessage != null && loginmessage != "") {
+                btnmodal.click();
+                login.click();
+            }
+
+            // click if signup fail
+            var signupmessage = "${signupmessage}";
+            if (signupmessage != null && signupmessage != "") {
+                btnmodal.click();
+                signup.click();
+            }
         </script>
 
     </body>

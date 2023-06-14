@@ -14,6 +14,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,7 @@ public class HomeServlet extends HttpServlet {
         int countProduct = 0;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {
-                if(cookie.getValue() != "") {
+                if (cookie.getValue() != "") {
                     countProduct = HandleCookie.CookieToProduct(cookie.getValue()).size();
                 }
             }
@@ -98,6 +99,11 @@ public class HomeServlet extends HttpServlet {
             request.setAttribute("error", "Error");
             request.getRequestDispatcher("index.html").forward(request, response);
         }
+
+        // remove message
+        HttpSession session = request.getSession();
+        session.removeAttribute("signupmessage");
+        session.removeAttribute("loginmessage");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the

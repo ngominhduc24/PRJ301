@@ -13,7 +13,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
@@ -22,7 +21,6 @@ import dal.OrderDAO;
 import dal.OrderDetailDAO;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
-import model.Bill;
 import model.OrderDetail;
 import model.Orders;
 import model.Product;

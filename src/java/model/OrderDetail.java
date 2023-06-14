@@ -4,8 +4,6 @@
  */
 package model;
 
-import model.Product;
-
 /**
  *
  * @author ASUS PC

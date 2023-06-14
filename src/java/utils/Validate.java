@@ -38,4 +38,16 @@ public class Validate {
         }
         return "";
     }
+
+    public static Boolean isEmail(String email) {
+        return email.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+    }
+
+    public static Boolean isPhoneNumber(String phoneNumber) {
+        return phoneNumber.matches("^[0-9]{10}$");
+    }
+
+    public static Boolean isPassword(String password) {
+        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+    }
 }

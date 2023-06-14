@@ -49,6 +49,10 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
+                        <c:if test="${data == null}">
+                            <h6 class="text-center">You have no items in your shopping cart!</h6> <br>
+                        </c:if>
+                        <c:if test="${data != null}">
                         <table class="table table-bordered m-0">
                             <thead>
                                 <tr>
@@ -103,6 +107,7 @@
                             </div>
                         </div>
                     </div>
+                </c:if>
 
                     <div class="float-left">
                         <a href="home">         
@@ -191,26 +196,35 @@
         form.appendChild(cartInput);
 
         form.submit();
-      }
+        }
       
-      // click if login fail
-                var message = "${loginmessage}";
-                if (message != null && message != "") {
-                    document.getElementById("btnlogin").click();
-                }
+        // signup 
+        var signup = document.getElementById("modal_signup");
+        signup.addEventListener("click", function() {
+            document.getElementById("divlogin").hidden = true;
+            document.getElementById("divsignup").hidden = false;
+        });
 
-            // signup 
-            var signup = document.getElementById("modal_signup");
-            signup.addEventListener("click", function() {
-                document.getElementById("divlogin").hidden = true;
-                document.getElementById("divsignup").hidden = false;
-            });
+        // login
+        var login = document.getElementById("modal_login");
+        login.addEventListener("click", function() {
+            document.getElementById("divlogin").hidden = false;
+            document.getElementById("divsignup").hidden = true;
+        });
 
-            // login
-            var login = document.getElementById("modal_login");
-            login.addEventListener("click", function() {
-                document.getElementById("divlogin").hidden = false;
-                document.getElementById("divsignup").hidden = true;
-            });
+        var btnmodal = document.getElementById("btnlogin");
+        // click if login fail
+        var loginmessage = "${loginmessage}";
+        if (loginmessage != null && loginmessage != "") {
+            btnmodal.click();
+            login.click();
+        }
+
+        // click if signup fail
+        var signupmessage = "${signupmessage}";
+        if (signupmessage != null && signupmessage != "") {
+            btnmodal.click();
+            signup.click();
+        }
     </script>
 </html>

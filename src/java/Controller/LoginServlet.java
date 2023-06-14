@@ -90,6 +90,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("Password");
         String remember = request.getParameter("remember");
         String url = request.getParameter("url");
+        if (url == null) {
+            url = "home?page=1";
+        } 
+
         // set cookie for email and password
         Cookie cookie1 = new Cookie("email", email);
         cookie1.setMaxAge(60 * 60 * 24);
@@ -114,12 +118,14 @@ public class LoginServlet extends HttpServlet {
             if (account.getRole() == UserRole.USER.getValue()) {
                 session.setAttribute("role", "user");
             }
+            
+            if (url.equals("cart")) {
+                url = "checkout";
+            }
             response.sendRedirect(url);
         } else {
-            session.setAttribute("loginmessage", "Login failed");
-            request.setAttribute("error", "Username or password is incorrect");
-            // request.getRequestDispatcher("/home.jsp").forward(request, response);
-            response.sendRedirect("home?page=1");
+            session.setAttribute("loginmessage", "Username or password is incorrect");
+            response.sendRedirect(url);
         }
     }
 

@@ -14,6 +14,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
@@ -87,6 +88,11 @@ public class DisplayCartServlet extends HttpServlet {
         }
 
         request.getRequestDispatcher("cart.jsp").forward(request, response);
+
+        // remove message
+        HttpSession session = request.getSession();
+        session.removeAttribute("signupmessage");
+        session.removeAttribute("loginmessage");
     }
 
     /**
