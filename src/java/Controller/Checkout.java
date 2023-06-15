@@ -73,34 +73,27 @@ public class Checkout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        // check login or not
         if (session.getAttribute("role") == null) {
             session.setAttribute("loginmessage", "You must login to checkout");
             response.sendRedirect("cart");
             return;
         }
 
-        Cookie[] cookies = request.getCookies();
         // get cart and email from cookie
+        Cookie[] cookies = request.getCookies();
         String cart = "";
-        String email = "";
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("cart")) {
                 cart = cookie.getValue();
-            }
-            if (cookie.getName().equals("email")) {
-                email = cookie.getValue();
             }
         }
         List<Product> products = HandleCookie.CookieToProduct(cart);
 
         // get data user
-        if (email != null) {
-            AccountDAO accountDAO = new AccountDAO();
-            Account user = accountDAO.getAccountByEmail(email);
-            request.setAttribute("user", user);
-        } else {
-            request.setAttribute("user", null);
-        }
+        Account user = (Account) session.getAttribute("account");
+        request.setAttribute("user", user);
 
         request.setAttribute("data", products);
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
@@ -117,12 +110,13 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         Cookie[] cookies = request.getCookies();
         AccountDAO accountDAO = new AccountDAO();
         Orders order = new Orders();
         String email = request.getParameter("email");
-        int accountID = accountDAO.getAccountIDByEmail(email);
-        Date date = new Date(System.currentTimeMillis());
+
+        Account account = (Account) session.getAttribute("account");
 
         // get cart and email from cookie
         String cart = "";
@@ -133,8 +127,8 @@ public class Checkout extends HttpServlet {
         }
 
         // get data order from request
-        order.setAccountID(accountID);
-        order.setOrderDate(date);
+        order.setAccountID(account.getAccountID());
+        order.setOrderDate(new Date(System.currentTimeMillis()));
         order.setAddress(request.getParameter("address"));
         order.setTotalPrice(Integer.parseInt(request.getParameter("totalPrice")));
         order.setStatus(0);

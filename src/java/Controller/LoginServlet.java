@@ -89,10 +89,12 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("Password");
         String remember = request.getParameter("remember");
+
+        // get url to redirect if login or register success
         String url = request.getParameter("url");
         if (url == null) {
             url = "home?page=1";
-        } 
+        }
 
         // set cookie for email and password
         Cookie cookie1 = new Cookie("email", email);
@@ -118,7 +120,10 @@ public class LoginServlet extends HttpServlet {
             if (account.getRole() == UserRole.USER.getValue()) {
                 session.setAttribute("role", "user");
             }
-            
+
+            session.setAttribute("account", account);
+
+            // if login success in cart page, redirect to checkout page
             if (url.equals("cart")) {
                 url = "checkout";
             }
