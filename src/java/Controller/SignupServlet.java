@@ -107,13 +107,6 @@ public class SignupServlet extends HttpServlet {
                 session.setAttribute("signupmessage", "Email is not valid");
                 request.getRequestDispatcher("/signup.jsp").forward(request, response);
 
-            } else if (Validate.isPhoneNumber(phone) == false) {
-                session.setAttribute("signupmessage", "Phone is not valid");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
-            } else if (Validate.isPassword(password) == false) {
-                session.setAttribute("signupmessage", "Password is not valid");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
-
             } else if (checkbox == null) {
                 session.setAttribute("signupmessage", "Please agree to the terms and conditions");
                 request.getRequestDispatcher("/signup.jsp").forward(request, response);

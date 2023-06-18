@@ -7,14 +7,15 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import dal.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
 import model.Account;
 import utils.NumberToEnum.UserRole;
 
@@ -22,8 +23,8 @@ import utils.NumberToEnum.UserRole;
  *
  * @author ASUS PC
  */
-@WebServlet(name = "Login", urlPatterns = { "/login" })
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "AdminLoginServlet", urlPatterns = { "/admin/login" })
+public class AdminLoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +43,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet AdminLoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminLoginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,12 +65,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("loginmessage") != null) {
-            session.removeAttribute("loginmessage");
-        }
-
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/AdminLogin.jsp").forward(request, response);
     }
 
     /**
@@ -83,19 +79,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         HttpSession session = request.getSession();
 
         // get parameter
         String email = request.getParameter("email");
         String password = request.getParameter("Password");
         String remember = request.getParameter("remember");
-
-        // get url to redirect if login or register success
-        String url = request.getParameter("url");
-        if (url == null) {
-            url = "home?page=1";
-        }
 
         // delete cookie email and password
         Cookie[] cookies = request.getCookies();
@@ -124,23 +113,23 @@ public class LoginServlet extends HttpServlet {
 
         // set session
         if (account != null) {
+            // if account is admin
             if (account.getRole() == UserRole.ADMIN.getValue()) {
+                session.removeAttribute("role");
                 session.setAttribute("role", UserRole.ADMIN.getValue());
+                session.setAttribute("account", account);
+                response.sendRedirect("home");
             }
+
+            // if account is not admin
             if (account.getRole() == UserRole.USER.getValue()) {
-                session.setAttribute("role", UserRole.USER.getValue());
+                session.setAttribute("loginmessage", "You are not admin");
+                response.sendRedirect("login");
             }
 
-            session.setAttribute("account", account);
-
-            // if login success in cart page, redirect to checkout page
-            if (url.equals("cart")) {
-                url = "checkout";
-            }
-            response.sendRedirect(url);
         } else {
             session.setAttribute("loginmessage", "Username or password is incorrect");
-            response.sendRedirect(url);
+            response.sendRedirect("login");
         }
     }
 

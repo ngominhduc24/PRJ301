@@ -18,11 +18,13 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.OrderDetail;
 import model.Orders;
 import model.Product;
+import model.Account;
 
 /**
  *
@@ -72,18 +74,13 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             AccountDAO accountDAO = new AccountDAO();
+            HttpSession session = request.getSession();
             Cookie[] cookies = request.getCookies();
             OrderDAO orderDAO = new OrderDAO();
             ProductDAO productDAO = new ProductDAO();
             List<Orders> listOrders = new ArrayList<>();
-            int accountID = -1;
-
-            // get id from cookie
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("email")) {
-                    accountID = accountDAO.getAccountIDByEmail(cookie.getValue());
-                }
-            }
+            Account acc = (Account) session.getAttribute("account");
+            int accountID = acc.getAccountID();
 
             // get list order from database
             listOrders = orderDAO.getListOrderByAccountID(accountID);

@@ -59,7 +59,8 @@ public class OrderDAO {
     }
 
     public List<Orders> getListOrderByAccountID(int accountID) {
-        String sql = "SELECT * FROM Orders WHERE accountID = ?";
+        // get list order by accountID and order by orderDate ascending
+        String sql = "SELECT * FROM Orders WHERE accountID = ? ORDER BY orderDate DESC";
         List<Orders> listOrder = new ArrayList<>();
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
