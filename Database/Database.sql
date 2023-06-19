@@ -41,7 +41,7 @@ create table Product (
     Description varchar(50) not null,
     Image varchar(500),
     CategoryID int not null,
-	Status int not null DEFAULT 1, -- 1: available, 2: not available
+	Status int not null DEFAULT 1, -- 0 delete -- 1: available, 2: not available
     foreign key (CategoryID) references Category(CategoryID)
 );
 GO
