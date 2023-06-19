@@ -111,6 +111,13 @@ public class Checkout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        if (session.getAttribute("role") == null) {
+            session.setAttribute("loginmessage", "You must login to checkout");
+            response.sendRedirect("cart");
+            return;
+        }
+
         Cookie[] cookies = request.getCookies();
         AccountDAO accountDAO = new AccountDAO();
         Orders order = new Orders();

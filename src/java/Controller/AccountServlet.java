@@ -72,12 +72,18 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         AccountDAO accountDAO = new AccountDAO();
+        HttpSession session = request.getSession();
+        Cookie[] cookies = request.getCookies();
+        OrderDAO orderDAO = new OrderDAO();
+        ProductDAO productDAO = new ProductDAO();
+            
+        if(session.getAttribute("account") == null) {
+            session.setAttribute("loginmessage", "You need login first");
+            response.sendRedirect("home");
+        }
+        
         try {
-            AccountDAO accountDAO = new AccountDAO();
-            HttpSession session = request.getSession();
-            Cookie[] cookies = request.getCookies();
-            OrderDAO orderDAO = new OrderDAO();
-            ProductDAO productDAO = new ProductDAO();
             List<Orders> listOrders = new ArrayList<>();
             Account acc = (Account) session.getAttribute("account");
             int accountID = acc.getAccountID();
@@ -107,7 +113,7 @@ public class AccountServlet extends HttpServlet {
             request.setAttribute("account", accountDAO.getAccountByID(accountID));
 
             request.getRequestDispatcher("account.jsp").forward(request, response);
-        } catch (Exception e) {
+        } catch (ServletException | IOException e) {
             System.out.println(e);
             response.sendRedirect("home");
         }
