@@ -19,7 +19,7 @@ import model.Product;
 public class ProductDAO {
     public List<Product> getAllProduct() {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM Product ";
+        String sql = "SELECT * FROM Product WHERE Status = 1 ";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -42,8 +42,7 @@ public class ProductDAO {
 
     public List<Product> getProductByPage(int begin, int number_of_product, String categoryID) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM dbo.Product WHERE CategoryID = ? ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
-
+        String sql = "SELECT * FROM dbo.Product WHERE CategoryID = ? AND Status = 1 ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
             ps.setInt(1, Integer.parseInt(categoryID));
@@ -71,7 +70,6 @@ public class ProductDAO {
     public List<Product> searchProduct(int begin, int number_of_product, String search) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM dbo.Product WHERE Name LIKE ? ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
-
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
             ps.setString(1, "%" + search + "%");
@@ -97,7 +95,7 @@ public class ProductDAO {
     }
 
     public Product getProductByID(String id) {
-        String sql = "SELECT * FROM Product WHERE ProductID = ?";
+        String sql = "SELECT * FROM Product WHERE ProductID = ? AND Status = 1";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
 
@@ -123,7 +121,7 @@ public class ProductDAO {
 
     public List<Product> getProductByPage(int begin, int number_of_product) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM dbo.Product ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
+        String sql = "SELECT * FROM dbo.Product WHERE Status = 1 ORDER BY ProductID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
             ps.setInt(1, begin);
@@ -172,7 +170,7 @@ public class ProductDAO {
     }
 
     public Product getProductByID(int id) {
-        String sql = "SELECT * FROM Product WHERE ProductID = ?";
+        String sql = "SELECT * FROM Product WHERE ProductID = ? ";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
 
@@ -192,6 +190,19 @@ public class ProductDAO {
             System.out.println(ex);
         }
         return null;
+    }
+
+    public boolean deleteProductByID(int id) {
+        // make status of product is 0 (delete)
+        String sql = "UPDATE Product SET Status = 0 WHERE ProductID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
     }
 
 }

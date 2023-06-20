@@ -15,6 +15,7 @@ public class Product {
     private String description;
     private String image;
     private int categoryID;
+    private int status;
     private int quantity;
 
     public Product() {
@@ -27,6 +28,17 @@ public class Product {
         this.description = description;
         this.image = image;
         this.categoryID = categoryID;
+    }
+
+    public Product(int productID, String name, int price, String description, String image, int categoryID,
+            int status) {
+        this.productID = productID;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.image = image;
+        this.categoryID = categoryID;
+        this.status = status;
     }
 
     public int getProductID() {
@@ -83,6 +95,14 @@ public class Product {
 
     public int getQuantity() {
         return this.quantity;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return this.status;
     }
 
     @Override

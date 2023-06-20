@@ -133,6 +133,7 @@ public class AdminHomeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("signupmessage");
         session.removeAttribute("loginmessage");
+        session.removeAttribute("deleteproductmessage");
     }
 
     /**
