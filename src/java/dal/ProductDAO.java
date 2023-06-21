@@ -17,6 +17,32 @@ import model.Product;
  * @author ASUS PC
  */
 public class ProductDAO {
+
+    // get all product
+    public List<Product> adminGetAllProduct() {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Product ";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("ProductID"));
+                product.setName(rs.getString("Name"));
+                product.setPrice(rs.getInt("Price"));
+                product.setCategoryID(rs.getInt("CategoryID"));
+                product.setImage(rs.getString("Image"));
+                product.setDescription(rs.getString("Description"));
+                list.add(product);
+            }
+            return list;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+    // get all product for user where status of prodduct = 1
     public List<Product> getAllProduct() {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM Product WHERE Status = 1 ";
