@@ -5,6 +5,7 @@
 
 package Controller;
 
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,12 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Product;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name="AdminUpdateProduct", urlPatterns={"/updateproduct"})
+@WebServlet(name="AdminUpdateProduct", urlPatterns={"/admin/updateproduct"})
 public class AdminUpdateProduct extends HttpServlet {
    
     /** 
@@ -55,7 +57,16 @@ public class AdminUpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int productID = Integer.parseInt(request.getParameter("pid"));
+            ProductDAO productDAO = new ProductDAO();
+            Product product = productDAO.getProductByID(productID);
+            request.setAttribute("product", product);
+            request.getRequestDispatcher("AdminUpdateProduct.jsp").forward(request, response);
+        } catch (ServletException | IOException | NumberFormatException e) {
+            response.sendRedirect("home");
+        }
+        
     } 
 
     /** 

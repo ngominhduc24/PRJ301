@@ -61,7 +61,7 @@
                                                     URL</span>
                                             </div>
                                             <input type="text" class="form-control" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default">
+                                                aria-describedby="inputGroup-sizing-default" value="${product.image}">
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -70,7 +70,7 @@
                                                     id="inputGroup-sizing-default">Description</span>
                                             </div>
                                             <input type="text" class="form-control" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default">
+                                                aria-describedby="inputGroup-sizing-default" value="${product.description}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -78,7 +78,7 @@
                                                     id="inputGroup-sizing-default">Name</span>
                                             </div>
                                             <input type="text" class="form-control" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default">
+                                                aria-describedby="inputGroup-sizing-default" value="${product.name}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -86,7 +86,7 @@
                                                     style="width: 68px;">Price</span>
                                             </div>
                                             <input type="number" class="form-control" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default">
+                                                aria-describedby="inputGroup-sizing-default" value="${product.price}">
                                         </div>
                                         <div style="margin-left: 5px;">
                                             <label class="relative inline-flex items-center mr-5 cursor-pointer">
