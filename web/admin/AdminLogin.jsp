@@ -39,7 +39,7 @@
                     <div class="col d-flex justify-content-center">
                         <!-- Checkbox -->
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" ${(cookie.email != null ? "checked" : "")} />
+                            <input class="form-check-input" name="remember" type="checkbox" value="" id="form2Example31" ${(cookie.email != null ? "checked" : "")} />
                             <label class="form-check-label" for="form2Example31"> Remember me </label>
                         </div>
                     </div>

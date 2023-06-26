@@ -32,8 +32,55 @@
                         color: #FFFFFF;
                     }
 
-                    input[type="checkbox"]:not(:checked) {
-                        background-color: white;
+                    * {
+                        box-sizing: border-box;
+                    }
+
+                    input[type="checkbox"] {
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none;
+                        -webkit-tap-highlight-color: transparent;
+                        cursor: pointer;
+                    }
+
+                    input[type="checkbox"]:f ocus {
+                        outline: 0;
+                    }
+
+                    .toggle {
+                        height: 32px;
+                        width: 52px;
+                        border-radius: 16px;
+                        display: inline-block;
+                        position: relative;
+                        margin: 0;
+                        border: 2px solid #FF9EA2;
+                        /* background: linear-gradient(180deg, #2D2F39 0%, #1F2027 100%); */
+                        background: #FFFFFF;
+                        transition: all .2s ease;
+                    }
+
+                    .toggle:after {
+                        content: '';
+                        position: absolute;
+                        top: 2px;
+                        left: 2px;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        background: #ff5b6a;
+                        box-shadow: 0 1px 2px rgba(44, 44, 44, .2);
+                        transition: all .2s cubic-bezier(.5, .1, .75, 1.35);
+                    }
+
+                    .toggle:checked {
+                        border-color: #ffffff;
+                        background: #FF9EA2;
+                    }
+
+                    .toggle:checked:after {
+                        transform: translateX(20px);
                     }
                 </style>
                 <title>Cart</title>
@@ -41,7 +88,7 @@
 
             <body style="background-color: #FFEAE3; margin-top: 100px;">
 
-                <form id="updateForm" action="cart" method="post">
+                <form id="updateForm" action="updateproduct" method="post">
                     <div class="container px-3 my-5 clearfix">
                         <!-- Shopping cart table -->
                         <div class="card">
@@ -54,13 +101,14 @@
                                 <div class="table-responsive">
 
                                     <div class="content" style="margin-bottom: 30px; margin-top: 10px;">
+                                        <input name="productID" value="${product.productID}" hidden>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
                                                     style="width: 105px;">Image
                                                     URL</span>
                                             </div>
-                                            <input type="text" class="form-control" aria-label="Default"
+                                            <input type="text" class="form-control" name="image" aria-label="Default"
                                                 aria-describedby="inputGroup-sizing-default" value="${product.image}">
                                         </div>
 
@@ -69,15 +117,16 @@
                                                 <span class="input-group-text"
                                                     id="inputGroup-sizing-default">Description</span>
                                             </div>
-                                            <input type="text" class="form-control" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.description}">
+                                            <input type="text" class="form-control" name="description"
+                                                aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                                                value="${product.description}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"
                                                     id="inputGroup-sizing-default">Name</span>
                                             </div>
-                                            <input type="text" class="form-control" aria-label="Default"
+                                            <input type="text" class="form-control" name="name" aria-label="Default"
                                                 aria-describedby="inputGroup-sizing-default" value="${product.name}">
                                         </div>
                                         <div class="input-group mb-3">
@@ -85,15 +134,21 @@
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
                                                     style="width: 68px;">Price</span>
                                             </div>
-                                            <input type="number" class="form-control" aria-label="Default"
+                                            <input type="number" class="form-control" name="price" aria-label="Default"
                                                 aria-describedby="inputGroup-sizing-default" value="${product.price}">
                                         </div>
                                         <div style="margin-left: 5px;">
                                             <label class="relative inline-flex items-center mr-5 cursor-pointer">
-                                                <input type="checkbox" value="" class="sr-only peer" checked>
-                                                <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-400 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-red-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-400"
-                                                    style="">
-                                                </div>
+                                                <c:choose>
+                                                    <c:when test="${product.status == '1'}">
+                                                        <input type="checkbox" class="toggle" name="status" checked>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <input type="checkbox" class="toggle" name="status">
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <!-- <input type="checkbox" class="toggle" ${(product.status !="1"
+                                                    ? "checked" : "" )}> -->
                                                 <span class="text-sm font-medium" style="margin-left: 10px;">Display
                                                     product</span>
                                             </label>
@@ -111,11 +166,9 @@
 
                                     <div class="float-right">
                                         <button type="button" name="updatecart" class="btn btn-lg btn-primary mt-2"
-                                            style="background-color: #ff5b6a; border-color: #ff5b6a; margin-right: 5px;">Save</button>
-                                        <a href="checkout">
-                                            <button type="button" class="btn btn-lg btn-primary mt-2"
-                                                style="background-color: #ff5b6a; border-color: #ff5b6a;">Checkout</button>
-                                        </a>
+                                            style="background-color: #ff5b6a; border-color: #ff5b6a; margin-right: 5px;">Reload</button>
+                                        <button type="submit" class="btn btn-lg btn-primary mt-2"
+                                            style="background-color: #ff5b6a; border-color: #ff5b6a;">Save</button>
                                     </div>
 
                                 </div>

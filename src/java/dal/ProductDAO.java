@@ -33,6 +33,7 @@ public class ProductDAO {
                 product.setCategoryID(rs.getInt("CategoryID"));
                 product.setImage(rs.getString("Image"));
                 product.setDescription(rs.getString("Description"));
+                product.setStatus(rs.getInt("Status"));
                 list.add(product);
             }
             return list;
@@ -64,6 +65,20 @@ public class ProductDAO {
             System.out.println(ex);
         }
         return null;
+    }
+
+    public int getNumberProduct() {
+        String sql = "SELECT COUNT(*) FROM Product WHERE Status = 1 ";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return 0;
     }
 
     public List<Product> getProductByPage(int begin, int number_of_product, String categoryID) {
@@ -135,6 +150,7 @@ public class ProductDAO {
                 product.setCategoryID(rs.getInt("CategoryID"));
                 product.setImage(rs.getString("Image"));
                 product.setDescription(rs.getString("Description"));
+                product.setStatus(rs.getInt("status"));
                 return product;
             }
         } catch (SQLException ex) {
@@ -210,6 +226,7 @@ public class ProductDAO {
                 product.setCategoryID(rs.getInt("CategoryID"));
                 product.setImage(rs.getString("Image"));
                 product.setDescription(rs.getString("Description"));
+                product.setStatus(rs.getInt("status"));
                 return product;
             }
         } catch (SQLException ex) {
@@ -224,6 +241,23 @@ public class ProductDAO {
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
             ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public boolean updateProduct(Product product) {
+        String sql = "UPDATE Product SET  name = ?, price = ?, description  = ?, image = ?, status = ? WHERE ProductID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, product.getName());
+            ps.setInt(2, product.getPrice());
+            ps.setString(3, product.getDescription());
+            ps.setString(4, product.getImage());
+            ps.setInt(5, product.getStatus());
+            ps.setInt(6, product.getProductID());
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             System.out.println(ex);
