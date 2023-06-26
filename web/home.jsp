@@ -158,7 +158,7 @@
                     <!-- Pagination -->
                     <div class="w3-center w3-padding-32">
                         <div class="w3-bar">
-                            <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+                            <a href="home?page=1" class="w3-bar-item w3-button w3-hover-black">«</a>
                             <c:forEach begin="${startPage}" end="${endPage}" varStatus="loop">
                                 <c:if test="${loop.index == thisPage }">
                                     <a href="home?page=${loop.index}"
@@ -167,7 +167,6 @@
                                 <c:if test="${loop.index != thisPage}">
                                     <a href="home?page=${loop.index}"
                                         class="w3-bar-item w3-button w3-hover-black">${loop.index}</a>
-
                                 </c:if>
                             </c:forEach>
                             <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
