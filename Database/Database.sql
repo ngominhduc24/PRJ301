@@ -59,7 +59,7 @@ GO
 --------------------------- Insert data ---------------------------
 
 -- account
-insert into Account values ('duc@gmail.com', '1', 'minh duc', '0124727283', 'Ha Dong, Ha Noi', 1);
+insert into Account values ('duc@gmail.com', '1', 'minh duc', '0124727283', 'Ha Dong, Ha Noi', 2);
 insert into Account values ('long@abc.com', '123456', 'viet long', '0199928372', 'Nam Tu Liem, Ha Noi', 2);
 insert into Account values ('dung@fu.com', '123456', 'thi dung', '0123456789', '', 2);
 insert into Account values ('admin', '1', 'admin', '0123456789', '', 1);

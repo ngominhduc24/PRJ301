@@ -67,7 +67,7 @@ public class ProductDAO {
         return null;
     }
 
-    public int getNumberProduct() {
+    public int countProduct() {
         String sql = "SELECT COUNT(*) FROM Product WHERE Status = 1 ";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
