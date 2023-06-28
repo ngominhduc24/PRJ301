@@ -89,6 +89,12 @@ public class Checkout extends HttpServlet {
                 cart = cookie.getValue();
             }
         }
+        // if cart is empty, redirect to cart
+        if (cart.equals("")) {
+            response.sendRedirect("cart");
+            return;
+        }
+        // get list product from cookie
         List<Product> products = HandleCookie.CookieToProduct(cart);
 
         // get data user
