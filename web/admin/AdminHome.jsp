@@ -95,7 +95,7 @@
                                                         <input type="hidden" name="productid"
                                                             value="${item.productID}"></input>
                                                         <td class="text-center font-weight-semibold align-middle p-4">
-                                                            ${item.status}</td>
+                                                            ${item.status == "1" ? "Enable" : "Disable"}</td>
                                                         <td class="text-center font-weight-semibold align-middle p-4">
                                                             <a href="updateproduct?pid=${item.productID}">Edit</a>
                                                         </td>

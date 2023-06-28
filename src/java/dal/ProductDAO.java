@@ -249,7 +249,7 @@ public class ProductDAO {
     }
 
     public boolean updateProduct(Product product) {
-        String sql = "UPDATE Product SET  name = ?, price = ?, description  = ?, image = ?, status = ? WHERE ProductID = ?";
+        String sql = "UPDATE Product SET  name = ?, price = ?, description  = ?, image = ?, status = ?, categoryID = ? WHERE ProductID = ?";
         try {
             PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
             ps.setString(1, product.getName());
@@ -257,7 +257,8 @@ public class ProductDAO {
             ps.setString(3, product.getDescription());
             ps.setString(4, product.getImage());
             ps.setInt(5, product.getStatus());
-            ps.setInt(6, product.getProductID());
+            ps.setInt(6, product.getCategoryID());
+            ps.setInt(7, product.getProductID());
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             System.out.println(ex);
