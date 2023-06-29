@@ -7,11 +7,19 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import dal.AccountDAO;
+import dal.OrderDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Orders;
 
 /**
  *
@@ -59,6 +67,28 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AccountDAO accountDAO = new AccountDAO();
+        OrderDAO orderDAO = new OrderDAO();
+
+        List<Account> databaseAccounts = accountDAO.getAllAccount();
+        List<Account> listAccounts = new ArrayList<>();
+        List<Orders> listOrders = orderDAO.getAllOrder();
+        for (Orders order : listOrders) {
+            Account account = null;
+            for (Account acc : databaseAccounts) {
+                if (acc.getAccountID() == order.getAccountID()) {
+                    account = acc;
+                    break;
+                }
+            }
+            if (account != null) {
+                listAccounts.add(account);
+            }
+        }
+        System.out.println(listAccounts.get(0).getName());
+        request.setAttribute("listAccounts", listAccounts);
+        request.setAttribute("listOrders", listOrders);
+
         request.getRequestDispatcher("/admin/AdminDashboard.jsp").forward(request, response);
     }
 
