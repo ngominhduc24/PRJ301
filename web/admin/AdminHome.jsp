@@ -126,36 +126,7 @@
                                         </table>
                                 </div>
                                 <!-- / Shopping cart table -->
-
-                                <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
-                                    <div class="mt-4">
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="text-right mt-4">
-                                            <label class="text-muted font-weight-normal m-0">Total price</label>
-                                            <div class="text-large"><strong>${total}.000 ₫</strong></div>
-                                        </div>
-                                    </div>
-                                </div>
                                 </c:if>
-
-                                <div class="float-left">
-                                    <a href="home">
-                                        <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3"
-                                            style="background-color: #aeacab; border-color: #aeacab;">Back to
-                                            shopping</button>
-                                    </a>
-                                </div>
-
-                                <div class="float-right">
-                                    <button type="button" name="updatecart" class="btn btn-lg btn-primary mt-2"
-                                        style="background-color: #ff5b6a; border-color: #ff5b6a; margin-right: 5px;">Save</button>
-                                    <a href="checkout">
-                                        <button type="button" class="btn btn-lg btn-primary mt-2"
-                                            style="background-color: #ff5b6a; border-color: #ff5b6a;">Checkout</button>
-                                    </a>
-                                </div>
-
                             </div>
                         </div>
                     </div>
