@@ -38,6 +38,10 @@
 
                 <form id="updateForm" action="cart" method="post">
                     <div class="container px-3 my-5 clearfix">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <a href="logout">⇦ Log out</a>
+                            <a href="dashboard">Admin Dashboard ⇨</a>
+                        </div>
                         <!-- Shopping cart table -->
                         <div class="card">
                             <div class="card-header" style="background-color: #FF9EA2;">
