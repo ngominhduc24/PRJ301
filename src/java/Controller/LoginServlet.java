@@ -107,16 +107,15 @@ public class LoginServlet extends HttpServlet {
         }
 
         // set cookie for email and password
-        Cookie cookie1 = new Cookie("email", email);
-        cookie1.setMaxAge(60 * 60 * 24);
-        Cookie cookie2 = new Cookie("password", password);
+        Cookie cookie_email = new Cookie("email", email);
+        cookie_email.setMaxAge(60 * 60 * 24);
+        Cookie cookie_password = new Cookie("password", password);
         if (remember != null) {
-            cookie2.setMaxAge(60 * 60 * 24);
+            cookie_password.setMaxAge(60 * 60 * 24);
         } else {
-            cookie2.setMaxAge(0);
+            cookie_password.setMaxAge(0);
         }
-        response.addCookie(cookie1);
-        response.addCookie(cookie2);
+        response.addCookie(cookie_email);
 
         // check account
         AccountDAO accountDAO = new AccountDAO();
@@ -132,7 +131,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             session.setAttribute("account", account);
-
+            response.addCookie(cookie_password);
             // if login success in cart page, redirect to checkout page
             if (url.equals("cart")) {
                 url = "checkout";

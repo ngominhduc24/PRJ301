@@ -101,18 +101,17 @@ public class SignupServlet extends HttpServlet {
                     || address.isEmpty()) {
                 session.setAttribute("signupmessage", "Please fill all the fields");
                 response.sendRedirect(url);
-                // request.getRequestDispatcher("/signup.jsp").forward(request, response);
 
             } else if (Validate.isEmail(email) == false) {
                 session.setAttribute("signupmessage", "Email is not valid");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                response.sendRedirect(url);
 
             } else if (checkbox == null) {
                 session.setAttribute("signupmessage", "Please agree to the terms and conditions");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                response.sendRedirect(url);
             } else if (!password.equals(repassword)) {
                 session.setAttribute("signupmessage", "Password and Re-Password must be same");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                response.sendRedirect(url);
 
             } else {
                 Account account = new Account(email, password, name, phone, address, UserRole.USER.getValue());
