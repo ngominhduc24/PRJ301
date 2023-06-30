@@ -101,7 +101,25 @@
                                 <div class="table-responsive">
 
                                     <div class="content" style="margin-bottom: 30px; margin-top: 10px;">
-                                        <input name="productID" value="${product.productID}" hidden>
+                                        <div class="input-group mb-3">
+                                            <input name="productID" value="${product.productID}" hidden>
+                                            <label for="sel1" class="form-label">Category:</label>
+                                            <select class="form-select" id="category" name="category"
+                                                style="width: 80px; margin-left: 5px; margin-bottom: 5px;">
+                                                <c:forEach items="${listCategory}" var="category">
+                                                    <c:if test="${category.categoryID==product.categoryID}">
+                                                        <option value="${category.categoryID}" selected>
+                                                            ${category.name}
+                                                        </option>
+                                                    </c:if>
+                                                    <c:if test="${category.categoryID!=product.categoryID}">
+                                                        <option value="${category.categoryID}">
+                                                            ${category.name}
+                                                        </option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-default"

@@ -18,6 +18,28 @@ import model.Orders;
  */
 public class OrderDAO {
 
+    public List<Orders> getAllOrder() {
+        String sql = "SELECT * FROM Orders";
+        List<Orders> listOrder = new ArrayList<>();
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Orders order = new Orders();
+                order.setOrderID(rs.getInt("orderID"));
+                order.setAccountID(rs.getInt("accountID"));
+                order.setOrderDate(rs.getDate("orderDate"));
+                order.setAddress(rs.getString("address"));
+                order.setTotalPrice(rs.getInt("totalPrice"));
+                order.setStatus(rs.getInt("status"));
+                listOrder.add(order);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listOrder;
+    }
+
     public int insertOrder(Orders order) {
         String sql = "INSERT INTO Orders VALUES(?,?,?,?,?)"; // (accountID, orderDate, address, totalPrice,
                                                              // status)

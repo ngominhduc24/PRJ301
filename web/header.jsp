@@ -30,9 +30,8 @@
                             <a class="navbar-brand" href="home">
                                 <div style="display: flex;">
                                     <a href="home">
-                                        <img src="https://png.pngtree.com/element_our/png/20180917/food-logo-design.-knife-fork-and-spoon-logo.-png_98037.jpg" width="40px" height="40px" class="d-inline-block align-top" alt="">
+                                        <img src="./public/img/logo.png" width="60px" height="60px" class="d-inline-block align-top" alt="">
                                     </a>
-                                    <h3 style="margin-top: 10px; margin-left: 5px;  ">NMD-Shop</h3> 
                                 </div>
                             </a>
                           </div>

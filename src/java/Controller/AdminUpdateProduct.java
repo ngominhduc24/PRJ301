@@ -5,6 +5,7 @@
 
 package Controller;
 
+import dal.CategoryDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +14,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Category;
 import model.Product;
+import java.util.List;
 
 /**
  *
@@ -62,10 +65,17 @@ public class AdminUpdateProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            // get product by id
             int productID = Integer.parseInt(request.getParameter("pid"));
             ProductDAO productDAO = new ProductDAO();
             Product product = productDAO.getProductByID(productID);
             request.setAttribute("product", product);
+
+            // get all category
+            CategoryDAO categoryDAO = new CategoryDAO();
+            List<Category> listCategory = categoryDAO.getAllCategory();
+            request.setAttribute("listCategory", listCategory);
+
             request.getRequestDispatcher("AdminUpdateProduct.jsp").forward(request, response);
         } catch (ServletException | IOException | NumberFormatException e) {
             response.sendRedirect("home");
@@ -84,6 +94,8 @@ public class AdminUpdateProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ProductDAO productDAO = new ProductDAO();
+
         String productID = request.getParameter("productID");
         String image = request.getParameter("image");
         String name = request.getParameter("name");
@@ -91,20 +103,22 @@ public class AdminUpdateProduct extends HttpServlet {
         String price = request.getParameter("price");
         String status = request.getParameter("status");
 
+        String categoryID = request.getParameter("category");
+
         try {
             if (productID != "" && image != "" && name != "" && description != "" && price != "") {
                 int statusINT = status == null ? 0 : 1;
                 Product product = new Product(Integer.parseInt(productID), name, Integer.parseInt(price), description,
                         image, 0, statusINT);
+                product.setCategoryID(Integer.parseInt(categoryID));
+                System.out.println(product.getCategoryID());
 
-                ProductDAO productDAO = new ProductDAO();
                 if (productDAO.updateProduct(product)) {
-
+                    // update category success
                 }
             }
         } catch (Exception e) {
-            response.sendRedirect("home");
-
+            // response.sendRedirect("home");
         }
         response.sendRedirect("updateproduct?pid=" + productID);
 

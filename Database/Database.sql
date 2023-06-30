@@ -1,3 +1,12 @@
+-- Detele database (execute this many times until it complete)
+-- DECLARE @sql NVARCHAR(MAX) = '';
+
+-- -- Generate DROP TABLE statements for all tables
+-- SELECT @sql += 'DROP TABLE ' + QUOTENAME(name) + ';' 
+-- FROM sys.tables;
+
+-- -- Execute the generated SQL statement
+-- EXEC sp_executesql @sql;
 
 CREATE DATABASE prj301
 GO
@@ -22,7 +31,7 @@ create table Orders (
     OrderDate date not null,
     Address varchar(50) not null,
 	TotalPrice int not null,
-    Status int not null, -- 1: processing, 2: shipping, 3: delivered 
+    Status int not null, -- 1: Completed, 2: processing, 0: Cancelled 
     foreign key (AccountID) references Account(AccountID)
 );
 GO
@@ -59,7 +68,7 @@ GO
 --------------------------- Insert data ---------------------------
 
 -- account
-insert into Account values ('duc@gmail.com', '1', 'minh duc', '0124727283', 'Ha Dong, Ha Noi', 1);
+insert into Account values ('duc@gmail.com', '1', 'minh duc', '0124727283', 'Ha Dong, Ha Noi', 2);
 insert into Account values ('long@abc.com', '123456', 'viet long', '0199928372', 'Nam Tu Liem, Ha Noi', 2);
 insert into Account values ('dung@fu.com', '123456', 'thi dung', '0123456789', '', 2);
 insert into Account values ('admin', '1', 'admin', '0123456789', '', 1);

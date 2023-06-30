@@ -15,7 +15,7 @@
     <link
     rel="stylesheet"
     type="text/css"
-    href="${pageContext.request.contextPath}/styles/style.css"
+    href="${pageContext.request.contextPath}/styles/index.css"
     />
 </head>
 

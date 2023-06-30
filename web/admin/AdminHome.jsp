@@ -38,6 +38,10 @@
 
                 <form id="updateForm" action="cart" method="post">
                     <div class="container px-3 my-5 clearfix">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <a href="logout">⇦ Log out</a>
+                            <a href="dashboard">Admin Dashboard ⇨</a>
+                        </div>
                         <!-- Shopping cart table -->
                         <div class="card">
                             <div class="card-header" style="background-color: #FF9EA2;">
@@ -95,7 +99,7 @@
                                                         <input type="hidden" name="productid"
                                                             value="${item.productID}"></input>
                                                         <td class="text-center font-weight-semibold align-middle p-4">
-                                                            ${item.status}</td>
+                                                            ${item.status == "1" ? "Enable" : "Disable"}</td>
                                                         <td class="text-center font-weight-semibold align-middle p-4">
                                                             <a href="updateproduct?pid=${item.productID}">Edit</a>
                                                         </td>
@@ -122,36 +126,7 @@
                                         </table>
                                 </div>
                                 <!-- / Shopping cart table -->
-
-                                <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
-                                    <div class="mt-4">
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="text-right mt-4">
-                                            <label class="text-muted font-weight-normal m-0">Total price</label>
-                                            <div class="text-large"><strong>${total}.000 ₫</strong></div>
-                                        </div>
-                                    </div>
-                                </div>
                                 </c:if>
-
-                                <div class="float-left">
-                                    <a href="home">
-                                        <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3"
-                                            style="background-color: #aeacab; border-color: #aeacab;">Back to
-                                            shopping</button>
-                                    </a>
-                                </div>
-
-                                <div class="float-right">
-                                    <button type="button" name="updatecart" class="btn btn-lg btn-primary mt-2"
-                                        style="background-color: #ff5b6a; border-color: #ff5b6a; margin-right: 5px;">Save</button>
-                                    <a href="checkout">
-                                        <button type="button" class="btn btn-lg btn-primary mt-2"
-                                            style="background-color: #ff5b6a; border-color: #ff5b6a;">Checkout</button>
-                                    </a>
-                                </div>
-
                             </div>
                         </div>
                     </div>

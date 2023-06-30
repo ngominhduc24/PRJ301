@@ -101,18 +101,17 @@ public class SignupServlet extends HttpServlet {
                     || address.isEmpty()) {
                 session.setAttribute("signupmessage", "Please fill all the fields");
                 response.sendRedirect(url);
-                // request.getRequestDispatcher("/signup.jsp").forward(request, response);
 
             } else if (Validate.isEmail(email) == false) {
                 session.setAttribute("signupmessage", "Email is not valid");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                response.sendRedirect(url);
 
             } else if (checkbox == null) {
                 session.setAttribute("signupmessage", "Please agree to the terms and conditions");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                response.sendRedirect(url);
             } else if (!password.equals(repassword)) {
                 session.setAttribute("signupmessage", "Password and Re-Password must be same");
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                response.sendRedirect(url);
 
             } else {
                 Account account = new Account(email, password, name, phone, address, UserRole.USER.getValue());
@@ -120,20 +119,23 @@ public class SignupServlet extends HttpServlet {
                 if (accountDAO.createAccount(account) == null) {
                     session.setAttribute("signupmessage", "Email already exists");
                     request.getRequestDispatcher("/signup.jsp").forward(request, response);
-
-                } else if (session.getAttribute("signupmessage") != null) {
+                } else {
+                    if (url.equals("cart")) {
+                        url = "checkout";
+                    }
+                    // login success -> set session
+                    session.setAttribute("account", accountDAO.checkAccount(email, repassword));
+                    session.setAttribute("role", "user");
+                    // set cookie
                     Cookie cookie = new Cookie("email", email);
                     cookie.setMaxAge(60 * 60 * 24);
                     response.addCookie(cookie);
-
-                    session.removeAttribute("loginmessage");
-                    session.setAttribute("role", "user");
-                    response.sendRedirect("checkout");
-                } else {
-                    session.setAttribute("role", "user");
-                    request.getRequestDispatcher("/home").forward(request, response);
+                    Cookie cookie2 = new Cookie("password", password);
+                    cookie2.setMaxAge(60 * 60 * 24);
+                    response.addCookie(cookie2);
+                    response.sendRedirect(url);
                 }
-
+                session.removeAttribute("loginmessage");
             }
         } catch (Exception e) {
             response.sendRedirect("home");

@@ -83,20 +83,20 @@
                 <!-- end header -->
 
                 <!-- category -->
-                <!-- <div class="container category">
-            <div class="row">
-                <c:forEach items="${listCategory}" var="category">
-                    <div class="col-sm">
-                        <a href="home?category=${category.categoryID}">
-                            <div class="img">
-                                <img src="${category.image}" class="card-img-top" alt="...">
+                <div class="container category">
+                    <div class="row">
+                        <c:forEach items="${listCategory}" var="category">
+                            <div class="col-sm">
+                                <a href="home?category=${category.categoryID}">
+                                    <div class="img">
+                                        <img src="${category.image}" class="card-img-top" alt="...">
+                                    </div>
+                                    <p class="txt">${category.name}</p>
+                                </a>
                             </div>
-                            <p class="txt">${category.name}</p>
-                        </a>
+                        </c:forEach>
                     </div>
-                </c:forEach>
-            </div>
-          </div> -->
+                </div>
 
                 <!-- !PAGE CONTENT! -->
                 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
@@ -164,12 +164,12 @@
                                     <a href="home?page=${loop.index}"
                                         class="w3-bar-item w3-black w3-button">${loop.index}</a>
                                 </c:if>
-                                <c:if test="${loop.index != thisPage}">
+                                <c:if test="${loop.index != thisPage && !(loop.index > maxPage)}">
                                     <a href="home?page=${loop.index}"
                                         class="w3-bar-item w3-button w3-hover-black">${loop.index}</a>
                                 </c:if>
                             </c:forEach>
-                            <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+                            <a href="home?page=${maxPage}" class="w3-bar-item w3-button w3-hover-black">»</a>
                         </div>
                     </div>
 

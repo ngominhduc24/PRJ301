@@ -7,6 +7,8 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Account;
 
 /**
@@ -14,6 +16,30 @@ import model.Account;
  * @author ASUS PC
  */
 public class AccountDAO {
+
+    public List<Account> getAllAccount() {
+        String sql = "SELECT * FROM Account";
+        List<Account> listAccount = new ArrayList<>();
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Account account = new Account();
+                account.setAccountID(rs.getInt("accountID"));
+                account.setEmail(rs.getString("email"));
+                account.setPassword(rs.getString("password"));
+                account.setName(rs.getString("name"));
+                account.setPhone(rs.getString("phone"));
+                account.setAddress(rs.getString("address"));
+                account.setRole(rs.getInt("role"));
+                listAccount.add(account);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listAccount;
+    }
+
     public Account checkAccount(String email, String password) {
         String sql = "SELECT * FROM Account WHERE email = ? AND password = ?";
         try {

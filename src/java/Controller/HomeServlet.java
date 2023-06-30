@@ -61,17 +61,19 @@ public class HomeServlet extends HttpServlet {
         int start_product = 0;
         int start_page = 1;
         int end_page = 1;
+        int max_page = productDAO.countProduct() / page_size + 1;
+        end_page = max_page < 5 ? max_page : 5;
         try {
             start_product = Integer.parseInt(page) * page_size - page_size;
             start_page = Integer.parseInt(page) - 1;
             start_page = start_page < 1 ? 1 : start_page;
-            end_page = start_page + 3;
         } catch (Exception e) {
             System.out.println(e);
         }
         request.setAttribute("startPage", start_page);
         request.setAttribute("thisPage", Integer.parseInt(page));
         request.setAttribute("endPage", end_page);
+        request.setAttribute("maxPage", max_page);
 
         // count product
         Cookie[] cookies = request.getCookies();
