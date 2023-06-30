@@ -120,20 +120,20 @@ public class SignupServlet extends HttpServlet {
                 if (accountDAO.createAccount(account) == null) {
                     session.setAttribute("signupmessage", "Email already exists");
                     request.getRequestDispatcher("/signup.jsp").forward(request, response);
-
-                } else if (session.getAttribute("signupmessage") != null) {
+                } else {
+                    // login success -> set session
+                    session.setAttribute("account", accountDAO.checkAccount(email, repassword));
+                    session.setAttribute("role", "user");
+                    // set cookie
                     Cookie cookie = new Cookie("email", email);
                     cookie.setMaxAge(60 * 60 * 24);
                     response.addCookie(cookie);
-
-                    session.removeAttribute("loginmessage");
-                    session.setAttribute("role", "user");
-                    response.sendRedirect("checkout");
-                } else {
-                    session.setAttribute("role", "user");
-                    request.getRequestDispatcher("/home").forward(request, response);
+                    Cookie cookie2 = new Cookie("password", password);
+                    cookie2.setMaxAge(60 * 60 * 24);
+                    response.addCookie(cookie2);
+                    request.getRequestDispatcher(url).forward(request, response);
                 }
-
+                session.removeAttribute("loginmessage");
             }
         } catch (Exception e) {
             response.sendRedirect("home");

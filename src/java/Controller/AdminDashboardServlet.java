@@ -70,6 +70,7 @@ public class AdminDashboardServlet extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         OrderDAO orderDAO = new OrderDAO();
 
+        // Get all accounts and orders
         List<Account> databaseAccounts = accountDAO.getAllAccount();
         List<Account> listAccounts = new ArrayList<>();
         List<Orders> listOrders = orderDAO.getAllOrder();
@@ -88,6 +89,13 @@ public class AdminDashboardServlet extends HttpServlet {
         System.out.println(listAccounts.get(0).getName());
         request.setAttribute("listAccounts", listAccounts);
         request.setAttribute("listOrders", listOrders);
+
+        // Get total revenue
+        double totalRevenue = 0;
+        for (Orders order : listOrders) {
+            totalRevenue += order.getTotalPrice();
+        }
+        request.setAttribute("totalRevenue", totalRevenue);
 
         request.getRequestDispatcher("/admin/AdminDashboard.jsp").forward(request, response);
     }
