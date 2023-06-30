@@ -22,4 +22,6 @@ path/checkout: checkout order
 ### Admin
 path/admin/home: display all product, update product
 
-path/adminupdateProduct: update product
+path/admin/updateProduct: update product
+
+path/admin/dashboard: show dashboard
