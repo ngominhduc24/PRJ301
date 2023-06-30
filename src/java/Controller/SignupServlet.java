@@ -121,6 +121,9 @@ public class SignupServlet extends HttpServlet {
                     session.setAttribute("signupmessage", "Email already exists");
                     request.getRequestDispatcher("/signup.jsp").forward(request, response);
                 } else {
+                    if (url.equals("cart")) {
+                        url = "checkout";
+                    }
                     // login success -> set session
                     session.setAttribute("account", accountDAO.checkAccount(email, repassword));
                     session.setAttribute("role", "user");
@@ -131,7 +134,7 @@ public class SignupServlet extends HttpServlet {
                     Cookie cookie2 = new Cookie("password", password);
                     cookie2.setMaxAge(60 * 60 * 24);
                     response.addCookie(cookie2);
-                    request.getRequestDispatcher(url).forward(request, response);
+                    response.sendRedirect(url);
                 }
                 session.removeAttribute("loginmessage");
             }
