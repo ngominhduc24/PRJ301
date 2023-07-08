@@ -1,7 +1,6 @@
-<%-- Document : cart1 Created on : Jun 3, 2023, 10:41:52 PM Author : ASUS PC --%>
-
-    <%@page contentType="text/html" pageEncoding="UTF-8" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- Document : AdminAddProduct Created on : Jul 4, 2023, 4:34:33 PM Author : ASUS PC --%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@page contentType="text/html" pageEncoding="UTF-8" %>
             <!DOCTYPE html>
             <html>
 
@@ -88,7 +87,7 @@
 
             <body style="background-color: #FFEAE3; margin-top: 100px;">
 
-                <form id="updateForm" action="updateproduct" method="post">
+                <form id="updateForm" action="addproduct" method="post">
                     <div class="container px-3 my-5 clearfix">
                         <!-- Shopping cart table -->
                         <div class="card">
@@ -107,16 +106,8 @@
                                             <select class="form-select" id="category" name="category"
                                                 style="width: 80px; margin-left: 5px; margin-bottom: 5px;">
                                                 <c:forEach items="${listCategory}" var="category">
-                                                    <c:if test="${category.categoryID==product.categoryID}">
-                                                        <option value="${category.categoryID}" selected>
-                                                            ${category.name}
-                                                        </option>
-                                                    </c:if>
-                                                    <c:if test="${category.categoryID!=product.categoryID}">
-                                                        <option value="${category.categoryID}">
-                                                            ${category.name}
-                                                        </option>
-                                                    </c:if>
+                                                    <option value="${category.categoryID}">
+                                                        ${category.name}
                                                 </c:forEach>
                                             </select>
                                         </div>
@@ -127,7 +118,7 @@
                                                     URL</span>
                                             </div>
                                             <input type="text" class="form-control" name="image" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.image}">
+                                                aria-describedby="inputGroup-sizing-default" value="" required>
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -137,7 +128,7 @@
                                             </div>
                                             <input type="text" class="form-control" name="description"
                                                 aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                                                value="${product.description}">
+                                                value="" required>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -145,7 +136,7 @@
                                                     id="inputGroup-sizing-default">Name</span>
                                             </div>
                                             <input type="text" class="form-control" name="name" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.name}">
+                                                aria-describedby="inputGroup-sizing-default" value="" required>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -153,20 +144,11 @@
                                                     style="width: 68px;">Price</span>
                                             </div>
                                             <input type="number" class="form-control" name="price" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.price}">
+                                                aria-describedby="inputGroup-sizing-default" value="" required>
                                         </div>
                                         <div style="margin-left: 5px;">
                                             <label class="relative inline-flex items-center mr-5 cursor-pointer">
-                                                <c:choose>
-                                                    <c:when test="${product.status == '1'}">
-                                                        <input type="checkbox" class="toggle" name="status" checked>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input type="checkbox" class="toggle" name="status">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <!-- <input type="checkbox" class="toggle" ${(product.status !="1"
-                                                    ? "checked" : "" )}> -->
+                                                <input type="checkbox" class="toggle" name="status" checked>
                                                 <span class="text-sm font-medium" style="margin-left: 10px;">Display
                                                     product</span>
                                             </label>
@@ -178,7 +160,7 @@
                                     <div class="float-left">
                                         <a href="home">
                                             <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3"
-                                                style="background-color: #aeacab; border-color: #aeacab; color: white;">>Back
+                                                style="background-color: #aeacab; border-color: #aeacab; color: white;">Back
                                                 to home</button>
                                         </a>
                                     </div>
@@ -187,7 +169,7 @@
                                         <button type="button" name="updatecart" class="btn btn-lg btn-primary mt-2"
                                             style="background-color: #ff5b6a; border-color: #ff5b6a; margin-right: 5px;">Reload</button>
                                         <button type="submit" class="btn btn-lg btn-primary mt-2"
-                                            style="background-color: #ff5b6a; border-color: #ff5b6a;">Save</button>
+                                            style="background-color: #ff5b6a; border-color: #ff5b6a;">Add</button>
                                     </div>
 
                                 </div>

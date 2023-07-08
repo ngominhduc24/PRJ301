@@ -266,4 +266,20 @@ public class ProductDAO {
         return false;
     }
 
+    public boolean insertProduct(Product product) {
+        String sql = "INSERT INTO Product (name, price, description, image, status, categoryID) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, product.getName());
+            ps.setInt(2, product.getPrice());
+            ps.setString(3, product.getDescription());
+            ps.setString(4, product.getImage());
+            ps.setInt(5, product.getStatus());
+            ps.setInt(6, product.getCategoryID());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 }

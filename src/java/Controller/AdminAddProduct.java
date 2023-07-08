@@ -7,28 +7,23 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import dal.AccountDAO;
-import dal.OrderDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
-import model.Orders;
-import utils.NumberToEnum.UserRole;
+import dal.CategoryDAO;
+import dal.ProductDAO;
+import java.util.List;
+import model.Category;
+import model.Product;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "AdminDashboardServlet", urlPatterns = { "/admin/dashboard" })
-public class AdminDashboardServlet extends HttpServlet {
+@WebServlet(name = "AdminAddProduct", urlPatterns = { "/admin/addproduct" })
+public class AdminAddProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +42,10 @@ public class AdminDashboardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminDashboardServlet</title>");
+            out.println("<title>Servlet AdminAddProduct</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminDashboardServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminAddProduct at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,42 +64,18 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("admin") == null) {
-            response.sendRedirect("login");
-            return;
-        }
-        AccountDAO accountDAO = new AccountDAO();
-        OrderDAO orderDAO = new OrderDAO();
 
-        // Get all accounts and orders
-        List<Account> databaseAccounts = accountDAO.getAllAccount();
-        List<Account> listAccounts = new ArrayList<>();
-        List<Orders> listOrders = orderDAO.getAllOrder();
-        for (Orders order : listOrders) {
-            Account account = null;
-            for (Account acc : databaseAccounts) {
-                if (acc.getAccountID() == order.getAccountID()) {
-                    account = acc;
-                    break;
-                }
-            }
-            if (account != null) {
-                listAccounts.add(account);
-            }
+        try {
+            // get all category
+            CategoryDAO categoryDAO = new CategoryDAO();
+            List<Category> listCategory = categoryDAO.getAllCategory();
+            request.setAttribute("listCategory", listCategory);
+
+            request.getRequestDispatcher("AdminAddProduct.jsp").forward(request, response);
+        } catch (ServletException | IOException | NumberFormatException e) {
+            response.sendRedirect("home");
         }
 
-        request.setAttribute("listAccounts", listAccounts);
-        request.setAttribute("listOrders", listOrders);
-
-        // Get total revenue
-        double totalRevenue = 0;
-        for (Orders order : listOrders) {
-            totalRevenue += order.getTotalPrice();
-        }
-        request.setAttribute("totalRevenue", totalRevenue);
-
-        request.getRequestDispatcher("/admin/AdminDashboard.jsp").forward(request, response);
     }
 
     /**
@@ -118,7 +89,37 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ProductDAO productDAO = new ProductDAO();
+        String image = request.getParameter("image");
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String price = request.getParameter("price");
+        String status = request.getParameter("status");
+
+        String categoryID = request.getParameter("category");
+
+        try {
+            if (image != "" && name != "" && description != "" && price != "") {
+                int statusINT = status == null ? 0 : 1;
+                Product product = new Product();
+                product.setImage(image);
+                product.setName(name);
+                product.setDescription(description);
+                product.setPrice(Integer.parseInt(price));
+                product.setStatus(statusINT);
+
+                product.setCategoryID(Integer.parseInt(categoryID));
+
+                if (productDAO.insertProduct(product)) {
+                    response.sendRedirect("home");
+                } else {
+                    response.sendRedirect("home");
+                }
+            }
+        } catch (Exception e) {
+            // response.sendRedirect("home");
+        }
+        // response.sendRedirect("addproduct");
     }
 
     /**
