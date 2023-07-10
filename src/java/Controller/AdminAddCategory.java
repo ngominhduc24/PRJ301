@@ -5,34 +5,32 @@
 
 package Controller;
 
+import dal.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dal.CategoryDAO;
-import dal.ProductDAO;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Date;
 import java.util.List;
 import model.Category;
-import model.Product;
+import java.util.Date;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "AdminAddProduct", urlPatterns = { "/admin/addproduct" })
+@WebServlet(name = "AdminAddCatefory", urlPatterns = { "/admin/addcategory" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
-public class AdminAddProduct extends HttpServlet {
+public class AdminAddCategory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,10 +49,10 @@ public class AdminAddProduct extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminAddProduct</title>");
+            out.println("<title>Servlet AdminAddCatefory</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminAddProduct at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminAddCatefory at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,18 +71,16 @@ public class AdminAddProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             // get all category
             CategoryDAO categoryDAO = new CategoryDAO();
             List<Category> listCategory = categoryDAO.getAllCategory();
             request.setAttribute("listCategory", listCategory);
 
-            request.getRequestDispatcher("AdminAddProduct.jsp").forward(request, response);
+            request.getRequestDispatcher("AdminAddCategory.jsp").forward(request, response);
         } catch (ServletException | IOException | NumberFormatException e) {
             response.sendRedirect("home");
         }
-
     }
 
     /**
@@ -98,16 +94,12 @@ public class AdminAddProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO productDAO = new ProductDAO();
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String price = request.getParameter("price");
-        String status = request.getParameter("status");
+        CategoryDAO categoryDAO = new CategoryDAO();
+        Category category = new Category();
         String imgUrl = null;
+        String categoryName = request.getParameter("categoryname");
 
-        String categoryID = request.getParameter("category");
-
-        Part filePart = request.getPart("fileimg");
+        Part filePart = request.getPart("file");
         String originalFileName = filePart.getSubmittedFileName();
 
         String uploadDirectory = request.getServletContext().getRealPath("") + "public\\img";
@@ -162,26 +154,18 @@ public class AdminAddProduct extends HttpServlet {
             }
         }
 
+        // save to database
         try {
-            if (imgUrl != "" && name != "" && description != "" && price != "") {
-                int statusINT = status == null ? 0 : 1;
-                Product product = new Product();
-                product.setImage(imgUrl);
-                product.setName(name);
-                product.setDescription(description);
-                product.setPrice(Integer.parseInt(price));
-                product.setStatus(statusINT);
-
-                product.setCategoryID(Integer.parseInt(categoryID));
-
-                if (productDAO.insertProduct(product)) {
-                    response.sendRedirect("home");
-                } else {
-                    response.sendRedirect("home");
-                }
+            category.setName(categoryName);
+            if (imgUrl != null) {
+                category.setImage(imgUrl);
+            } else {
+                category.setImage("");
             }
+            categoryDAO.insertCategory(category);
+            response.sendRedirect("addcategory");
         } catch (Exception e) {
-            // response.sendRedirect("home");
+            response.sendRedirect("home");
         }
         // response.sendRedirect("addproduct");
     }

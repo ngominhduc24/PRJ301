@@ -36,4 +36,17 @@ public class CategoryDAO {
         return null;
     }
 
+    public boolean insertCategory(Category category) {
+        String sql = "INSERT INTO Category(Name, Image) VALUES (?, ?)";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, category.getName());
+            ps.setString(2, category.getImage());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
 }

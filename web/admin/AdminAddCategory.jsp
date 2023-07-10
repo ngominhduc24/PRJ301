@@ -1,7 +1,7 @@
-<%-- Document : cart1 Created on : Jun 3, 2023, 10:41:52 PM Author : ASUS PC --%>
+<%-- Document : AdminAddCategory Created on : Jul 8, 2023, 3:26:30 PM Author : ASUS PC --%>
 
     <%@page contentType="text/html" pageEncoding="UTF-8" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <!DOCTYPE html>
             <html>
 
@@ -88,14 +88,14 @@
 
             <body style="background-color: #FFEAE3; margin-top: 100px;">
 
-                <form id="updateForm" action="updateproduct" method="post">
+                <form id="updateForm" action="addcategory" method="post" enctype="multipart/form-data">
                     <div class="container px-3 my-5 clearfix">
                         <!-- Shopping cart table -->
                         <div class="card">
                             <div class="card-header" style="background-color: #FF9EA2;">
                                 <h2
                                     style="font-family: 'Poppins'; font-weight: revert; color: white; text-align: center;">
-                                    All Product</h2>
+                                    Add Category</h2>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -107,71 +107,27 @@
                                             <select class="form-select" id="category" name="category"
                                                 style="width: 80px; margin-left: 5px; margin-bottom: 5px;">
                                                 <c:forEach items="${listCategory}" var="category">
-                                                    <c:if test="${category.categoryID==product.categoryID}">
-                                                        <option value="${category.categoryID}" selected>
-                                                            ${category.name}
-                                                        </option>
-                                                    </c:if>
-                                                    <c:if test="${category.categoryID!=product.categoryID}">
-                                                        <option value="${category.categoryID}">
-                                                            ${category.name}
-                                                        </option>
-                                                    </c:if>
+                                                    <option value="${category.categoryID}">
+                                                        ${category.name}
                                                 </c:forEach>
                                             </select>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
-                                                    style="width: 105px;">Image
-                                                    URL</span>
+                                                    style="width: 105px;">Category</span>
                                             </div>
-                                            <input type="text" class="form-control" name="image" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.image}">
-                                        </div>
-
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                    id="inputGroup-sizing-default">Description</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="description"
+                                            <input type="text" class="form-control" name="categoryname"
                                                 aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                                                value="${product.description}">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                    id="inputGroup-sizing-default">Name</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="name" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.name}">
+                                                value="" required>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
-                                                    style="width: 68px;">Price</span>
+                                                    style="width: 120px; ">Upload image</span>
                                             </div>
-                                            <input type="number" class="form-control" name="price" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.price}">
+                                            <input type="file" name="file" style="margin-left: 15px; margin-top: 3px;">
                                         </div>
-                                        <div style="margin-left: 5px;">
-                                            <label class="relative inline-flex items-center mr-5 cursor-pointer">
-                                                <c:choose>
-                                                    <c:when test="${product.status == '1'}">
-                                                        <input type="checkbox" class="toggle" name="status" checked>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input type="checkbox" class="toggle" name="status">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <!-- <input type="checkbox" class="toggle" ${(product.status !="1"
-                                                    ? "checked" : "" )}> -->
-                                                <span class="text-sm font-medium" style="margin-left: 10px;">Display
-                                                    product</span>
-                                            </label>
-                                        </div>
-
                                     </div>
 
 
@@ -187,12 +143,13 @@
                                         <button type="button" name="updatecart" class="btn btn-lg btn-primary mt-2"
                                             style="background-color: #ff5b6a; border-color: #ff5b6a; margin-right: 5px;">Reload</button>
                                         <button type="submit" class="btn btn-lg btn-primary mt-2"
-                                            style="background-color: #ff5b6a; border-color: #ff5b6a;">Save</button>
+                                            style="background-color: #ff5b6a; border-color: #ff5b6a;">Add</button>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </form>
 
 

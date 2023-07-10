@@ -76,7 +76,7 @@
                                         <div class="card">
                                             <div class="card-body row">
                                                 <div class="col-md-8" style="text-align: center;">
-                                                    <a href="addproduct"
+                                                    <a href="addcategory"
                                                         style="vertical-align: middle; line-height: 100px;">
                                                         Add new category</a>
                                                 </div>
