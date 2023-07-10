@@ -112,11 +112,11 @@
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"
-                                            style="width: 120px; ">Upload image</span>
-                                    </div>
-                                    <input type="file" name="fileimg" style="margin-left: 15px; margin-top: 3px;">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-default"
+                                                    style="width: 120px; ">Upload image</span>
+                                            </div>
+                                            <input type="file" name="file" style="margin-left: 15px; margin-top: 3px;">
                                 </div>
 
                                 <div class="input-group mb-3">

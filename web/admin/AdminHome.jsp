@@ -122,9 +122,20 @@
                                                     <tr>
                                                         <td class="p-4">
                                                             <div class="media align-items-center">
-                                                                <img class="align-self-center mr-3" src="${item.image}"
-                                                                    style="width: 110px; height: 80px;"
-                                                                    alt="Generic placeholder image">
+                                                                <c:choose>
+                                                                    <c:when test="${not item.image.startsWith('h')}">
+                                                                        <img class="align-self-center mr-3"
+                                                                            style="width: 110px; height: 80px;"
+                                                                            src=".${item.image}"
+                                                                            alt="Generic placeholder image" />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img class="align-self-center mr-3"
+                                                                            style="width: 110px; height: 80px;"
+                                                                            src="${item.image}"
+                                                                            alt="Generic placeholder image" />
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                                 <div class="media-body">
 
                                                                     <h6 class="d-block text-dark"

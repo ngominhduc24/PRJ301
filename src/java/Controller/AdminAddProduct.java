@@ -99,6 +99,10 @@ public class AdminAddProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductDAO productDAO = new ProductDAO();
+         Date date = new Date();
+        // This method returns the time in millis
+        String timeMilli = String.valueOf(date.getTime());
+        
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String price = request.getParameter("price");
@@ -107,20 +111,21 @@ public class AdminAddProduct extends HttpServlet {
 
         String categoryID = request.getParameter("category");
 
-        Part filePart = request.getPart("fileimg");
+        Part filePart = request.getPart("file");
+
         String originalFileName = filePart.getSubmittedFileName();
 
-        String uploadDirectory = request.getServletContext().getRealPath("") + "public\\img";
+        String rootDirectory = getServletContext().getRealPath("");
+        String uploadDirectory = rootDirectory + "public" + File.separator + "img";
+
         // Tạo tên file mới
         if (filePart != null) {
             if (originalFileName != null && !originalFileName.equals("")) {
-                Date date = new Date();
-                // This method returns the time in millis
-                String timeMilli = String.valueOf(date.getTime());
-                String newFileName = timeMilli + originalFileName.substring(originalFileName.lastIndexOf("."));
+                String newFileName = timeMilli + ".png";
                 newFileName = newFileName.replace(' ', '_');
 
                 String filePath = uploadDirectory + File.separator + newFileName;
+                System.out.println(filePath);
                 File file = new File(filePath);
 
                 // Kiểm tra nếu file đã tồn tại
@@ -149,7 +154,7 @@ public class AdminAddProduct extends HttpServlet {
 
                 } catch (FileNotFoundException fne) {
                     request.setAttribute("mes", "Upload fail!");
-                    response.sendRedirect("addcategory");
+                    response.sendRedirect("addproduct");
                 } finally {
                     if (out != null) {
                         out.close();
@@ -161,12 +166,18 @@ public class AdminAddProduct extends HttpServlet {
                 }
             }
         }
+        
 
         try {
-            if (imgUrl != "" && name != "" && description != "" && price != "") {
+            if (name != "" && description != "" && price != "") {
                 int statusINT = status == null ? 0 : 1;
                 Product product = new Product();
                 product.setImage(imgUrl);
+                if (imgUrl != null) {
+                product.setImage(imgUrl);
+                } else {
+                    product.setImage("");
+                }
                 product.setName(name);
                 product.setDescription(description);
                 product.setPrice(Integer.parseInt(price));

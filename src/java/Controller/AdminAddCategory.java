@@ -95,6 +95,9 @@ public class AdminAddCategory extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDAO categoryDAO = new CategoryDAO();
+        Date date = new Date();
+        // This method returns the time in millis
+        String timeMilli = String.valueOf(date.getTime());
         Category category = new Category();
         String imgUrl = null;
         String categoryName = request.getParameter("categoryname");
@@ -102,13 +105,12 @@ public class AdminAddCategory extends HttpServlet {
         Part filePart = request.getPart("file");
         String originalFileName = filePart.getSubmittedFileName();
 
-        String uploadDirectory = request.getServletContext().getRealPath("") + "public\\img";
+        String rootDirectory = getServletContext().getRealPath("");
+        String uploadDirectory = rootDirectory + File.separator + "public" + File.separator + "img";
+
         // Tạo tên file mới
         if (filePart != null) {
             if (originalFileName != null && !originalFileName.equals("")) {
-                Date date = new Date();
-                // This method returns the time in millis
-                String timeMilli = String.valueOf(date.getTime());
                 String newFileName = timeMilli + originalFileName.substring(originalFileName.lastIndexOf("."));
                 newFileName = newFileName.replace(' ', '_');
 
@@ -165,7 +167,7 @@ public class AdminAddCategory extends HttpServlet {
             categoryDAO.insertCategory(category);
             response.sendRedirect("addcategory");
         } catch (Exception e) {
-            response.sendRedirect("home");
+            // response.sendRedirect("home");
         }
         // response.sendRedirect("addproduct");
     }
