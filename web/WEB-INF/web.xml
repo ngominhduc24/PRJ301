@@ -5,4 +5,11 @@
             30
         </session-timeout>
     </session-config>
+    <context-param> 
+      <description>Location to store uploaded file</description> 
+      <param-name>file-upload</param-name> 
+      <param-value>
+         c:\apache-tomcat-5.5.29\webapps\data\
+      </param-value> 
+   </context-param>
 </web-app>

@@ -18,8 +18,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Account;
 import model.Orders;
+import utils.NumberToEnum.UserRole;
 
 /**
  *
@@ -67,6 +69,14 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
+            response.sendRedirect("login");
+            System.out.println(session.getAttribute("role"));
+
+            return;
+
+        }
         AccountDAO accountDAO = new AccountDAO();
         OrderDAO orderDAO = new OrderDAO();
 
@@ -86,7 +96,7 @@ public class AdminDashboardServlet extends HttpServlet {
                 listAccounts.add(account);
             }
         }
-        System.out.println(listAccounts.get(0).getName());
+
         request.setAttribute("listAccounts", listAccounts);
         request.setAttribute("listOrders", listOrders);
 
