@@ -65,7 +65,7 @@
                 </style>
             </head>
 
-            <body>
+            <body onload="loadPage()">
                 <!-- Header -->
                 <!-- <%@include file="header.jsp"%>  -->
                 <!-- end header -->
@@ -127,7 +127,26 @@
                                                 value="${user.name}">
                                         </div>
                                         <div class="col-md-12">
-                                            <label for="kh_diachi">Địa chỉ</label>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="kh_diachi">Tỉnh</label> <br />
+                                                    <select class="form-control" id="province">
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="district">Huyện</label> <br />
+                                                    <select class="form-control" id="district">
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="kh_diachi">Xã</label> <br />
+                                                    <select class="form-control" id="ward">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="kh_diachi">Địa chỉ cụ thể</label>
                                             <input type="text" class="form-control" name="address" id="kh_diachi"
                                                 required value="${user.address}">
                                         </div>
@@ -162,7 +181,7 @@
 
                 <!-- footer -->
                 <footer class="footer "
-                    style="display: grid; padding: 0; margin-bottom: -100px; background-color: #FFEAE3; position: absolute; width: 100%; position: absolute; bottom: 0; ">
+                    style="display: grid; padding: 0; margin-bottom: -180px; background-color: #FFEAE3; position: absolute; width: 100%; position: absolute; bottom: 0; ">
                     <div class="container" style="padding: 35px; display: block; max-width: fit-content;">
                         <div class="w3-third" style="width: inherit;">
                             <h3 style="text-align: center;">ĐĂNG KÝ NHẬN THÔNG TIN KHUYẾN MÃI</h3>
@@ -186,7 +205,7 @@
 
                 <!-- Custom script - Các file js do mình tự viết -->
                 <script src="../assets/js/app.js"></script>
-
+                <script src="./js/checkout.js"></script>
             </body>
 
             </html>
