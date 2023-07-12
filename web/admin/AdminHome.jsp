@@ -35,13 +35,15 @@
             </head>
 
             <body style="background-color: #FFEAE3; margin-top: 100px;">
-
+                <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark position-fixed fixed-top"
+                    style="background-color: #fd7c80 !important; display: flex; justify-content: space-between;">
+                    <!-- Navbar-->
+                    <a class="navbar-brand ps-3" href="logout">⇦ logout</a>
+                    <!-- Navbar Brand-->
+                    <a class="navbar-brand ps-3" href="dashboard">Dashboard ⇨</a>
+                </nav>
                 <form id="updateForm" action="cart" method="post">
                     <div class="container px-3 my-5 clearfix">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                            <a href="logout">⇦ Log out</a>
-                            <a href="dashboard">Admin Dashboard ⇨</a>
-                        </div>
                         <!-- Shopping cart table -->
                         <div class="card">
                             <div class="card-header" style="background-color: #FF9EA2;">

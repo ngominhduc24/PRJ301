@@ -16,6 +16,7 @@ async function loadPage() {
         option.innerText = province.name;
         provincesSelect.appendChild(option);
     });
+
     provincesSelect.addEventListener('change', () => {
         const province = provinces.find(province => province.code == provincesSelect.value);
         districtsSelect.innerHTML = '';
@@ -26,6 +27,7 @@ async function loadPage() {
             option.innerText = district.name;
             districtsSelect.appendChild(option);
         });
+        
     });
     districtsSelect.addEventListener('change', () => {
         const province = provinces.find(province => province.code == provincesSelect.value);

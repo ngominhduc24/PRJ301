@@ -131,6 +131,8 @@
                                                 <div class="col-4">
                                                     <label for="kh_diachi">Tỉnh</label> <br />
                                                     <select class="form-control" id="province">
+                                                        <option value="none">Tỉnh
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-4">
