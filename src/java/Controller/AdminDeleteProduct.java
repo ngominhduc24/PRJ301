@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.NumberToEnum.UserRole;
 
 /**
  *
@@ -63,25 +64,31 @@ public class AdminDeleteProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
+            response.sendRedirect("login");
+            return;
+        }
         try {
-            HttpSession session = request.getSession();
             String productID = request.getParameter("pid");
             if (productID == null) {
+                session.setAttribute("deleteproductmessage", "Delete product failed");
                 response.sendRedirect("home");
                 return;
             }
 
             int pid = Integer.parseInt(productID);
             ProductDAO productDAO = new ProductDAO();
-            if (productDAO.deleteProductByID(pid)) {
+            if (productDAO.removeProductFromDatabaseByID(pid)) {
                 session.setAttribute("deleteproductmessage", "Delete product successfully");
+            } else {
+                session.setAttribute("deleteproductmessage", "Delete product failed");
             }
-
-            response.sendRedirect("home");
         } catch (Exception e) {
-            response.sendRedirect("home");
+            session.setAttribute("deleteproductmessage", "Delete product failed");
+            System.out.println(e.getMessage());
         }
-
+        response.sendRedirect("home");
     }
 
     /**

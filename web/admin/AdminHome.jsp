@@ -42,7 +42,7 @@
                     <!-- Navbar Brand-->
                     <a class="navbar-brand ps-3" href="dashboard">Dashboard ⇨</a>
                 </nav>
-                <form id="updateForm" action="cart" method="post">
+                <form id="updateForm" action="home" method="post">
                     <div class="container px-3 my-5 clearfix">
                         <!-- Shopping cart table -->
                         <div class="card">
@@ -160,10 +160,7 @@
                                                             <a href="updateproduct?pid=${item.productID}">Edit</a>
                                                         </td>
                                                         <td class="text-center align-middle px-0">
-                                                            <button type="button"
-                                                                onclick="confirmDelete('${item.productID}');"
-                                                                style="border: 0px; padding: 0px; background-color: white; "
-                                                                id="" class="">
+                                                            <a onclick="confirmDelete(${item.productID})">
                                                                 <svg width="20" height="20" viewBox="0 0 128 128"
                                                                     fill="#ff5b6a" class="icon"
                                                                     xmlns="http://www.w3.org/2000/svg">
@@ -173,7 +170,8 @@
                                                                         d="M85.3 108.4c-1.4 0-2.5-1.1-2.5-2.5V46.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v59.4c.1 1.4-1.1 2.5-2.5 2.5zm-39.4 0c-1.4 0-2.5-1.1-2.5-2.5V46.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v59.4c.1 1.4-1.1 2.5-2.5 2.5zm19.7 0c-1.4 0-2.5-1.1-2.5-2.5V46.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5v59.4c.1 1.4-1.1 2.5-2.5 2.5zm16.3-81.7v-6.1c0-2.2-1.8-4-4-4H52.3c-2.3 0-4 1.8-4 4.1V26h-5v-5.3c0-5 4.1-9.1 9.1-9.1H78c5 0 9.1 4.1 9.1 9.1v6.1h-5.2z"
                                                                         fill="ff5b6a" />
                                                                 </svg>
-                                                            </button>
+                                                            </a>
+
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -202,69 +200,16 @@
                 crossorigin="anonymous"></script>
             <script>
                 function confirmDelete(productID) {
-                    if (confirm("Are you sure you want to remove this item?")) {
-                        window.location.href = "deletecart?pid=" + productID;
+                    if (confirm("Are you sure you want to remove this product?")) {
+                        window.location.href = "deleteproduct?pid=" + productID;
                     } else {
                         return false;
                     }
                 }
 
-                var btn_update = document.getElementsByName("updatecart")[0];
-                btn_update.onclick = () => {
-                    var temp = "${data.size()}";
-                    var cart_count = parseInt(temp);
-                    for (var i = 0; i < cart_count; i++) {
-                        try {
-                            var productid = document.getElementsByName("productid")[i].value;
-                            var quantity = document.getElementsByName("quantity")[i].value;
-                            if (productid != "" && productid != undefined && quantity != "" && quantity != undefined) {
-                                cart += productid + ":" + quantity + "/";
-                            } else {
-                                break;
-                            }
-                        } catch (error) {
-                            break;
-                        }
-                    }
-                    var form = document.getElementById("updateForm");
-
-                    // Create a hidden input element
-                    var cartInput = document.createElement("input");
-                    cartInput.setAttribute("type", "hidden");
-                    cartInput.setAttribute("name", "cart");
-                    cartInput.setAttribute("value", cart.substring(0, cart.length - 1));
-                    form.appendChild(cartInput);
-
-                    form.submit();
-                }
-
-                // signup 
-                var signup = document.getElementById("modal_signup");
-                signup.addEventListener("click", function () {
-                    document.getElementById("divlogin").hidden = true;
-                    document.getElementById("divsignup").hidden = false;
-                });
-
-                // login
-                var login = document.getElementById("modal_login");
-                login.addEventListener("click", function () {
-                    document.getElementById("divlogin").hidden = false;
-                    document.getElementById("divsignup").hidden = true;
-                });
-
-                var btnmodal = document.getElementById("btnlogin");
-                // click if login fail
-                var loginmessage = "${loginmessage}";
-                if (loginmessage != null && loginmessage != "") {
-                    btnmodal.click();
-                    login.click();
-                }
-
-                // click if signup fail
-                var signupmessage = "${signupmessage}";
-                if (signupmessage != null && signupmessage != "") {
-                    btnmodal.click();
-                    signup.click();
+                const message = '${deleteproductmessage}';
+                if (message != '') {
+                    alert(message);
                 }
             </script>
 

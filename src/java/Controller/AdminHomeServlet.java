@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpSession;
 import model.Category;
 import model.Product;
 import utils.HandleCookie;
+import utils.NumberToEnum.UserRole;
 
 /**
  *
@@ -70,12 +71,18 @@ public class AdminHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
+            response.sendRedirect("login");
+            return;
+        }
         List<Product> listProduct = new ArrayList<>();
         ProductDAO productDAO = new ProductDAO();
         listProduct = productDAO.adminGetAllProduct();
         request.setAttribute("data", listProduct);
 
         request.getRequestDispatcher("AdminHome.jsp").forward(request, response);
+        session.removeAttribute("deleteproductmessage");
     }
 
     /**

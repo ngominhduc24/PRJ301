@@ -282,4 +282,19 @@ public class ProductDAO {
         }
         return false;
     }
+
+    public boolean removeProductFromDatabaseByID(int id) {
+        // make status of product is 0 (delete)
+        String sql = "DELETE FROM Product WHERE ProductID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } catch (NumberFormatException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 }

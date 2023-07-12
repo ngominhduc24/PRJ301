@@ -72,10 +72,7 @@ public class AdminDashboardServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
             response.sendRedirect("login");
-            System.out.println(session.getAttribute("role"));
-
             return;
-
         }
         AccountDAO accountDAO = new AccountDAO();
         OrderDAO orderDAO = new OrderDAO();
