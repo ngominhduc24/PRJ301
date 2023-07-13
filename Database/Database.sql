@@ -56,12 +56,12 @@ create table Product (
 GO
 
 create table OrderDetail (
+    OrderDetailID int IDENTITY(1,1) primary key,
     OrderID int not null,
     ProductID int not null,
     Quantity int not null
     foreign key (OrderID) references Orders(OrderID),
     foreign key (ProductID) references Product(ProductID),
-    primary key (OrderID, ProductID)
 );
 GO
 

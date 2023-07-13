@@ -100,7 +100,8 @@
                                                     </td>
                                                     <td>${order.totalPrice}.000₫</td>
                                                     <td>
-                                                        <a href="updateorder?orderID=${order.orderID}"><i
+                                                        <a
+                                                            href="updateorder?orderID=${order.orderID}&accountID=${listAccounts.get(loop.index).accountID}"><i
                                                                 class="fas fa-edit"></i></a>
                                                         <a href="deleteorder?orderID=${order.orderID}"><i
                                                                 class="fas fa-trash-alt"></i></a>

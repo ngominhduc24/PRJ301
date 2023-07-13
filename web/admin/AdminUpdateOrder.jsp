@@ -88,10 +88,11 @@
 
             <body style="background-color: #FFEAE3; margin-top: 100px;">
 
-                <form id="updateForm" action="updateorder" method="post">
-                    <div class="container px-3 my-5 clearfix" style="margin-top: 100px;">
-                        <!-- Shopping cart table -->
-                        <div class="card">
+                <div class="container px-3 my-5 clearfix" style="margin-top: 100px;">
+                    <!-- Shopping cart table -->
+                    <div class="card">
+                        <form id="updateForm" action="updateorder" method="post">
+
                             <div class="card-header" style="background-color: #FF9EA2;">
                                 <h2
                                     style="font-family: 'Poppins'; font-weight: revert; color: white; text-align: center;">
@@ -144,7 +145,7 @@
                                                 aria-label="Default" aria-describedby="inputGroup-sizing-default"
                                                 value="${order.orderDate}">
                                         </div>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" style="width: 99.9%;">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">Total
                                                     price</span>
@@ -152,6 +153,10 @@
                                             <input type="number" class="form-control" name="totalprice"
                                                 aria-label="Default" aria-describedby="inputGroup-sizing-default"
                                                 value="${order.totalPrice}">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-default">.000
+                                                    ₫</span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -170,11 +175,52 @@
                                         <button type="submit" class="btn btn-lg btn-primary mt-2"
                                             style="background-color: #ff5b6a; border-color: #ff5b6a;">Save</button>
                                     </div>
-
                                 </div>
                             </div>
-                        </div>
-                </form>
+                        </form>
+
+                        <form action="">
+                            <!-- table -->
+                            <table class="table table-bordered table-hover" style="margin-top: 30px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="text-align: center;">Product ID</th>
+                                        <th scope="col" style="text-align: center;">Product name</th>
+                                        <th scope="col" style="text-align: center;">Quantity</th>
+                                        <th scope="col" style="text-align: center;">Price</th>
+                                        <th scope="col" style="text-align: center;">Total price</th>
+                                        <th scope="col" style="text-align: center; width: 40px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${listOrderDetails}" var="orderDetail">
+                                        <tr>
+                                            <td style="text-align: center;">${orderDetail.getProduct().productID}</td>
+                                            <td style="text-align: center;">${orderDetail.getProduct().name}</td>
+                                            <td style="text-align: center;"><input type="number"
+                                                    style="width: 45px; text-align: center;" max="20" min="1"
+                                                    value="${orderDetail.quantity}"></td>
+                                            <td style="text-align: center;">${orderDetail.getProduct().price}</td>
+                                            <td style="text-align: center;">${orderDetail.quantity *
+                                                orderDetail.getProduct().price}.000 ₫</td>
+                                            <td
+                                                style="text-align: center; display: flex; justify-content: space-between;">
+                                                <a
+                                                    href="deleteorderdetail?orderID=${orderDetail.orderID}&productID=${orderDetail.product.productID}">
+                                                    <button type="button" class="btn btn-block">Update</button>
+                                                </a>
+                                                <a
+                                                    href="deleteorderdetail?orderID=${orderDetail.orderID}&productID=${orderDetail.product.productID}">
+                                                    <button type="button" class="btn btn-block">Delete</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </form>
+
+                    </div>
 
 
             </body>

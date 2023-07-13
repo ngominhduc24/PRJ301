@@ -12,6 +12,8 @@ import java.util.List;
 
 import dal.AccountDAO;
 import dal.OrderDAO;
+import dal.OrderDetailDAO;
+import dal.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +21,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.OrderDetail;
 import model.Orders;
+import model.Product;
 import utils.NumberToEnum.UserRole;
 
 /**
@@ -69,25 +73,25 @@ public class AdminUpdateOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        AccountDAO accountDAO = new AccountDAO();
+        OrderDAO orderDAO = new OrderDAO();
+        ProductDAO productDAO = new ProductDAO();
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        int accountID = Integer.parseInt(request.getParameter("accountID"));
+        String orderID = request.getParameter("orderID");
+
+        // Get order by ID
+        // Check if user is logged in
         if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
             response.sendRedirect("login");
             return;
         }
-        AccountDAO accountDAO = new AccountDAO();
-        OrderDAO orderDAO = new OrderDAO();
 
-        String orderID = request.getParameter("orderID");
-        if (orderID == null) {
-            response.sendRedirect("admina");
+        if (orderID == null || orderID.isEmpty()) {
+            response.sendRedirect("404");
             return;
         }
-
-        // Get order by ID
         Orders order = orderDAO.getOrderById(Integer.parseInt(orderID));
-        if (order == null) {
-            response.sendRedirect("adminb");
-            return;
-        }
         request.setAttribute("order", order);
 
         // Get account by ID
@@ -97,6 +101,21 @@ public class AdminUpdateOrder extends HttpServlet {
             return;
         }
         request.setAttribute("account", account);
+
+        // Get order detail by order ID
+        try {
+            List<OrderDetail> listOrderDetails = new ArrayList<>();
+            listOrderDetails = orderDetailDAO.getListOrderDetailByOrderID(Integer.parseInt(orderID));
+            for (OrderDetail orderDetail : listOrderDetails) {
+                Product product = productDAO.getProductByID(orderDetail.getProductID());
+                orderDetail.setProduct(product);
+            }
+            System.out.println(">>>" + listOrderDetails);
+            request.setAttribute("listOrderDetails", listOrderDetails);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         request.getRequestDispatcher("/admin/AdminUpdateOrder.jsp").forward(request, response);
     }
 

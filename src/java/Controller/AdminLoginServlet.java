@@ -115,7 +115,6 @@ public class AdminLoginServlet extends HttpServlet {
         if (account != null) {
             // if account is admin
             if (account.getRole() == UserRole.ADMIN.getValue()) {
-                System.out.println("admin");
                 session.removeAttribute("role");
                 session.setAttribute("role", UserRole.ADMIN.getValue());
                 session.setAttribute("account", account);

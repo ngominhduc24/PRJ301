@@ -40,6 +40,7 @@ public class OrderDetailDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setOrderDetailID(rs.getInt("orderDetailID"));
                 orderDetail.setOrderID(rs.getInt("orderID"));
                 orderDetail.setProductID(rs.getInt("productID"));
                 orderDetail.setQuantity(rs.getInt("quantity"));

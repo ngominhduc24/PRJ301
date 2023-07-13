@@ -9,6 +9,7 @@ package model;
  * @author ASUS PC
  */
 public class OrderDetail {
+    private int orderDetailID;
     private int orderID;
     private int productID;
     private int quantity;
@@ -21,6 +22,21 @@ public class OrderDetail {
         this.orderID = orderID;
         this.productID = productID;
         this.quantity = quantity;
+    }
+
+    public OrderDetail(int orderDetailID, int orderID, int productID, int quantity) {
+        this.orderDetailID = orderDetailID;
+        this.orderID = orderID;
+        this.productID = productID;
+        this.quantity = quantity;
+    }
+
+    public int getOrderDetailID() {
+        return orderDetailID;
+    }
+
+    public void setOrderDetailID(int orderDetailID) {
+        this.orderDetailID = orderDetailID;
     }
 
     public int getOrderID() {
