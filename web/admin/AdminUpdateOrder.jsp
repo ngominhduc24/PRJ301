@@ -87,7 +87,6 @@
             </head>
 
             <body style="background-color: #FFEAE3; margin-top: 100px;">
-
                 <div class="container px-3 my-5 clearfix" style="margin-top: 100px;">
                     <!-- Shopping cart table -->
                     <div class="card">
@@ -178,50 +177,53 @@
                                 </div>
                             </div>
                         </form>
+                        <!-- table -->
+                        <table class="table table-bordered table-hover" style="margin-top: 30px;">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="text-align: center;">Product ID</th>
+                                    <th scope="col" style="text-align: center;">Product name</th>
+                                    <th scope="col" style="text-align: center;">Quantity</th>
+                                    <th scope="col" style="text-align: center;">Price</th>
+                                    <th scope="col" style="text-align: center;">Total price</th>
+                                    <th scope="col" style="text-align: center; width: 40px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        <form action="">
-                            <!-- table -->
-                            <table class="table table-bordered table-hover" style="margin-top: 30px;">
-                                <thead>
+                                <c:forEach items="${listOrderDetails}" var="orderDetail">
+
+
+                                    <input type="text" name="OrderDetailID" value="${orderDetail.orderDetailID}" hidden>
                                     <tr>
-                                        <th scope="col" style="text-align: center;">Product ID</th>
-                                        <th scope="col" style="text-align: center;">Product name</th>
-                                        <th scope="col" style="text-align: center;">Quantity</th>
-                                        <th scope="col" style="text-align: center;">Price</th>
-                                        <th scope="col" style="text-align: center;">Total price</th>
-                                        <th scope="col" style="text-align: center; width: 40px;">Action</th>
+                                        <td style="text-align: center;">${orderDetail.getProduct().productID}
+                                        </td>
+                                        <td style="text-align: center;">${orderDetail.getProduct().name}</td>
+                                        <td style="text-align: center;"><input type="number" name="quantity"
+                                                style="width: 45px; text-align: center;" max="20" min="1"
+                                                value="${orderDetail.quantity}"></td>
+                                        <td style="text-align: center;">${orderDetail.getProduct().price}</td>
+                                        <td style="text-align: center;">${orderDetail.quantity *
+                                            orderDetail.getProduct().price}.000 ₫</td>
+                                        <td style="text-align: center; display: flex; justify-content: space-between;">
+                                            <button type="submit" class="btn btn-block"
+                                                onclick="updateOrderDetail(${orderDetail.orderDetailID}, this)">Update</button>
+                                            <a href="deleteorderdetail?OrderDetailID=${orderDetail.orderDetailID}">
+                                                <button type="button" class="btn btn-block">Delete</button>
+                                            </a>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${listOrderDetails}" var="orderDetail">
-                                        <tr>
-                                            <td style="text-align: center;">${orderDetail.getProduct().productID}</td>
-                                            <td style="text-align: center;">${orderDetail.getProduct().name}</td>
-                                            <td style="text-align: center;"><input type="number"
-                                                    style="width: 45px; text-align: center;" max="20" min="1"
-                                                    value="${orderDetail.quantity}"></td>
-                                            <td style="text-align: center;">${orderDetail.getProduct().price}</td>
-                                            <td style="text-align: center;">${orderDetail.quantity *
-                                                orderDetail.getProduct().price}.000 ₫</td>
-                                            <td
-                                                style="text-align: center; display: flex; justify-content: space-between;">
-                                                <a
-                                                    href="deleteorderdetail?orderID=${orderDetail.orderID}&productID=${orderDetail.product.productID}">
-                                                    <button type="button" class="btn btn-block">Update</button>
-                                                </a>
-                                                <a
-                                                    href="deleteorderdetail?orderID=${orderDetail.orderID}&productID=${orderDetail.product.productID}">
-                                                    <button type="button" class="btn btn-block">Delete</button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </form>
+
+                                </c:forEach>
+
+                            </tbody>
+
+                        </table>
+
 
                     </div>
 
+                </div>
 
             </body>
 
@@ -235,6 +237,13 @@
                 integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
                 crossorigin="anonymous"></script>
             <script>
+            </script>
+
+            <script>
+                function updateOrderDetail(orderDetailID, button) {
+                    var quantity = button.parentNode.parentNode.querySelector('input[name="quantity"]').value;
+                    window.location.href = "updateorderdetail?OrderDetailID=" + orderDetailID + "&quantity=" + quantity;
+                }
             </script>
 
             </html>

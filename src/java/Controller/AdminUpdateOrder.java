@@ -110,7 +110,7 @@ public class AdminUpdateOrder extends HttpServlet {
                 Product product = productDAO.getProductByID(orderDetail.getProductID());
                 orderDetail.setProduct(product);
             }
-            System.out.println(">>>" + listOrderDetails);
+
             request.setAttribute("listOrderDetails", listOrderDetails);
         } catch (Exception e) {
             System.out.println(e.getMessage());
