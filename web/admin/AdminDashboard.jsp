@@ -18,20 +18,15 @@
             </head>
 
             <body class="sb-nav-fixed">
-                <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"
-                    style="background-color: #fd7c80 !important;">
-                    <!-- Navbar Brand-->
-                    <a class="navbar-brand ps-3" href="home">Home</a>
-                    <!-- Sidebar Toggle-->
-                    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"
-                        href="#!"></button>
-                    <!-- Navbar Search-->
-                    <div class="d-none d-md-inline-block form-inline ms-auto ">
-                    </div>
+                <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark position-fixed fixed-top"
+                    style="background-color: #fd7c80 !important; display: flex; justify-content: space-between;">
                     <!-- Navbar-->
-                    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                        <a class="dropdown-item" href="logout" style="color: white;">logout</a>
-                    </ul>
+                    <a class="navbar-brand ps-3" href="logout">⇦ logout</a>
+                    <a class="navbar-brand ps-3" href="home">Product</a>
+                    <a class="navbar-brand ps-3" href="account">Account</a>
+                    <a class="navbar-brand ps-3" href="order">Order</a>
+                    <!-- Navbar Brand-->
+                    <a class="navbar-brand ps-3" href="dashboard">Dashboard ⇨</a>
                 </nav>
                 <div id="layoutSidenav">
 
@@ -99,8 +94,22 @@
                                                             <td>${listAccounts.get(loop.index).email}</td>
                                                             <td>${listAccounts.get(loop.index).address}</td>
                                                             <td>${order.orderDate}</td>
-                                                            <td>${order.status == 1 ? "Completed" : order.status == 2 ?
-                                                                "Processing" : "Canceled" }
+                                                            <td>
+                                                                <select name="productstatus" id="productstatus"
+                                                                    onchange="selectchange(${order.orderID}, this)">
+                                                                    <c:if test="${order.status == 1}">
+                                                                        <option value="1">
+                                                                            Completed
+                                                                        </option>
+                                                                        <option value="0">
+                                                                            Canceled
+                                                                        </option>
+                                                                    </c:if>
+                                                                    <c:if test="${order.status == 0}">
+                                                                        <option value="0">Canceled</option>
+                                                                        <option value="1">Completed</option>
+                                                                    </c:if>
+                                                                </select>
                                                             </td>
                                                             <td>${order.totalPrice}.000₫</td>
                                                         </tr>
@@ -264,6 +273,13 @@
                         sidebarToggle.click();
 
                     });
+
+                    function selectchange(orderid, selectObject) {
+                        var value = selectObject.value;
+                        // change href location
+                        window.location.href = "${pageContext.request.contextPath}/admin/updateorderstatus?orderid=" + orderid + "&status=" + value + "&page=dashboard"
+
+                    }
 
                 </script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

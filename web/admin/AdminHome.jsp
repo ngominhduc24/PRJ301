@@ -39,6 +39,9 @@
                     style="background-color: #fd7c80 !important; display: flex; justify-content: space-between;">
                     <!-- Navbar-->
                     <a class="navbar-brand ps-3" href="logout">⇦ logout</a>
+                    <a class="navbar-brand ps-3" href="home">Product</a>
+                    <a class="navbar-brand ps-3" href="account">Account</a>
+                    <a class="navbar-brand ps-3" href="order">Order</a>
                     <!-- Navbar Brand-->
                     <a class="navbar-brand ps-3" href="dashboard">Dashboard ⇨</a>
                 </nav>

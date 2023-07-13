@@ -8,30 +8,19 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import dal.AccountDAO;
 import dal.OrderDAO;
-import dal.OrderDetailDAO;
-import dal.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import model.OrderDetail;
-import model.Orders;
-import model.Product;
-import model.Account;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "InvoiceServlet", urlPatterns = { "/account" })
-public class AccountServlet extends HttpServlet {
+@WebServlet(name = "AdminUpdateOrderStatus", urlPatterns = { "/admin/updateorderstatus" })
+public class AdminUpdateOrderStatus extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +39,10 @@ public class AccountServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InvoiceServlet</title>");
+            out.println("<title>Servlet AdminUpdateOrderStatus</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InvoiceServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminUpdateOrderStatus at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,49 +61,16 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountDAO accountDAO = new AccountDAO();
-        HttpSession session = request.getSession();
-        Cookie[] cookies = request.getCookies();
-        OrderDAO orderDAO = new OrderDAO();
-        ProductDAO productDAO = new ProductDAO();
-
-        if (session.getAttribute("account") == null) {
-            session.setAttribute("loginmessage", "You need login first");
-            response.sendRedirect("home");
-        }
-
+        String orderID = request.getParameter("orderid");
+        String status = request.getParameter("status");
+        String page = request.getParameter("page");
         try {
-            List<Orders> listOrders = new ArrayList<>();
-            Account acc = (Account) session.getAttribute("account");
-            int accountID = acc.getAccountID();
+            OrderDAO orderDAO = new OrderDAO();
+            if (orderDAO.updateOrderStatus(Integer.parseInt(orderID), Integer.parseInt(status))) {
+                response.sendRedirect(page);
 
-            // get list order from database
-            listOrders = orderDAO.getListOrderByAccountID(accountID);
-
-            // get list order detail from database
-            List<OrderDetail> listOrderDetail = new ArrayList<>();
-            for (Orders order : listOrders) {
-                listOrderDetail.addAll(new OrderDetailDAO().getListOrderDetailByOrderID(order.getOrderID()));
-
-                // get product from database and set to order detail
-                for (OrderDetail orderDetail : listOrderDetail) {
-                    Product product = productDAO.getProductByID(orderDetail.getProductID());
-                    orderDetail.setProduct(product);
-                }
-                // set list order detail to order
-                order.setListOrderDetail(listOrderDetail);
-
-                // clear list order detail
-                listOrderDetail = new ArrayList<>();
             }
-
-            // get account from database
-            request.setAttribute("listOrders", listOrders);
-            request.setAttribute("account", accountDAO.getAccountByID(accountID));
-
-            request.getRequestDispatcher("account.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
-            System.out.println(e);
+        } catch (Exception e) {
             response.sendRedirect("home");
         }
 

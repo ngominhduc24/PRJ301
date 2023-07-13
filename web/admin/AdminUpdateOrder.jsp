@@ -88,95 +88,76 @@
 
             <body style="background-color: #FFEAE3; margin-top: 100px;">
 
-                <form id="updateForm" action="updateproduct" method="post">
+                <form id="updateForm" action="updateorder" method="post">
                     <div class="container px-3 my-5 clearfix" style="margin-top: 100px;">
                         <!-- Shopping cart table -->
                         <div class="card">
                             <div class="card-header" style="background-color: #FF9EA2;">
                                 <h2
                                     style="font-family: 'Poppins'; font-weight: revert; color: white; text-align: center;">
-                                    All Account</h2>
+                                    Order</h2>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-
+                                    <input type="text" value="${order.orderID}" hidden name="orderID">
+                                    <input type="text" value="${account.accountID}" hidden name="accountID">
                                     <div class="content" style="margin-bottom: 30px; margin-top: 10px;">
                                         <div class="input-group mb-3">
-                                            <input name="productID" value="${product.productID}" hidden>
-                                            <label for="sel1" class="form-label">Category:</label>
-                                            <select class="form-select" id="category" name="category"
-                                                style="width: 80px; margin-left: 5px; margin-bottom: 5px;">
-                                                <c:forEach items="${listCategory}" var="category">
-                                                    <c:if test="${category.categoryID==product.categoryID}">
-                                                        <option value="${category.categoryID}" selected>
-                                                            ${category.name}
-                                                        </option>
-                                                    </c:if>
-                                                    <c:if test="${category.categoryID!=product.categoryID}">
-                                                        <option value="${category.categoryID}">
-                                                            ${category.name}
-                                                        </option>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-default"
-                                                    style="width: 105px;">Image
-                                                    URL</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="image" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.image}">
-                                        </div>
-
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                    id="inputGroup-sizing-default">Description</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="description"
-                                                aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                                                value="${product.description}">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                    id="inputGroup-sizing-default">Name</span>
+                                                    style="width: 105px;">Name</span>
                                             </div>
                                             <input type="text" class="form-control" name="name" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.name}">
+                                                aria-describedby="inputGroup-sizing-default" value="${account.name}">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                    id="inputGroup-sizing-default">Email</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="email" aria-label="Default"
+                                                aria-describedby="inputGroup-sizing-default" value="${account.email}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroup-sizing-default"
-                                                    style="width: 68px;">Price</span>
+                                                <span class="input-group-text"
+                                                    id="inputGroup-sizing-default">Address</span>
                                             </div>
-                                            <input type="number" class="form-control" name="price" aria-label="Default"
-                                                aria-describedby="inputGroup-sizing-default" value="${product.price}">
+                                            <input type="text" class="form-control" name="address" aria-label="Default"
+                                                aria-describedby="inputGroup-sizing-default" value="${account.address}">
                                         </div>
-                                        <div style="margin-left: 5px;">
-                                            <label class="relative inline-flex items-center mr-5 cursor-pointer">
-                                                <c:choose>
-                                                    <c:when test="${product.status == '1'}">
-                                                        <input type="checkbox" class="toggle" name="status" checked>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <input type="checkbox" class="toggle" name="status">
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <!-- <input type="checkbox" class="toggle" ${(product.status !="1"
-                                                    ? "checked" : "" )}> -->
-                                                <span class="text-sm font-medium" style="margin-left: 10px;">Display
-                                                    product</span>
-                                            </label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                    id="inputGroup-sizing-default">Phone</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="phone" aria-label="Default"
+                                                aria-describedby="inputGroup-sizing-default" value="${account.phone}">
                                         </div>
-
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-default">Order
+                                                    date</span>
+                                            </div>
+                                            <input type="date" class="form-control" name="orderdate"
+                                                aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                                                value="${order.orderDate}">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-default">Total
+                                                    price</span>
+                                            </div>
+                                            <input type="number" class="form-control" name="totalprice"
+                                                aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                                                value="${order.totalPrice}">
+                                        </div>
                                     </div>
 
 
                                     <div class="float-left">
-                                        <a href="home">
+                                        <a href="order">
                                             <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3"
                                                 style="background-color: #aeacab; border-color: #aeacab; color: white;">Back
                                                 to home</button>

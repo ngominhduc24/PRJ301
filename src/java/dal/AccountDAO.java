@@ -168,4 +168,33 @@ public class AccountDAO {
         }
         return false;
     }
+
+    public boolean updateInfo(Account account) {
+        String sql = "UPDATE Account SET name = ?, phone = ?, address = ? WHERE email = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, account.getName());
+            ps.setString(2, account.getPhone());
+            ps.setString(3, account.getAddress());
+            ps.setString(4, account.getEmail());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public boolean deleteAccountByID(int id) {
+        String sql = "DELETE FROM Account WHERE accountID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 }

@@ -70,6 +70,10 @@ public class Orders {
         this.orderDate = orderDate;
     }
 
+    public void setOrderDate(String orderDate) {
+        this.orderDate = Date.valueOf(orderDate);
+    }
+
     public String getAddress() {
         return address;
     }

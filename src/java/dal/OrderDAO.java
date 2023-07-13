@@ -40,6 +40,28 @@ public class OrderDAO {
         return listOrder;
     }
 
+    public Orders getOrderById(int orderID) {
+        String sql = "SELECT * FROM Orders WHERE orderID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, orderID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Orders order = new Orders();
+                order.setOrderID(rs.getInt("orderID"));
+                order.setAccountID(rs.getInt("accountID"));
+                order.setOrderDate(rs.getDate("orderDate"));
+                order.setAddress(rs.getString("address"));
+                order.setTotalPrice(rs.getInt("totalPrice"));
+                order.setStatus(rs.getInt("status"));
+                return order;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
     public int insertOrder(Orders order) {
         String sql = "INSERT INTO Orders VALUES(?,?,?,?,?)"; // (accountID, orderDate, address, totalPrice,
                                                              // status)
@@ -102,6 +124,50 @@ public class OrderDAO {
             System.out.println(ex);
         }
         return listOrder;
+    }
+
+    public boolean updateOrderStatus(int orderID, int status) {
+        String sql = "UPDATE Orders SET status = ? WHERE orderID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, status);
+            ps.setInt(2, orderID);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public boolean updateOrder(Orders order) {
+        // update address and orderDate and totalPrice
+        String sql = "UPDATE Orders SET address = ?, orderDate = ?, totalPrice = ? WHERE orderID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setString(1, order.getAddress());
+            ps.setDate(2, order.getOrderDate());
+            ps.setInt(3, order.getTotalPrice());
+            ps.setInt(4, order.getOrderID());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public boolean deleteOrder(int orderID) {
+        String sql = "DELETE FROM Orders WHERE orderID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, orderID);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
     }
 
 }

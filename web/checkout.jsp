@@ -65,6 +65,7 @@
                 </style>
             </head>
 
+
             <body onload="loadPage()">
                 <!-- Header -->
                 <!-- <%@include file="header.jsp"%>  -->
@@ -207,7 +208,10 @@
 
                 <!-- Custom script - Các file js do mình tự viết -->
                 <script src="../assets/js/app.js"></script>
-                <script src="./js/checkout.js"></script>
             </body>
+
+            <script src="${pageContext.request.contextPath}/js/checkout.js">
+
+            </script>
 
             </html>

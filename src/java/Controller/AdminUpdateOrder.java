@@ -7,31 +7,27 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import dal.AccountDAO;
 import dal.OrderDAO;
-import dal.OrderDetailDAO;
-import dal.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import model.OrderDetail;
-import model.Orders;
-import model.Product;
 import model.Account;
+import model.Orders;
+import utils.NumberToEnum.UserRole;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "InvoiceServlet", urlPatterns = { "/account" })
-public class AccountServlet extends HttpServlet {
+@WebServlet(name = "AdminUpdateOrder", urlPatterns = { "/admin/updateorder" })
+public class AdminUpdateOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +46,10 @@ public class AccountServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InvoiceServlet</title>");
+            out.println("<title>Servlet AdminUpdateOrder</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InvoiceServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminUpdateOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,52 +68,36 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountDAO accountDAO = new AccountDAO();
         HttpSession session = request.getSession();
-        Cookie[] cookies = request.getCookies();
+        if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
+            response.sendRedirect("login");
+            return;
+        }
+        AccountDAO accountDAO = new AccountDAO();
         OrderDAO orderDAO = new OrderDAO();
-        ProductDAO productDAO = new ProductDAO();
 
-        if (session.getAttribute("account") == null) {
-            session.setAttribute("loginmessage", "You need login first");
-            response.sendRedirect("home");
+        String orderID = request.getParameter("orderID");
+        if (orderID == null) {
+            response.sendRedirect("admina");
+            return;
         }
 
-        try {
-            List<Orders> listOrders = new ArrayList<>();
-            Account acc = (Account) session.getAttribute("account");
-            int accountID = acc.getAccountID();
-
-            // get list order from database
-            listOrders = orderDAO.getListOrderByAccountID(accountID);
-
-            // get list order detail from database
-            List<OrderDetail> listOrderDetail = new ArrayList<>();
-            for (Orders order : listOrders) {
-                listOrderDetail.addAll(new OrderDetailDAO().getListOrderDetailByOrderID(order.getOrderID()));
-
-                // get product from database and set to order detail
-                for (OrderDetail orderDetail : listOrderDetail) {
-                    Product product = productDAO.getProductByID(orderDetail.getProductID());
-                    orderDetail.setProduct(product);
-                }
-                // set list order detail to order
-                order.setListOrderDetail(listOrderDetail);
-
-                // clear list order detail
-                listOrderDetail = new ArrayList<>();
-            }
-
-            // get account from database
-            request.setAttribute("listOrders", listOrders);
-            request.setAttribute("account", accountDAO.getAccountByID(accountID));
-
-            request.getRequestDispatcher("account.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
-            System.out.println(e);
-            response.sendRedirect("home");
+        // Get order by ID
+        Orders order = orderDAO.getOrderById(Integer.parseInt(orderID));
+        if (order == null) {
+            response.sendRedirect("adminb");
+            return;
         }
+        request.setAttribute("order", order);
 
+        // Get account by ID
+        Account account = accountDAO.getAccountByID(order.getAccountID());
+        if (account == null) {
+            response.sendRedirect("adminc");
+            return;
+        }
+        request.setAttribute("account", account);
+        request.getRequestDispatcher("/admin/AdminUpdateOrder.jsp").forward(request, response);
     }
 
     /**
@@ -131,7 +111,35 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String accountID = request.getParameter("accountID");
+        String orderID = request.getParameter("orderID");
+        String accountName = request.getParameter("name");
+        String accountEmail = request.getParameter("email");
+        String accountPhone = request.getParameter("phone");
+        String accountAddress = request.getParameter("address");
+        String orderDate = request.getParameter("orderdate");
+        String orderPrice = request.getParameter("totalprice");
+        AccountDAO accountDAO = new AccountDAO();
+        OrderDAO orderDAO = new OrderDAO();
+        // update account
+        Account account = accountDAO.getAccountByID(Integer.parseInt(accountID));
+        account.setName(accountName);
+        account.setEmail(accountEmail);
+        account.setPhone(accountPhone);
+        account.setAddress(accountAddress);
+
+        // update order
+        Orders order = orderDAO.getOrderById(Integer.parseInt(orderID));
+        order.setAddress(accountAddress);
+        order.setOrderDate(orderDate);
+        order.setTotalPrice(Integer.parseInt(orderPrice));
+
+        if (accountDAO.updateInfo(account) && orderDAO.updateOrder(order)) {
+            response.sendRedirect("updateorder?orderID=" + orderID + "&successmessage=success");
+            return;
+        }
+
+        response.sendRedirect("updateorder?orderID=" + orderID + "&failmessage=fail");
     }
 
     /**
