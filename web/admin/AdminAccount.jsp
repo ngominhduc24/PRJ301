@@ -82,8 +82,6 @@
                                                     <td>
                                                         <a href="updateaccount?id=${item.accountID}"><i
                                                                 class="fas fa-edit"></i></a>
-                                                        <a href="deleteaccount?id=${item.accountID}"><i
-                                                                class="fas fa-trash-alt"></i></a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

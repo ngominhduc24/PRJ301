@@ -13,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import utils.NumberToEnum.UserRole;
 
 /**
  *
@@ -60,6 +62,11 @@ public class AdminDeleteAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
+            response.sendRedirect("login");
+            return;
+        }
         int id = Integer.parseInt(request.getParameter("id"));
         AccountDAO dao = new AccountDAO();
         dao.deleteAccountByID(id);

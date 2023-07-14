@@ -15,8 +15,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.OrderDetail;
+import utils.NumberToEnum.UserRole;
 
 /**
  *
@@ -64,6 +66,11 @@ public class AdminDeleteOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null || (int) session.getAttribute("role") != UserRole.ADMIN.getValue()) {
+            response.sendRedirect("login");
+            return;
+        }
         String orderID = request.getParameter("orderID");
 
         OrderDAO orderDAO = new OrderDAO();
