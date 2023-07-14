@@ -96,6 +96,13 @@
                             </div>
                         </c:forEach>
                     </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <a style="margin-right: 15px;" href="javascript:void(0);" id="sortbyname"
+                            onclick="sortBy('name')">Sort by
+                            name${param.sortbyname == '1' ? '↑' : '↓'}</a>
+                        <a href="javascript:void(0);" id="sortbyprice" onclick="sortBy('price')">Sort by
+                            price${param.sortbyprice == '1' ? '↑' : '↓'}</a>
+                    </div>
                 </div>
 
                 <!-- !PAGE CONTENT! -->
@@ -158,20 +165,23 @@
                     <!-- Pagination -->
                     <div class="w3-center w3-padding-32">
                         <div class="w3-bar">
-                            <a href="home?page=1" class="w3-bar-item w3-button w3-hover-black">«</a>
+                            <a href="home?page=1&amp;sortbyname=${param.sortbyname}&amp;sortbyprice=${param.sortbyprice}"
+                                class="w3-bar-item w3-button w3-hover-black">«</a>
                             <c:forEach begin="${startPage}" end="${endPage}" varStatus="loop">
                                 <c:if test="${loop.index == thisPage }">
-                                    <a href="home?page=${loop.index}"
+                                    <a href="home?page=${loop.index}&amp;sortbyname=${param.sortbyname}&amp;sortbyprice=${param.sortbyprice}"
                                         class="w3-bar-item w3-black w3-button">${loop.index}</a>
                                 </c:if>
                                 <c:if test="${loop.index != thisPage && !(loop.index > maxPage)}">
-                                    <a href="home?page=${loop.index}"
+                                    <a href="home?page=${loop.index}&amp;sortbyname=${param.sortbyname}&amp;sortbyprice=${param.sortbyprice}"
                                         class="w3-bar-item w3-button w3-hover-black">${loop.index}</a>
                                 </c:if>
                             </c:forEach>
-                            <a href="home?page=${maxPage}" class="w3-bar-item w3-button w3-hover-black">»</a>
+                            <a href="home?page=${maxPage}&amp;sortbyname=${param.sortbyname}&amp;sortbyprice=${param.sortbyprice}"
+                                class="w3-bar-item w3-button w3-hover-black">»</a>
                         </div>
                     </div>
+
 
                     <!-- End page content -->
                 </div>
@@ -257,79 +267,102 @@
                         <p style="margin-top: 15px; color: white;">© 2023 NMD-Shop All Rights Reserved Site by LDCC</p>
                     </div>
                 </footer>
-
-
-
-
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
-                    integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
-                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-                    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                    crossorigin="anonymous"></script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-                    crossorigin="anonymous"></script>
-                <script>
-                    // Script to open and close sidebar
-                    function w3_open() {
-                        document.getElementById("mySidebar").style.display = "block";
-                    }
-
-                    function w3_close() {
-                        document.getElementById("mySidebar").style.display = "none";
-                    }
-
-                    function testImageUrl(url) {
-                        return new Promise(function (resolve, reject) {
-                            var image = new Image();
-                            image.addEventListener('load', resolve);
-                            image.addEventListener('error', reject);
-                            image.src = url;
-                        });
-                    }
-
-                    let img = document.getElementsByClassName("img");
-                    for (let i = 0; i < img.length; i++) {
-                        testImageUrl(img[i].src).then(function imageLoaded(e) {
-                            return img[i].src;
-                        })
-                            .catch(function imageFailed(e) {
-                                return img[i].src = "https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/e/x/extra--534x374px_chicken-soup.png";
-                            });
-                    }
-
-                    // signup 
-                    var signup = document.getElementById("modal_signup");
-                    signup.addEventListener("click", function () {
-                        document.getElementById("divlogin").hidden = true;
-                        document.getElementById("divsignup").hidden = false;
-                    });
-
-                    // login
-                    var login = document.getElementById("modal_login");
-                    login.addEventListener("click", function () {
-                        document.getElementById("divlogin").hidden = false;
-                        document.getElementById("divsignup").hidden = true;
-                    });
-
-                    var btnmodal = document.getElementById("btnlogin");
-                    // click if login fail
-                    var loginmessage = "${loginmessage}";
-                    if (loginmessage != null && loginmessage != "") {
-                        btnmodal.click();
-                        login.click();
-                    }
-
-                    // click if signup fail
-                    var signupmessage = "${signupmessage}";
-                    if (signupmessage != null && signupmessage != "") {
-                        btnmodal.click();
-                        signup.click();
-                    }
-                </script>
-
             </body>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+                integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+                crossorigin="anonymous"></script>
+            <script>
+                // Script to open and close sidebar
+                function w3_open() {
+                    document.getElementById("mySidebar").style.display = "block";
+                }
+
+                function w3_close() {
+                    document.getElementById("mySidebar").style.display = "none";
+                }
+
+                function testImageUrl(url) {
+                    return new Promise(function (resolve, reject) {
+                        var image = new Image();
+                        image.addEventListener('load', resolve);
+                        image.addEventListener('error', reject);
+                        image.src = url;
+                    });
+                }
+
+                let img = document.getElementsByClassName("img");
+                for (let i = 0; i < img.length; i++) {
+                    testImageUrl(img[i].src).then(function imageLoaded(e) {
+                        return img[i].src;
+                    })
+                        .catch(function imageFailed(e) {
+                            return img[i].src = "https://dscnnwjxnwl3f.cloudfront.net/media/catalog/product/cache/2e1628f5f7131a9eb328ec1fb2c22fd3/e/x/extra--534x374px_chicken-soup.png";
+                        });
+                }
+
+                // signup 
+                var signup = document.getElementById("modal_signup");
+                signup.addEventListener("click", function () {
+                    document.getElementById("divlogin").hidden = true;
+                    document.getElementById("divsignup").hidden = false;
+                });
+
+                // login
+                var login = document.getElementById("modal_login");
+                login.addEventListener("click", function () {
+                    document.getElementById("divlogin").hidden = false;
+                    document.getElementById("divsignup").hidden = true;
+                });
+
+                var btnmodal = document.getElementById("btnlogin");
+                // click if login fail
+                var loginmessage = "${loginmessage}";
+                if (loginmessage != null && loginmessage != "") {
+                    btnmodal.click();
+                    login.click();
+                }
+
+                // click if signup fail
+                var signupmessage = "${signupmessage}";
+                if (signupmessage != null && signupmessage != "") {
+                    btnmodal.click();
+                    signup.click();
+                }
+            </script>
+            <script>
+                function sortBy(sortType) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    switch (sortType) {
+                        case 'name':
+                            if (urlParams.get('sortbyname') == '1') {
+                                urlParams.set('sortbyname', '0');
+                            } else {
+                                urlParams.set('sortbyname', '1');
+                            }
+                            break;
+                        case 'price':
+                            if (urlParams.get('sortbyprice') == '1') {
+                                urlParams.set('sortbyprice', '0');
+                            } else {
+                                urlParams.set('sortbyprice', '1');
+                            }
+                            break;
+                        default:
+                            urlParams.set('sortbyname', null);
+                            urlParams.set('sortbyprice', null);
+                    }
+
+                    const baseUrl = window.location.origin + window.location.pathname;
+                    const newUrl = baseUrl + (urlParams.toString() ? '?' + urlParams.toString() : '');
+
+                    window.location.href = newUrl;
+                }
+            </script>
 
             </html>
