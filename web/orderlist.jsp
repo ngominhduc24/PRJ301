@@ -92,7 +92,13 @@
                                 <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
                                     <div class="col-md-8 product" style="padding: 0;">
                                         <div class="content">
-                                            <p>Delivery Date: ${orders.getMonth()}</p>
+                                            <p>Order Date: ${orders.getMonth()}</p>
+                                            <c:if test="${orders.status == 0}">
+                                                <a href="cancelorder?orderID=${orders.orderID}"><input
+                                                        class="btn btn-danger" style="margin-top: 8px;" type="submit"
+                                                        value="Cancel order"></a>
+
+                                            </c:if>
                                         </div>
                                     </div>
 

@@ -157,6 +157,19 @@ public class OrderDAO {
         return false;
     }
 
+    public boolean cancelOrder(int orderID) {
+        String sql = "UPDATE Orders SET status = -1 WHERE orderID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, orderID);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
     public boolean deleteOrder(int orderID) {
         String sql = "DELETE FROM Orders WHERE orderID = ?";
         try {
