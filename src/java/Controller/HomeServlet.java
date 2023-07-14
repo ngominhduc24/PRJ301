@@ -88,15 +88,26 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("countProduct", countProduct);
 
         // get product list
+        String sortbyname = request.getParameter("sortbyname");
+        String sortbyprice = request.getParameter("sortbyprice");
         String categoryID = request.getParameter("category");
         String search = request.getParameter("search");
-        if (categoryID == null && search == null) {
-            listProduct = productDAO.getProductByPage(start_product, page_size);
-        } else if (search != null) {
+
+        if (search != null) {
             listProduct = productDAO.searchProduct(start_product, page_size, search);
+        } else if (categoryID != null) {
+            listProduct = productDAO.getProductByCategory(start_product, page_size, categoryID);
         } else {
-            listProduct = productDAO.getProductByPage(start_product, page_size, categoryID);
+            listProduct = productDAO.getProduct(start_product, page_size, sortbyname, sortbyprice);
         }
+        // if (categoryID == null && search == null) {
+        // listProduct = productDAO.getProductByPage(start_product, page_size);
+        // } else if (search != null) {
+        // listProduct = productDAO.searchProduct(start_product, page_size, search);
+        // } else {
+        // listProduct = productDAO.getProductByPage(start_product, page_size,
+        // categoryID);
+        // }
 
         // render product list
         if (listProduct != null) {
