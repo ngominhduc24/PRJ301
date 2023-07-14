@@ -98,16 +98,20 @@
                                                                 <select name="productstatus" id="productstatus"
                                                                     onchange="selectchange(${order.orderID}, this)">
                                                                     <c:if test="${order.status == 1}">
-                                                                        <option value="1">
-                                                                            Completed
-                                                                        </option>
-                                                                        <option value="0">
-                                                                            Canceled
-                                                                        </option>
+                                                                        <option value="1"> Completed</option>
+                                                                        <option value="0">Pending</option>
+                                                                        <option value="-1">Canceled</option>
+
                                                                     </c:if>
                                                                     <c:if test="${order.status == 0}">
-                                                                        <option value="0">Canceled</option>
-                                                                        <option value="1">Completed</option>
+                                                                        <option value="0">Pending</option>
+                                                                        <option value="1"> Completed</option>
+                                                                        <option value="-1">Canceled</option>
+                                                                    </c:if>
+                                                                    <c:if test="${order.status == -1}">
+                                                                        <option value="-1">Canceled</option>
+                                                                        <option value="0">Pending</option>
+                                                                        <option value="1"> Completed</option>
                                                                     </c:if>
                                                                 </select>
                                                             </td>
