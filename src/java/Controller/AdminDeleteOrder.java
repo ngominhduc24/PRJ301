@@ -5,26 +5,25 @@
 
 package Controller;
 
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import dal.OrderDAO;
 import dal.OrderDetailDAO;
-import dal.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import model.OrderDetail;
-import model.Orders;
 
 /**
  *
  * @author ASUS PC
  */
-@WebServlet(name = "AdminDeleteOrderdetail", urlPatterns = { "/admin/deleteorderdetail" })
-public class AdminDeleteOrderdetail extends HttpServlet {
+@WebServlet(name = "AdminDeleteOrder", urlPatterns = { "/admin/deleteorder" })
+public class AdminDeleteOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +42,10 @@ public class AdminDeleteOrderdetail extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminDeleteOrderdetail</title>");
+            out.println("<title>Servlet AdminDeleteOrder</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminDeleteOrderdetail at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminDeleteOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,29 +64,19 @@ public class AdminDeleteOrderdetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String orderdetailID = request.getParameter("OrderDetailID");
+        String orderID = request.getParameter("orderID");
 
-        OrderDetailDAO orderdetailDAO = new OrderDetailDAO();
-        ProductDAO productDAO = new ProductDAO();
         OrderDAO orderDAO = new OrderDAO();
-        OrderDetail orderdetail = new OrderDetail();
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 
-        // update orderdetail
-        orderdetail = orderdetailDAO.getOrderDetailByID(Integer.parseInt(orderdetailID));
-        orderdetail.setProduct(productDAO.getProductByID(orderdetail.getProductID()));
-        orderdetailDAO.deleteOrderDetail(orderdetail.getOrderDetailID());
-
-        // update total price
-        Orders order = orderDAO.getOrderById(orderdetail.getOrderID());
-        order.setTotalPrice(order.getTotalPrice() - (orderdetail.getProduct().getPrice() * orderdetail.getQuantity()));
-        if (order.getTotalPrice() == 0) {
-            response.sendRedirect("deleteorder?orderID=" + orderdetail.getOrderID());
-            return;
-        } else {
-            orderDAO.updateOrder(order);
+        List<OrderDetail> listOrderDetail = orderDetailDAO.getListOrderDetailByOrderID(Integer.parseInt(orderID));
+        for (OrderDetail item : listOrderDetail) {
+            orderDetailDAO.deleteOrderDetail(item.getOrderDetailID());
         }
 
-        response.sendRedirect("updateorder?orderID=" + orderdetail.getOrderID() + "&accountID=" + order.getAccountID());
+        orderDAO.deleteOrder(Integer.parseInt(orderID));
+
+        response.sendRedirect("order");
     }
 
     /**

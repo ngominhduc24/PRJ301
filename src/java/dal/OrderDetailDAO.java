@@ -86,4 +86,17 @@ public class OrderDetailDAO {
         }
         return false;
     }
+
+    public boolean deleteOrderDetail(int orderDetailID) {
+        String sql = "DELETE FROM OrderDetail WHERE orderDetailID = ?";
+        try {
+            PreparedStatement ps = DbContext.getConnection().prepareStatement(sql);
+            ps.setInt(1, orderDetailID);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 }
