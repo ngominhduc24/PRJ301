@@ -186,7 +186,7 @@
                                     <th scope="col" style="text-align: center;">Quantity</th>
                                     <th scope="col" style="text-align: center;">Price</th>
                                     <th scope="col" style="text-align: center;">Total price</th>
-                                    <th scope="col" style="text-align: center; width: 40px;">Action</th>
+                                    <th scope="col" style="text-align: center; width: 50px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -206,7 +206,8 @@
                                         <td style="text-align: center;">${orderDetail.quantity *
                                             orderDetail.getProduct().price}.000 ₫</td>
                                         <td style="text-align: center; display: flex; justify-content: space-between;">
-                                            <button type="submit" class="btn btn-block"
+                                            <button type="submit" class="btn btn-block btn-secondary"
+                                                style="color: black;"
                                                 onclick="updateOrderDetail(${orderDetail.orderDetailID}, this)">Update</button>
                                             <a href="deleteorderdetail?OrderDetailID=${orderDetail.orderDetailID}">
                                                 <button type="button" class="btn btn-block">Delete</button>
